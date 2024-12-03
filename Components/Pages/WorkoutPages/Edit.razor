@@ -1,0 +1,104 @@
+﻿@page "/workouts/edit"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>Workout</h2>
+<hr />
+@if (Workout is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Workout" OnValidSubmit="UpdateWorkout" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="Workout.Id" value="@Workout.Id" />
+                <div class="mb-3">
+                    <label for="workoutname" class="form-label">WorkoutName:</label>
+                    <InputText id="workoutname" @bind-Value="Workout.WorkoutName" class="form-control" />
+                    <ValidationMessage For="() => Workout.WorkoutName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="duration" class="form-label">Duration:</label>
+                    <InputNumber id="duration" @bind-Value="Workout.Duration" class="form-control" />
+                    <ValidationMessage For="() => Workout.Duration" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="caloriesburned" class="form-label">CaloriesBurned:</label>
+                    <InputNumber id="caloriesburned" @bind-Value="Workout.CaloriesBurned" class="form-control" />
+                    <ValidationMessage For="() => Workout.CaloriesBurned" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="questid" class="form-label">QuestId:</label>
+                    <InputNumber id="questid" @bind-Value="Workout.QuestId" class="form-control" />
+                    <ValidationMessage For="() => Workout.QuestId" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/workouts">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private Workout? Workout { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        Workout ??= await context.Workout.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (Workout is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateWorkout()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(Workout!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!WorkoutExists(Workout!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/workouts");
+    }
+
+    private bool WorkoutExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.Workout.Any(e => e.Id == id);
+    }
+}

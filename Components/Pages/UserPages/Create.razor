@@ -1,0 +1,89 @@
+﻿@page "/users/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>User</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="User" OnValidSubmit="AddUser" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="username" class="form-label">Username:</label> 
+                <InputText id="username" @bind-Value="User.Username" class="form-control" /> 
+                <ValidationMessage For="() => User.Username" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="password" class="form-label">Password:</label> 
+                <InputText id="password" @bind-Value="User.Password" class="form-control" /> 
+                <ValidationMessage For="() => User.Password" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="User.Email" class="form-control" /> 
+                <ValidationMessage For="() => User.Email" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="age" class="form-label">Age:</label> 
+                <InputNumber id="age" @bind-Value="User.Age" class="form-control" /> 
+                <ValidationMessage For="() => User.Age" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="gender" class="form-label">Gender:</label> 
+                <InputText id="gender" @bind-Value="User.Gender" class="form-control" /> 
+                <ValidationMessage For="() => User.Gender" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="weight" class="form-label">Weight:</label> 
+                <InputNumber id="weight" @bind-Value="User.Weight" class="form-control" /> 
+                <ValidationMessage For="() => User.Weight" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="height" class="form-label">Height:</label> 
+                <InputNumber id="height" @bind-Value="User.Height" class="form-control" /> 
+                <ValidationMessage For="() => User.Height" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="level" class="form-label">Level:</label> 
+                <InputNumber id="level" @bind-Value="User.Level" class="form-control" /> 
+                <ValidationMessage For="() => User.Level" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="xp" class="form-label">XP:</label> 
+                <InputNumber id="xp" @bind-Value="User.XP" class="form-control" /> 
+                <ValidationMessage For="() => User.XP" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="User.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => User.DateCreated" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/users">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private User User { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUser()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.User.Add(User);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/users");
+    }
+}

@@ -1,0 +1,64 @@
+﻿@page "/userquests/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>UserQuest</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="UserQuest" OnValidSubmit="AddUserQuest" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputNumber id="status" @bind-Value="UserQuest.Status" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.Status" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datestarted" class="form-label">DateStarted:</label> 
+                <InputDate id="datestarted" @bind-Value="UserQuest.DateStarted" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.DateStarted" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecompleted" class="form-label">DateCompleted:</label> 
+                <InputDate id="datecompleted" @bind-Value="UserQuest.DateCompleted" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.DateCompleted" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputNumber id="userid" @bind-Value="UserQuest.UserId" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.UserId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="questid" class="form-label">QuestId:</label> 
+                <InputNumber id="questid" @bind-Value="UserQuest.QuestId" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.QuestId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/userquests">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private UserQuest UserQuest { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUserQuest()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.UserQuest.Add(UserQuest);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/userquests");
+    }
+}

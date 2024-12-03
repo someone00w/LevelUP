@@ -1,0 +1,38 @@
+﻿@page "/userrewards"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using LevelUP.Domain
+@using LevelUP.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="userrewards/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.UserReward">
+    <PropertyColumn Property="userreward => userreward.DateClaimed" />
+    <PropertyColumn Property="userreward => userreward.UserId" />
+    <PropertyColumn Property="userreward => userreward.RewardId" />
+
+    <TemplateColumn Context="userreward">
+        <a href="@($"userrewards/edit?id={userreward.Id}")">Edit</a> |
+        <a href="@($"userrewards/details?id={userreward.Id}")">Details</a> |
+        <a href="@($"userrewards/delete?id={userreward.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LevelUPContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

@@ -1,0 +1,45 @@
+﻿@page "/users"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using LevelUP.Domain
+@using LevelUP.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="users/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.User">
+    <PropertyColumn Property="user => user.Username" />
+    <PropertyColumn Property="user => user.Password" />
+    <PropertyColumn Property="user => user.Email" />
+    <PropertyColumn Property="user => user.Age" />
+    <PropertyColumn Property="user => user.Gender" />
+    <PropertyColumn Property="user => user.Weight" />
+    <PropertyColumn Property="user => user.Height" />
+    <PropertyColumn Property="user => user.Level" />
+    <PropertyColumn Property="user => user.XP" />
+    <PropertyColumn Property="user => user.DateCreated" />
+
+    <TemplateColumn Context="user">
+        <a href="@($"users/edit?id={user.Id}")">Edit</a> |
+        <a href="@($"users/details?id={user.Id}")">Details</a> |
+        <a href="@($"users/delete?id={user.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LevelUPContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

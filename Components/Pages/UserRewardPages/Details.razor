@@ -1,0 +1,50 @@
+﻿@page "/userrewards/details"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>UserReward</h2>
+    <hr />
+    @if (userreward is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DateClaimed</dt>
+            <dd class="col-sm-10">@userreward.DateClaimed</dd>
+            <dt class="col-sm-2">UserId</dt>
+            <dd class="col-sm-10">@userreward.UserId</dd>
+            <dt class="col-sm-2">RewardId</dt>
+            <dd class="col-sm-10">@userreward.RewardId</dd>
+        </dl>
+        <div>
+            <a href="@($"/userrewards/edit?id={userreward.Id}")">Edit</a> |
+            <a href="@($"/userrewards")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private UserReward? userreward;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        userreward = await context.UserReward.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (userreward is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

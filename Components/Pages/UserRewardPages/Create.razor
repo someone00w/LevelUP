@@ -1,0 +1,54 @@
+﻿@page "/userrewards/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>UserReward</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="UserReward" OnValidSubmit="AddUserReward" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="dateclaimed" class="form-label">DateClaimed:</label> 
+                <InputDate id="dateclaimed" @bind-Value="UserReward.DateClaimed" class="form-control" /> 
+                <ValidationMessage For="() => UserReward.DateClaimed" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputNumber id="userid" @bind-Value="UserReward.UserId" class="form-control" /> 
+                <ValidationMessage For="() => UserReward.UserId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="rewardid" class="form-label">RewardId:</label> 
+                <InputNumber id="rewardid" @bind-Value="UserReward.RewardId" class="form-control" /> 
+                <ValidationMessage For="() => UserReward.RewardId" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/userrewards">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private UserReward UserReward { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUserReward()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.UserReward.Add(UserReward);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/userrewards");
+    }
+}
