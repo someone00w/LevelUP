@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using LevelUP.Domain;
 
-namespace FitnessApp.Configurations.Entities
+namespace LevelUP.Configurations.Entities
 {
     public class AchievementSeed : IEntityTypeConfiguration<Achievement>
     {

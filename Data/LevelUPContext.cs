@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using LevelUP.Data;
-using FitnessApp.Configurations.Entities;
+using LevelUP.Configurations.Entities;
 
 namespace LevelUP.Data
 {
@@ -23,6 +23,10 @@ namespace LevelUP.Data
             builder.ApplyConfiguration(new QuestSeed());
             builder.ApplyConfiguration(new AchievementSeed());
             builder.ApplyConfiguration(new RewardSeed());
+            builder.ApplyConfiguration(new RoleSeed());
+            builder.ApplyConfiguration(new UserSeed());
+            builder.ApplyConfiguration(new UserRoleSeed());
+
         }
     }
 }
