@@ -1,20 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using LevelUP.Domain;
+using LevelUP.Data;
 using FitnessApp.Configurations.Entities;
 
 namespace LevelUP.Data
 {
-    public class LevelUPContext : DbContext
+    public class LevelUPContext(DbContextOptions<LevelUPContext> options) : IdentityDbContext<LevelUPUser>(options)
     {
-        public LevelUPContext(DbContextOptions<LevelUPContext> options)
-            : base(options)
-        {
-        }
-
         public DbSet<LevelUP.Domain.Achievement> Achievement { get; set; } = default!;
         public DbSet<LevelUP.Domain.Quest> Quest { get; set; } = default!;
         public DbSet<LevelUP.Domain.Reward> Reward { get; set; } = default!;
