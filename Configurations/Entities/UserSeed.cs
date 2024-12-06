@@ -18,8 +18,8 @@ namespace LevelUP.Configurations.Entities
                     Email = "admin@localhost.com",
                     NormalizedEmail = "ADMIN@LOCALHOST.COM",
                     UserName = "admin@localhost.com",
-                    FirstName="Admin",
-                    LastName="User",
+                    FirstName = "Admin",
+                    LastName = "User",
                     NormalizedUserName = "ADMIN@LOCALHOST.COM",
                     PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                     EmailConfirmed = true

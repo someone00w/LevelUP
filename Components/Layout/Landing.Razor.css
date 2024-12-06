@@ -1,0 +1,102 @@
+﻿/* Landing.razor.css */
+
+/* Styling the landing page container */
+.landing-page {
+    background-color: #333; /* Semi-black background */
+    color: white;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Styling the header containing the logo and buttons */
+.header {
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-black background */
+    width: 100%;
+    padding: 100px;
+    display: flex;
+    justify-content: center; /* Center content horizontally */
+    align-items: center;
+    position: relative;
+}
+
+/* Styling the background image */
+.sjw-image {
+    position: absolute; /* Place image absolutely within header */
+    z-index: 1; /* Ensure it stays behind the logo and buttons */
+    width: 800px; /* Adjust width as needed */
+    height: auto; /* Maintain aspect ratio */ 
+    left: 35%; /* Center image horizontally */
+    transform: translateX(-50%); /* Adjust centering */
+}
+
+/* Styling the logo */
+.logo {
+    font-size: 50px;
+    color: white;
+    text-decoration: none;
+    position: absolute;
+    left: 28%; /* Position logo about 1/3 from the left */
+    top: 10%; /* Center logo vertically */
+    transform: translateY(-200%); /* Adjust the logo's vertical centering */
+    z-index: 2;
+    font-family: HYPMokGak
+}
+
+/* Styling the buttons container */
+.auth-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+    gap: 50px;
+    position: absolute;
+    right: 30%; /* Position buttons on the right side */
+    top: 50%; /* Center buttons vertically */
+    transform: translateY(-50%); /* Adjust vertical centering */
+    font-size: 400px;
+}
+
+    /* Styling individual buttons */
+    .auth-buttons .btn {
+        background-color: rgba(255, 255, 255, 0.7); /* Semi-white background */
+        color: black;
+        padding: 15px 40px; /* Longer padding for a wider look */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        width: 200px; /* Fixed width */
+        font-size: 18px; /* Adjust font size */
+        text-align: center;
+    }
+
+        .auth-buttons .btn:hover {
+            background-color: rgba(255, 255, 255, 1); /* Change to solid white on hover */
+        }
+
+/* Responsive behavior */
+@media (max-width: 768px) {
+    .sjw-image {
+        width: 500px;/* Smaller image for smaller screens */
+        z-index:1;
+        top:-30%;
+        position: center;
+        margin-left:15%;
+    }
+
+    .logo {
+        font-size: 30px; /* Reduce logo size */
+        margin-left: 8%; /* Adjust left margin */
+    }
+
+    .auth-buttons {
+        gap: 10px; /* Reduce spacing between buttons */
+        z-index:2;
+    }
+
+        .auth-buttons .btn {
+            width: 150px; /* Reduce button width */
+            padding: 10px 30px; /* Adjust button padding */
+            font-size: 16px; /* Adjust font size */
+        }
+}

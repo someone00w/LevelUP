@@ -97,7 +97,7 @@ namespace LevelUP.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "89efc119-ff23-43f1-941f-4c6ff2c619a0",
+                            ConcurrencyStamp = "741550ea-f217-4f46-bbf5-2e7d460c99e2",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
@@ -105,9 +105,9 @@ namespace LevelUP.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELXAV/OFo5VrHBs8FgXAlYcynPLXvR03T9q3xdbiypkRYTRnGFjNU1R4YFCRHTdsVg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEOJOAiF5uMj7bR2Kk/hhgp+cbVAO6Hqwm2WjRb9uzyEKhmQ/MTfOrdnstOLlYVAIqw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "3c112a03-ecf3-4c79-be4d-e15385dff5f2",
+                            SecurityStamp = "380fc28c-320d-4b65-98be-60bb629abea1",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         });

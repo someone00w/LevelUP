@@ -1,0 +1,30 @@
+﻿@inherits LayoutComponentBase
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
+
+<div class="landing-page">
+    <div class="header">
+        <a class="logo" href="/">LevelUp!</a>
+        <div class="auth-buttons">
+            <NavLink href="Account/Login" class=" btn btn-light btn-lg fs-5 px-5 py-2">Login</NavLink>
+            <NavLink href="Account/Register" class="btn btn-secondary btn-lg fs-5 px-5 py-2">Register</NavLink>
+        </div>
+        <img class="sjw-image" src="img/sjw.png">
+    </div>
+    <main>
+        
+    </main>
+</div>
+
+@code {
+    protected override async Task OnInitializedAsync()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        if (authState.User.Identity?.IsAuthenticated == true)
+        {
+            // Redirect to the authenticated user's nav menu
+            NavigationManager.NavigateTo("/Account/Manage");
+        }
+    }
+}

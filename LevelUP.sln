@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.12.35506.116 d17.12
+VisualStudioVersion = 17.12.35506.116
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LevelUP", "LevelUP.csproj", "{1A05F749-B386-4C71-A620-73357C6B4214}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LevelUP", "LevelUP.csproj", "{1A05F749-B386-4C71-A620-73357C6B4214}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {51846DA7-4A43-445E-A674-2EE9410CF3A7}
 	EndGlobalSection
 EndGlobal
