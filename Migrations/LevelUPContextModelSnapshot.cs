@@ -95,21 +95,21 @@ namespace LevelUP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "314",
+                            Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "7e16a7cf-93c5-4371-ad95-75b07aa448b1",
-                            Email = "admin@fitnessapp.com",
+                            ConcurrencyStamp = "68e52cc1-544e-4a32-a92d-59ce1550c908",
+                            Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             FirstName = "Admin",
                             LastName = "User",
                             LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@FITNESSAPP.COM",
-                            NormalizedUserName = "ADMIN@FITNESSAPP.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEMrzDnRiI4ZquELnoI4Ydfffv7ZptmrK7refstm6rUwV3iWQ8Y071ky21WhceVbIqQ==",
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAENhdGDxVw087N/pQfG/pcuKjwOgW3nD6VGx7LP7+if7o/Gg5xZIxEm3LlIJERXmOOw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "406bff38-23e7-4913-8f85-2f16f7bca9fc",
+                            SecurityStamp = "03a62fd0-dcf1-4ab3-a283-bb23d95fe296",
                             TwoFactorEnabled = false,
-                            UserName = "admin@fitnessapp.com"
+                            UserName = "admin@localhost.com"
                         });
                 });
 
@@ -411,13 +411,13 @@ namespace LevelUP.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "134",
+                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         },
                         new
                         {
-                            Id = "234",
+                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -512,8 +512,8 @@ namespace LevelUP.Migrations
                     b.HasData(
                         new
                         {
-                            UserId = "314",
-                            RoleId = "134"
+                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
                         });
                 });
 

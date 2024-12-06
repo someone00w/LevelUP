@@ -14,14 +14,14 @@ namespace LevelUP.Configurations.Entities
             builder.HasData(
                 new LevelUPUser
                 {
-                    Id = "314", // Unique ID for Admin user
-                    Email = "admin@fitnessapp.com",
-                    NormalizedEmail = "ADMIN@FITNESSAPP.COM",
-                    UserName = "admin@fitnessapp.com",
-                    FirstName="Admin",
-                    LastName="User",
-                    NormalizedUserName = "ADMIN@FITNESSAPP.COM",
-                    PasswordHash = hasher.HashPassword(null, "Admin123!"),
+                    Id = "3781efa7-66dc-47f0-860f-e506d04102e4", // Unique ID for Admin user
+                    Email = "admin@localhost.com",
+                    NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                    UserName = "admin@localhost.com",
+                    FirstName = "Admin",
+                    LastName = "User",
+                    NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                    PasswordHash = hasher.HashPassword(null, "P@ssword1"),
                     EmailConfirmed = true
                 }
             );

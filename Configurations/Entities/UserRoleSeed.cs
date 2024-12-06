@@ -11,8 +11,8 @@ namespace LevelUP.Configurations.Entities
             builder.HasData(
                 new IdentityUserRole<string>
                 {
-                    RoleId = "134", // Admin Role
-                    UserId = "314"  // Admin User
+                    RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba", // Admin Role
+                    UserId = "3781efa7-66dc-47f0-860f-e506d04102e4"  // Admin User
                 }
             );
         }
