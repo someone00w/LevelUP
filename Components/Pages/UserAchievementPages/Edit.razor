@@ -1,0 +1,119 @@
+﻿@page "/userachievements/edit"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>UserAchievement</h2>
+<hr />
+@if (UserAchievement is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="UserAchievement" OnValidSubmit="UpdateUserAchievement" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="UserAchievement.Id" value="@UserAchievement.Id" />
+                <div class="mb-3">
+                    <label for="dateunlocked" class="form-label">DateUnlocked:</label>
+                    <InputDate id="dateunlocked" @bind-Value="UserAchievement.DateUnlocked" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.DateUnlocked" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="custid" class="form-label">CustId:</label>
+                    <InputNumber id="custid" @bind-Value="UserAchievement.CustId" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.CustId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="achievementid" class="form-label">AchievementId:</label>
+                    <InputNumber id="achievementid" @bind-Value="UserAchievement.AchievementId" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.AchievementId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="UserAchievement.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="UserAchievement.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="UserAchievement.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="UserAchievement.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => UserAchievement.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/userachievements">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private UserAchievement? UserAchievement { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        UserAchievement ??= await context.UserAchievement.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (UserAchievement is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateUserAchievement()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(UserAchievement!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!UserAchievementExists(UserAchievement!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/userachievements");
+    }
+
+    private bool UserAchievementExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.UserAchievement.Any(e => e.Id == id);
+    }
+}

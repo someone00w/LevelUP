@@ -1,0 +1,58 @@
+﻿@page "/userachievements/details"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>UserAchievement</h2>
+    <hr />
+    @if (userachievement is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">DateUnlocked</dt>
+            <dd class="col-sm-10">@userachievement.DateUnlocked</dd>
+            <dt class="col-sm-2">CustId</dt>
+            <dd class="col-sm-10">@userachievement.CustId</dd>
+            <dt class="col-sm-2">AchievementId</dt>
+            <dd class="col-sm-10">@userachievement.AchievementId</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@userachievement.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@userachievement.DateUpdated</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@userachievement.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@userachievement.UpdatedBy</dd>
+        </dl>
+        <div>
+            <a href="@($"/userachievements/edit?id={userachievement.Id}")">Edit</a> |
+            <a href="@($"/userachievements")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private UserAchievement? userachievement;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        userachievement = await context.UserAchievement.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (userachievement is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

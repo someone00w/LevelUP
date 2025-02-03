@@ -1,0 +1,69 @@
+﻿@page "/userquests/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>UserQuest</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="UserQuest" OnValidSubmit="AddUserQuest" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="custid" class="form-label">CustId:</label> 
+                <InputNumber id="custid" @bind-Value="UserQuest.CustId" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.CustId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="questid" class="form-label">QuestId:</label> 
+                <InputNumber id="questid" @bind-Value="UserQuest.QuestId" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.QuestId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="UserQuest.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="UserQuest.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="UserQuest.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="UserQuest.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/userquests">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private UserQuest UserQuest { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUserQuest()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.UserQuest.Add(UserQuest);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/userquests");
+    }
+}

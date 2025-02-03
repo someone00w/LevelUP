@@ -1,0 +1,58 @@
+﻿@page "/staff/details"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Staff</h2>
+    <hr />
+    @if (staff is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">UserName</dt>
+            <dd class="col-sm-10">@staff.UserName</dd>
+            <dt class="col-sm-2">Email</dt>
+            <dd class="col-sm-10">@staff.Email</dd>
+            <dt class="col-sm-2">UserId</dt>
+            <dd class="col-sm-10">@staff.UserId</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@staff.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@staff.DateUpdated</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@staff.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@staff.UpdatedBy</dd>
+        </dl>
+        <div>
+            <a href="@($"/staff/edit?id={staff.Id}")">Edit</a> |
+            <a href="@($"/staff")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Staff? staff;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        staff = await context.Staff.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (staff is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

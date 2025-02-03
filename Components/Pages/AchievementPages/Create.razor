@@ -1,0 +1,84 @@
+﻿@page "/achievements/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Achievement</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Achievement" OnValidSubmit="AddAchievement" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="achievementname" class="form-label">AchievementName:</label> 
+                <InputText id="achievementname" @bind-Value="Achievement.AchievementName" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.AchievementName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="achievementdescription" class="form-label">AchievementDescription:</label> 
+                <InputText id="achievementdescription" @bind-Value="Achievement.AchievementDescription" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.AchievementDescription" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="xprequired" class="form-label">XPRequired:</label> 
+                <InputNumber id="xprequired" @bind-Value="Achievement.XPRequired" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.XPRequired" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="questsrequired" class="form-label">QuestsRequired:</label> 
+                <InputNumber id="questsrequired" @bind-Value="Achievement.QuestsRequired" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.QuestsRequired" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="rankrequired" class="form-label">RankRequired:</label> 
+                <InputNumber id="rankrequired" @bind-Value="Achievement.RankRequired" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.RankRequired" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="Achievement.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="Achievement.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="Achievement.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="Achievement.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Achievement.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/achievements">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Achievement Achievement { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddAchievement()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Achievement.Add(Achievement);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/achievements");
+    }
+}

@@ -1,0 +1,42 @@
+﻿@page "/userachievements"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using LevelUP.Domain
+@using LevelUP.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="userachievements/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.UserAchievement">
+    <PropertyColumn Property="userachievement => userachievement.DateUnlocked" />
+    <PropertyColumn Property="userachievement => userachievement.CustId" />
+    <PropertyColumn Property="userachievement => userachievement.AchievementId" />
+    <PropertyColumn Property="userachievement => userachievement.DateCreated" />
+    <PropertyColumn Property="userachievement => userachievement.DateUpdated" />
+    <PropertyColumn Property="userachievement => userachievement.CreatedBy" />
+    <PropertyColumn Property="userachievement => userachievement.UpdatedBy" />
+
+    <TemplateColumn Context="userachievement">
+        <a href="@($"userachievements/edit?id={userachievement.Id}")">Edit</a> |
+        <a href="@($"userachievements/details?id={userachievement.Id}")">Details</a> |
+        <a href="@($"userachievements/delete?id={userachievement.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LevelUPContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

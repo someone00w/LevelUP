@@ -1,0 +1,114 @@
+﻿@page "/userquests/edit"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>UserQuest</h2>
+<hr />
+@if (UserQuest is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="UserQuest" OnValidSubmit="UpdateUserQuest" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="UserQuest.Id" value="@UserQuest.Id" />
+                <div class="mb-3">
+                    <label for="custid" class="form-label">CustId:</label>
+                    <InputNumber id="custid" @bind-Value="UserQuest.CustId" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.CustId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="questid" class="form-label">QuestId:</label>
+                    <InputNumber id="questid" @bind-Value="UserQuest.QuestId" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.QuestId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="UserQuest.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="UserQuest.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="UserQuest.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="UserQuest.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/userquests">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    [SupplyParameterFromForm]
+    private UserQuest? UserQuest { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        UserQuest ??= await context.UserQuest.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (UserQuest is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateUserQuest()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(UserQuest!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!UserQuestExists(UserQuest!.Id))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/userquests");
+    }
+
+    private bool UserQuestExists(int id)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.UserQuest.Any(e => e.Id == id);
+    }
+}

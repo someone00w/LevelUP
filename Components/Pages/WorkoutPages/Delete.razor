@@ -1,0 +1,79 @@
+﻿@page "/workouts/delete"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Delete</PageTitle>
+
+<h1>Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <h2>Workout</h2>
+    <hr />
+    @if (workout is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">WorkoutName</dt>
+            <dd class="col-sm-10">@workout.WorkoutName</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">WorkoutDescription</dt>
+            <dd class="col-sm-10">@workout.WorkoutDescription</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">Category</dt>
+            <dd class="col-sm-10">@workout.Category</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@workout.DateCreated</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@workout.DateUpdated</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@workout.CreatedBy</dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@workout.UpdatedBy</dd>
+        </dl>
+        <EditForm method="post" Model="workout" OnValidSubmit="DeleteWorkout" FormName="delete" Enhance>
+            <button type="submit" class="btn btn-danger" disabled="@(workout is null)">Delete</button> |
+            <a href="/workouts">Back to List</a>
+        </EditForm>
+    }
+</div>
+
+@code {
+    private Workout? workout;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        workout = await context.Workout.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (workout is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    private async Task DeleteWorkout()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Workout.Remove(workout!);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/workouts");
+    }
+}

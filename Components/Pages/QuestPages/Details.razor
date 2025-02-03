@@ -1,0 +1,64 @@
+﻿@page "/quests/details"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Quest</h2>
+    <hr />
+    @if (quest is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">QuestName</dt>
+            <dd class="col-sm-10">@quest.QuestName</dd>
+            <dt class="col-sm-2">Description</dt>
+            <dd class="col-sm-10">@quest.Description</dd>
+            <dt class="col-sm-2">Category</dt>
+            <dd class="col-sm-10">@quest.Category</dd>
+            <dt class="col-sm-2">RankRequired</dt>
+            <dd class="col-sm-10">@quest.RankRequired</dd>
+            <dt class="col-sm-2">XPReward</dt>
+            <dd class="col-sm-10">@quest.XPReward</dd>
+            <dt class="col-sm-2">WorkoutId</dt>
+            <dd class="col-sm-10">@quest.WorkoutId</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@quest.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@quest.DateUpdated</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@quest.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@quest.UpdatedBy</dd>
+        </dl>
+        <div>
+            <a href="@($"/quests/edit?id={quest.Id}")">Edit</a> |
+            <a href="@($"/quests")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Quest? quest;
+
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        quest = await context.Quest.FirstOrDefaultAsync(m => m.Id == Id);
+
+        if (quest is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

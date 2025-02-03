@@ -1,0 +1,42 @@
+﻿@page "/workouts"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using LevelUP.Domain
+@using LevelUP.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="workouts/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Workout">
+    <PropertyColumn Property="workout => workout.WorkoutName" />
+    <PropertyColumn Property="workout => workout.WorkoutDescription" />
+    <PropertyColumn Property="workout => workout.Category" />
+    <PropertyColumn Property="workout => workout.DateCreated" />
+    <PropertyColumn Property="workout => workout.DateUpdated" />
+    <PropertyColumn Property="workout => workout.CreatedBy" />
+    <PropertyColumn Property="workout => workout.UpdatedBy" />
+
+    <TemplateColumn Context="workout">
+        <a href="@($"workouts/edit?id={workout.Id}")">Edit</a> |
+        <a href="@($"workouts/details?id={workout.Id}")">Details</a> |
+        <a href="@($"workouts/delete?id={workout.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LevelUPContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}

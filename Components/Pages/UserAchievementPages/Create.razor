@@ -1,0 +1,74 @@
+﻿@page "/userachievements/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>UserAchievement</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="UserAchievement" OnValidSubmit="AddUserAchievement" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="dateunlocked" class="form-label">DateUnlocked:</label> 
+                <InputDate id="dateunlocked" @bind-Value="UserAchievement.DateUnlocked" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.DateUnlocked" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="custid" class="form-label">CustId:</label> 
+                <InputNumber id="custid" @bind-Value="UserAchievement.CustId" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.CustId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="achievementid" class="form-label">AchievementId:</label> 
+                <InputNumber id="achievementid" @bind-Value="UserAchievement.AchievementId" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.AchievementId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="UserAchievement.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="UserAchievement.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="UserAchievement.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="UserAchievement.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => UserAchievement.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/userachievements">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private UserAchievement UserAchievement { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddUserAchievement()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.UserAchievement.Add(UserAchievement);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/userachievements");
+    }
+}

@@ -1,0 +1,44 @@
+﻿@page "/achievements"
+@using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.QuickGrid
+@using LevelUP.Domain
+@using LevelUP.Data
+@implements IAsyncDisposable
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+
+<PageTitle>Index</PageTitle>
+
+<h1>Index</h1>
+
+<p>
+    <a href="achievements/create">Create New</a>
+</p>
+
+<QuickGrid Class="table" Items="context.Achievement">
+    <PropertyColumn Property="achievement => achievement.AchievementName" />
+    <PropertyColumn Property="achievement => achievement.AchievementDescription" />
+    <PropertyColumn Property="achievement => achievement.XPRequired" />
+    <PropertyColumn Property="achievement => achievement.QuestsRequired" />
+    <PropertyColumn Property="achievement => achievement.RankRequired" />
+    <PropertyColumn Property="achievement => achievement.DateCreated" />
+    <PropertyColumn Property="achievement => achievement.DateUpdated" />
+    <PropertyColumn Property="achievement => achievement.CreatedBy" />
+    <PropertyColumn Property="achievement => achievement.UpdatedBy" />
+
+    <TemplateColumn Context="achievement">
+        <a href="@($"achievements/edit?id={achievement.Id}")">Edit</a> |
+        <a href="@($"achievements/details?id={achievement.Id}")">Details</a> |
+        <a href="@($"achievements/delete?id={achievement.Id}")">Delete</a>
+    </TemplateColumn>
+</QuickGrid>
+
+@code {
+    private LevelUPContext context = default!;
+
+    protected override void OnInitialized()
+    {
+        context = DbFactory.CreateDbContext();
+    }
+
+    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+}
