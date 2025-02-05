@@ -1,19 +1,71 @@
 ﻿@inherits LayoutComponentBase
+@using Microsoft.AspNetCore.Components.Authorization
 
 <div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
-
     <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
-
-        <article class="content px-4">
+        <div class="container">
+            <NavMenu />
             @Body
-        </article>
+        </div>
     </main>
+    <div class="footer">
+        <div class="footer-container">
+            <!-- Footer Brand -->
+            <div class="footer-brand">
+                <span>LevelUP</span>
+                <div class="footer-links">
+                    <span1>Privacy</span1> — <span1>Terms</span1>
+                </div>
+            </div>
+            <!-- Footer Menu -->
+            <div class="footer-menu">
+                <div class="footer-column">
+                    <h4>About</h4>
+                    <ul>
+                        <li><a href="/aboutus">About Us</a></li>
+                        <li><a href="/contactus">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Services</h4>
+                    <ul>
+                        <AuthorizeView>
+                            <NotAuthorized>
+                                <!-- Links for not authenticated users -->
+                                <li><a href="/quests">Quests</a></li>
+                                <li><a href="/workouts">Workout Tracker</a></li>
+                                <li><a href="/achievements">Achievements</a></li>
+                            </NotAuthorized>
+                            <Authorized>
+                                <!-- Links for authenticated users -->
+                                <li><a href="/dashboard">Dashboard</a></li>
+                                <li><a href="/quests">Quests</a></li>
+                                <li><a href="/workouts">Workout Tracker</a></li>
+                                <li><a href="/achievements">Achievements</a></li>
+                            </Authorized>
+                        </AuthorizeView>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>Account</h4>
+                    <ul>
+                        <AuthorizeView>
+                            <NotAuthorized>
+                                <!-- Links for not authenticated users -->
+                                <li><a href="Account/Login">Login</a></li>
+                                <li><a href="Account/Register">Registration</a></li>
+                            </NotAuthorized>
+                            <Authorized>
+                                <!-- Links for authenticated users -->
+                                <li><a href="Account/Manage">Profile</a></li>
+                                <li><a href="Account/Logout">Logout</a></li>
+                            </Authorized>
+                        </AuthorizeView>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div id="blazor-error-ui">
