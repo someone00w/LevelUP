@@ -1,45 +1,150 @@
-﻿@page "/quests"
+﻿@page "/quests/edit"
 @using Microsoft.EntityFrameworkCore
-@using Microsoft.AspNetCore.Components.QuickGrid
 @using LevelUP.Domain
-@using LevelUP.Data
-@implements IAsyncDisposable
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
 
-<PageTitle>Index</PageTitle>
 
-<h1>Index</h1>
+<PageTitle>Edit</PageTitle>
 
-<p>
-    <a href="quests/create">Create New</a>
-</p>
+<h1>Edit</h1>
 
-<QuickGrid Class="table" Items="context.Quest">
-    <PropertyColumn Property="quest => quest.QuestName" />
-    <PropertyColumn Property="quest => quest.Description" />
-    <PropertyColumn Property="quest => quest.Category" />
-    <PropertyColumn Property="quest => quest.RankRequired" />
-    <PropertyColumn Property="quest => quest.XPReward" />
-    <PropertyColumn Property="quest => quest.WorkoutId" />
-    <PropertyColumn Property="quest => quest.DateCreated" />
-    <PropertyColumn Property="quest => quest.DateUpdated" />
-    <PropertyColumn Property="quest => quest.CreatedBy" />
-    <PropertyColumn Property="quest => quest.UpdatedBy" />
+<h2>Quest</h2>
+<hr />
+@if (Quest is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="Quest" OnValidSubmit="UpdateQuest" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert" />
+                <input type="hidden" name="Quest.Id" value="@Quest.Id" />
+                <div class="mb-3">
+                    <label for="questname" class="form-label">QuestName:</label>
+                    <InputText id="questname" @bind-Value="Quest.QuestName" class="form-control" />
+                    <ValidationMessage For="() => Quest.QuestName" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description:</label>
+                    <InputText id="description" @bind-Value="Quest.Description" class="form-control" />
+                    <ValidationMessage For="() => Quest.Description" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="category" class="form-label">Category:</label>
+                    <InputText id="category" @bind-Value="Quest.Category" class="form-control" />
+                    <ValidationMessage For="() => Quest.Category" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="rankrequired" class="form-label">RankRequired:</label>
+                    <InputText id="rankrequired" @bind-Value="Quest.RankRequired" class="form-control" />
+                    <ValidationMessage For="() => Quest.RankRequired" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="xpreward" class="form-label">XPReward:</label>
+                    <InputNumber id="xpreward" @bind-Value="Quest.XPReward" class="form-control" />
+                    <ValidationMessage For="() => Quest.XPReward" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="workouts" class="form-label">Workouts:</label>
+                    <InputSelect id="workouts" @bind-Value="SelectedWorkoutNames" multiple class="form-control">
+                        @foreach (var workout in Workouts)
+                        {
+                            <option value="@workout.WorkoutName">@workout.WorkoutName</option>
+                        }
+                    </InputSelect>
+                    <ValidationMessage For="() => SelectedWorkoutNames" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="Quest.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => Quest.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="Quest.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => Quest.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="Quest.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => Quest.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="Quest.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => Quest.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
 
-    <TemplateColumn Context="quest">
-        <a href="@($"quests/edit?id={quest.Id}")">Edit</a> |
-        <a href="@($"quests/details?id={quest.Id}")">Details</a> |
-        <a href="@($"quests/delete?id={quest.Id}")">Delete</a>
-    </TemplateColumn>
-</QuickGrid>
+<div>
+    <a href="/quests">Back to List</a>
+</div>
 
 @code {
-    private LevelUPContext context = default!;
+    [SupplyParameterFromQuery]
+    private int Id { get; set; }
 
-    protected override void OnInitialized()
+    [SupplyParameterFromForm]
+    private Quest? Quest { get; set; }
+
+    private List<Workout> Workouts { get; set; } = new();
+    private List<string> SelectedWorkoutNames { get; set; } = new();
+
+    protected override async Task OnInitializedAsync()
     {
-        context = DbFactory.CreateDbContext();
+        using var context = DbFactory.CreateDbContext();
+        Quest ??= await context.Quest
+            .FirstOrDefaultAsync(m => m.Id == Id);
+
+        Workouts = await context.Workout.ToListAsync();
+
+        if (Quest is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+        else
+        {
+            // Deserialize the comma-separated workout names into a list
+            SelectedWorkoutNames = Quest.WorkoutNames.Split(',')
+                .Where(name => !string.IsNullOrWhiteSpace(name))
+                .ToList();
+        }
     }
 
-    public async ValueTask DisposeAsync() => await context.DisposeAsync();
+    private async Task UpdateQuest()
+    {
+        using var context = DbFactory.CreateDbContext();
+        var existingQuest = await context.Quest.FirstOrDefaultAsync(q => q.Id == Quest!.Id);
+
+        if (existingQuest is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+            return;
+        }
+
+        // Update scalar properties
+        existingQuest.QuestName = Quest!.QuestName;
+        existingQuest.Description = Quest.Description;
+        existingQuest.Category = Quest.Category;
+        existingQuest.RankRequired = Quest.RankRequired;
+        existingQuest.XPReward = Quest.XPReward;
+        existingQuest.DateCreated = Quest.DateCreated;
+        existingQuest.DateUpdated = Quest.DateUpdated;
+        existingQuest.CreatedBy = Quest.CreatedBy;
+        existingQuest.UpdatedBy = Quest.UpdatedBy;
+
+        // Serialize selected workout names as a comma-separated string
+        existingQuest.WorkoutNames = string.Join(",", SelectedWorkoutNames);
+
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/quests");
+    }
 }
