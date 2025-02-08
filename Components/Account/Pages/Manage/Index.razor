@@ -20,7 +20,11 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert" />
             <div class="form-floating mb-3">
-                <input type="text" value="@username" class="form-control" placeholder="Please choose your username." disabled />
+                <input type="text" value="@email" class="form-control" placeholder="Please choose your username." disabled />
+                <label for="email" class="form-label">Email</label>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="text" value="@name" class="form-control" placeholder="Please choose your username." disabled />
                 <label for="username" class="form-label">Username</label>
             </div>
             <div class="form-floating mb-3">
@@ -33,9 +37,66 @@
     </div>
 </div>
 
+<style>
+    h3 {
+        font-size: 2rem;
+        font-family: Arial, sans-serif;
+        color: #e0e0e0;
+    }
+
+    .row {
+        display: flex;
+        align-items: center;
+        margin-top: 20px;
+    }
+
+    .col-md-6 {
+        width: 50%;
+        background: rgba(0, 0, 0, 0.25);
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        padding: 2rem;
+        border-radius: 10px;
+    }
+
+    .form-control {
+        background-color: white;
+        color: black;
+        border: none;
+        width: 100%;
+        max-width: 450px;
+        height: 50px;
+        font-size: 1.1rem;
+        padding: 12px;
+        border-radius: 5px;
+        box-sizing: border-box; /* Ensures padding doesn't affect width */
+    }
+
+    /* Specifically target Blazor InputText to ensure it matches */
+    input.form-control {
+        max-width: 450px; /* Same as other input fields */
+    }
+
+    .w-100 {
+        background-color: black;
+        color: white;
+        font-size: 1.1rem;
+        padding: 12px;
+        border: none;
+        width: 100%;
+        cursor: pointer;
+        max-width: 450px;
+    }
+
+        .w-100:hover {
+            background-color: #4c0266;
+            color: #fff;
+        }
+</style>
+
 @code {
     private LevelUPUser user = default!;
-    private string? username;
+    private string? email;
+    private string? name;
     private string? phoneNumber;
 
     [CascadingParameter]
@@ -47,7 +108,8 @@
     protected override async Task OnInitializedAsync()
     {
         user = await UserAccessor.GetRequiredUserAsync(HttpContext);
-        username = await UserManager.GetUserNameAsync(user);
+        email = await UserManager.GetEmailAsync(user);
+        name = user.Name;  // Retrieve and assign the user's name
         phoneNumber = await UserManager.GetPhoneNumberAsync(user);
 
         Input.PhoneNumber ??= phoneNumber;

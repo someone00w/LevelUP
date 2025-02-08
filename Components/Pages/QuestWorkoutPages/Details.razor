@@ -1,0 +1,58 @@
+﻿@page "/questworkouts/details"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>QuestWorkout</h2>
+    <hr />
+    @if (questworkout is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else {
+        <dl class="row">
+            <dt class="col-sm-2">Status</dt>
+            <dd class="col-sm-10">@questworkout.Status</dd>
+            <dt class="col-sm-2">QuestId</dt>
+            <dd class="col-sm-10">@questworkout.QuestId</dd>
+            <dt class="col-sm-2">WorkoutId</dt>
+            <dd class="col-sm-10">@questworkout.WorkoutId</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@questworkout.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@questworkout.DateUpdated</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@questworkout.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@questworkout.UpdatedBy</dd>
+        </dl>
+        <div>
+            <a href="@($"/questworkouts/edit?questworkoutid={questworkout.QuestWorkoutId}")">Edit</a> |
+            <a href="@($"/questworkouts")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private QuestWorkout? questworkout;
+
+    [SupplyParameterFromQuery]
+    private int QuestWorkoutId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        questworkout = await context.QuestWorkout.FirstOrDefaultAsync(m => m.QuestWorkoutId == QuestWorkoutId);
+
+        if (questworkout is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+}

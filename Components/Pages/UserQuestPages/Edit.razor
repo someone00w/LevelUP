@@ -21,11 +21,11 @@ else
             <EditForm method="post" Model="UserQuest" OnValidSubmit="UpdateUserQuest" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="UserQuest.Id" value="@UserQuest.Id" />
+                <input type="hidden" name="UserQuest.UserQuestId" value="@UserQuest.UserQuestId" />
                 <div class="mb-3">
-                    <label for="custid" class="form-label">CustId:</label>
-                    <InputNumber id="custid" @bind-Value="UserQuest.CustId" class="form-control" />
-                    <ValidationMessage For="() => UserQuest.CustId" class="text-danger" />
+                    <label for="customerid" class="form-label">CustomerId:</label>
+                    <InputNumber id="customerid" @bind-Value="UserQuest.CustomerId" class="form-control" />
+                    <ValidationMessage For="() => UserQuest.CustomerId" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="questid" class="form-label">QuestId:</label>
@@ -64,7 +64,7 @@ else
 
 @code {
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int UserQuestId { get; set; }
 
     [SupplyParameterFromForm]
     private UserQuest? UserQuest { get; set; }
@@ -72,7 +72,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        UserQuest ??= await context.UserQuest.FirstOrDefaultAsync(m => m.Id == Id);
+        UserQuest ??= await context.UserQuest.FirstOrDefaultAsync(m => m.UserQuestId == UserQuestId);
 
         if (UserQuest is null)
         {
@@ -93,7 +93,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!UserQuestExists(UserQuest!.Id))
+            if (!UserQuestExists(UserQuest!.UserQuestId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -106,9 +106,9 @@ else
         NavigationManager.NavigateTo("/userquests");
     }
 
-    private bool UserQuestExists(int id)
+    private bool UserQuestExists(int userquestid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.UserQuest.Any(e => e.Id == id);
+        return context.UserQuest.Any(e => e.UserQuestId == userquestid);
     }
 }

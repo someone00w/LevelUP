@@ -11,103 +11,143 @@ namespace LevelUP.Configurations.Entities
             builder.HasData(
                 new Quest
                 {
-                    Id = 1,
+                    QuestId = 1,
                     QuestName = "E-Rank Warm-up",
                     Description = "Basic training for new hunters to improve endurance and strength.",
                     Category = "Training",
-                    RankRequired = "E",
+                    RankRequired = "D",
                     XPReward = 100,
-                    WorkoutId = 1 // Push-Ups
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 2,
+                    QuestId = 2,
                     QuestName = "Survival Instincts",
                     Description = "Increase agility and stamina to survive in low-level dungeons.",
                     Category = "Endurance",
-                    RankRequired = "E",
+                    RankRequired = "D",
                     XPReward = 200,
-                    WorkoutId = 6 // Jump Rope
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 3,
+                    QuestId = 3,
                     QuestName = "D-Rank Power Boost",
                     Description = "Enhance strength with rigorous training.",
                     Category = "Strength",
                     RankRequired = "D",
                     XPReward = 500,
-                    WorkoutId = 2 // Squats
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 4,
+                    QuestId = 4,
                     QuestName = "Dungeon Sprint",
                     Description = "Improve speed and reaction time for quick escapes.",
                     Category = "Agility",
                     RankRequired = "D",
                     XPReward = 700,
-                    WorkoutId = 8 // Mountain Climbers
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 5,
+                    QuestId = 5,
                     QuestName = "C-Rank Warrior's Test",
                     Description = "A challenging workout to prepare for higher-ranked missions.",
                     Category = "Full Body",
                     RankRequired = "C",
                     XPReward = 1200,
-                    WorkoutId = 7 // Burpees
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 6,
+                    QuestId = 6,
                     QuestName = "B-Rank Hunter's Discipline",
                     Description = "Master balance and endurance for prolonged battles.",
                     Category = "Core",
-                    RankRequired = "B",
+                    RankRequired = "C",
                     XPReward = 2000,
-                    WorkoutId = 4 // Plank
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 7,
+                    QuestId = 7,
                     QuestName = "A-Rank Titan's Strength",
                     Description = "Advanced training to develop elite hunter power.",
                     Category = "Strength",
-                    RankRequired = "A",
+                    RankRequired = "B",
                     XPReward = 4000,
-                    WorkoutId = 9 // Deadlifts
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 8,
+                    QuestId = 8,
                     QuestName = "Shadow Monarch's Challenge",
                     Description = "Surpass your limits with extreme training.",
                     Category = "Endurance",
-                    RankRequired = "S",
+                    RankRequired = "A",
                     XPReward = 7000,
-                    WorkoutId = 5 // Lunges
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 9,
+                    QuestId = 9,
                     QuestName = "S-Rank Battle Mastery",
                     Description = "A test of skill, power, and endurance for elite hunters.",
                     Category = "Full Body",
                     RankRequired = "S",
                     XPReward = 10000,
-                    WorkoutId = 3 // Pull-Ups
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Quest
                 {
-                    Id = 10,
+                    QuestId = 10,
                     QuestName = "God of War's Training",
                     Description = "Only the strongest can complete this ultimate test.",
                     Category = "Ultimate",
-                    RankRequired = "SS",
+                    RankRequired = "S",
                     XPReward = 20000,
-                    WorkoutId = 10 // Bicycle Crunches
+                    Status = "Incomplete",
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 }
             );
         }

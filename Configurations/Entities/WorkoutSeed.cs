@@ -11,73 +11,103 @@ namespace LevelUP.Configurations.Entities
             builder.HasData(
                 new Workout
                 {
-                    Id = 1,
+                    WorkoutId = 1,
                     WorkoutName = "Push-Ups",
                     WorkoutDescription = "A basic upper body exercise that strengthens the chest, shoulders, and triceps.",
-                    Category = "Strength"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 2,
+                    WorkoutId = 2,
                     WorkoutName = "Squats",
                     WorkoutDescription = "A lower body exercise that targets the quadriceps, hamstrings, and glutes.",
-                    Category = "Strength"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 3,
+                    WorkoutId = 3,
                     WorkoutName = "Pull-Ups",
                     WorkoutDescription = "An upper body exercise that builds back and bicep strength.",
-                    Category = "Strength"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 4,
+                    WorkoutId = 4,
                     WorkoutName = "Plank",
                     WorkoutDescription = "A core exercise that strengthens the abdominal muscles and improves endurance.",
-                    Category = "Core"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 5,
+                    WorkoutId = 5,
                     WorkoutName = "Lunges",
                     WorkoutDescription = "A lower body exercise that improves balance and strengthens the legs.",
-                    Category = "Strength"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 6,
+                    WorkoutId = 6,
                     WorkoutName = "Jump Rope",
                     WorkoutDescription = "A cardiovascular exercise that enhances coordination and endurance.",
-                    Category = "Cardio"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 7,
+                    WorkoutId = 7,
                     WorkoutName = "Burpees",
                     WorkoutDescription = "A full-body exercise that combines strength and cardio training.",
-                    Category = "Full Body"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 8,
+                    WorkoutId = 8,
                     WorkoutName = "Mountain Climbers",
                     WorkoutDescription = "A cardio and core workout that improves agility and endurance.",
-                    Category = "Cardio"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 9,
+                    WorkoutId = 9,
                     WorkoutName = "Deadlifts",
                     WorkoutDescription = "A strength exercise that targets the lower back, glutes, and hamstrings.",
-                    Category = "Strength"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 },
                 new Workout
                 {
-                    Id = 10,
+                    WorkoutId = 10,
                     WorkoutName = "Bicycle Crunches",
                     WorkoutDescription = "A core workout that strengthens the abdominal muscles and obliques.",
-                    Category = "Core"
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = "System",
+                    UpdatedBy = "System"
                 }
             );
         }

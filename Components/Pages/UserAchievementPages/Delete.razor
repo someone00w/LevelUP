@@ -22,8 +22,8 @@
             <dd class="col-sm-10">@userachievement.DateUnlocked</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">CustId</dt>
-            <dd class="col-sm-10">@userachievement.CustId</dd>
+            <dt class="col-sm-2">CustomerId</dt>
+            <dd class="col-sm-10">@userachievement.CustomerId</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">AchievementId</dt>
@@ -56,12 +56,12 @@
     private UserAchievement? userachievement;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int UserAchievementId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        userachievement = await context.UserAchievement.FirstOrDefaultAsync(m => m.Id == Id);
+        userachievement = await context.UserAchievement.FirstOrDefaultAsync(m => m.UserAchievementId == UserAchievementId);
 
         if (userachievement is null)
         {

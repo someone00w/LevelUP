@@ -26,10 +26,6 @@
             <dd class="col-sm-10">@workout.WorkoutDescription</dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-2">Category</dt>
-            <dd class="col-sm-10">@workout.Category</dd>
-        </dl>
-        <dl class="row">
             <dt class="col-sm-2">DateCreated</dt>
             <dd class="col-sm-10">@workout.DateCreated</dd>
         </dl>
@@ -56,12 +52,12 @@
     private Workout? workout;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int WorkoutId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        workout = await context.Workout.FirstOrDefaultAsync(m => m.Id == Id);
+        workout = await context.Workout.FirstOrDefaultAsync(m => m.WorkoutId == WorkoutId);
 
         if (workout is null)
         {

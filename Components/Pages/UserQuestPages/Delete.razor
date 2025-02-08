@@ -18,8 +18,8 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">CustId</dt>
-            <dd class="col-sm-10">@userquest.CustId</dd>
+            <dt class="col-sm-2">CustomerId</dt>
+            <dd class="col-sm-10">@userquest.CustomerId</dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-2">QuestId</dt>
@@ -52,12 +52,12 @@
     private UserQuest? userquest;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int UserQuestId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        userquest = await context.UserQuest.FirstOrDefaultAsync(m => m.Id == Id);
+        userquest = await context.UserQuest.FirstOrDefaultAsync(m => m.UserQuestId == UserQuestId);
 
         if (userquest is null)
         {

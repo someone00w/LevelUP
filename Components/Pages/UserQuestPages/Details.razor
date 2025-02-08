@@ -17,8 +17,8 @@
     }
     else {
         <dl class="row">
-            <dt class="col-sm-2">CustId</dt>
-            <dd class="col-sm-10">@userquest.CustId</dd>
+            <dt class="col-sm-2">CustomerId</dt>
+            <dd class="col-sm-10">@userquest.CustomerId</dd>
             <dt class="col-sm-2">QuestId</dt>
             <dd class="col-sm-10">@userquest.QuestId</dd>
             <dt class="col-sm-2">DateCreated</dt>
@@ -31,7 +31,7 @@
             <dd class="col-sm-10">@userquest.UpdatedBy</dd>
         </dl>
         <div>
-            <a href="@($"/userquests/edit?id={userquest.Id}")">Edit</a> |
+            <a href="@($"/userquests/edit?userquestid={userquest.UserQuestId}")">Edit</a> |
             <a href="@($"/userquests")">Back to List</a>
         </div>
     }
@@ -41,12 +41,12 @@
     private UserQuest? userquest;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int UserQuestId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        userquest = await context.UserQuest.FirstOrDefaultAsync(m => m.Id == Id);
+        userquest = await context.UserQuest.FirstOrDefaultAsync(m => m.UserQuestId == UserQuestId);
 
         if (userquest is null)
         {

@@ -1,0 +1,74 @@
+﻿@page "/questworkouts/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>QuestWorkout</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="QuestWorkout" OnValidSubmit="AddQuestWorkout" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputText id="status" @bind-Value="QuestWorkout.Status" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.Status" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="questid" class="form-label">QuestId:</label> 
+                <InputNumber id="questid" @bind-Value="QuestWorkout.QuestId" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.QuestId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="workoutid" class="form-label">WorkoutId:</label> 
+                <InputNumber id="workoutid" @bind-Value="QuestWorkout.WorkoutId" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.WorkoutId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="QuestWorkout.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="QuestWorkout.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="QuestWorkout.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="QuestWorkout.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => QuestWorkout.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/questworkouts">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private QuestWorkout QuestWorkout { get; set; } = new();
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddQuestWorkout()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.QuestWorkout.Add(QuestWorkout);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/questworkouts");
+    }
+}

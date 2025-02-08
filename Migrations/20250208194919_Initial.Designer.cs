@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LevelUP.Migrations
 {
     [DbContext(typeof(LevelUPContext))]
-    [Migration("20250205063531_CustomerRole")]
-    partial class CustomerRole
+    [Migration("20250208194919_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -91,15 +91,51 @@ namespace LevelUP.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "f20985ff-27d2-4bd8-92ef-559e3d8e16ce",
+                            Email = "admin@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "adminUser",
+                            NormalizedEmail = "ADMIN@LOCALHOST.COM",
+                            NormalizedUserName = "ADMIN@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEHXcrMRd9XNtsUojL8D640wg7QzQTiZTJcMIBtUW4xgcaVV7L6mDeR1YPiE7yzw4JA==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "f5f33d72-6138-488d-8670-6f7dcc116218",
+                            TwoFactorEnabled = false,
+                            UserName = "admin@localhost.com"
+                        },
+                        new
+                        {
+                            Id = "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2",
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "debda8a6-a384-4ab4-b859-a09f86655f38",
+                            Email = "cust@localhost.com",
+                            EmailConfirmed = true,
+                            LockoutEnabled = false,
+                            Name = "custUser",
+                            NormalizedEmail = "CUST@LOCALHOST.COM",
+                            NormalizedUserName = "CUST@LOCALHOST.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEJS2+CivRl1mYi+cCnkzoJhSBSSN/D8pQCB1OQQ7teENaxwwgUqncK/sSeH/zrydzw==",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "1105ae47-44e6-4a9f-9e89-83bb94abe55f",
+                            TwoFactorEnabled = false,
+                            UserName = "cust@localhost.com"
+                        });
                 });
 
             modelBuilder.Entity("LevelUP.Domain.Achievement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("AchievementId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AchievementId"));
 
                     b.Property<string>("AchievementDescription")
                         .HasColumnType("nvarchar(max)");
@@ -128,130 +164,150 @@ namespace LevelUP.Migrations
                     b.Property<int?>("XPRequired")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("AchievementId");
 
                     b.ToTable("Achievement");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            AchievementId = 1,
                             AchievementDescription = "You've started your journey as an E-Rank hunter.",
                             AchievementName = "E-Rank Hunter",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5477),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5478),
                             QuestsRequired = 0,
                             RankRequired = 1,
+                            UpdatedBy = "System",
                             XPRequired = 0
                         },
                         new
                         {
-                            Id = 2,
+                            AchievementId = 2,
                             AchievementDescription = "Complete your first quest.",
                             AchievementName = "First Blood",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5480),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5481),
                             QuestsRequired = 1,
                             RankRequired = 1,
+                            UpdatedBy = "System",
                             XPRequired = 50
                         },
                         new
                         {
-                            Id = 3,
+                            AchievementId = 3,
                             AchievementDescription = "Reach D-Rank by earning enough XP.",
                             AchievementName = "D-Rank Awakening",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5483),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5483),
                             QuestsRequired = 5,
                             RankRequired = 2,
+                            UpdatedBy = "System",
                             XPRequired = 500
                         },
                         new
                         {
-                            Id = 4,
+                            AchievementId = 4,
                             AchievementDescription = "Complete 10 quests and prove your worth.",
                             AchievementName = "Elite Fighter",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5485),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5485),
                             QuestsRequired = 10,
                             RankRequired = 3,
+                            UpdatedBy = "System",
                             XPRequired = 1200
                         },
                         new
                         {
-                            Id = 5,
+                            AchievementId = 5,
                             AchievementDescription = "Ascend to C-Rank with enough experience.",
                             AchievementName = "C-Rank Promotion",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5487),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5488),
                             QuestsRequired = 20,
                             RankRequired = 4,
+                            UpdatedBy = "System",
                             XPRequired = 2500
                         },
                         new
                         {
-                            Id = 6,
+                            AchievementId = 6,
                             AchievementDescription = "Demonstrate your growing power by finishing 30 quests.",
                             AchievementName = "Shadow Monarch's Apprentice",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5490),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5490),
                             QuestsRequired = 30,
                             RankRequired = 5,
+                            UpdatedBy = "System",
                             XPRequired = 4000
                         },
                         new
                         {
-                            Id = 7,
+                            AchievementId = 7,
                             AchievementDescription = "Enter the ranks of B-Rank hunters.",
                             AchievementName = "B-Rank Challenger",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5492),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5492),
                             QuestsRequired = 40,
                             RankRequired = 6,
+                            UpdatedBy = "System",
                             XPRequired = 6000
                         },
                         new
                         {
-                            Id = 8,
+                            AchievementId = 8,
                             AchievementDescription = "Become an elite hunter by reaching A-Rank.",
                             AchievementName = "A-Rank Conqueror",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5494),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5495),
                             QuestsRequired = 50,
                             RankRequired = 7,
+                            UpdatedBy = "System",
                             XPRequired = 10000
                         },
                         new
                         {
-                            Id = 9,
+                            AchievementId = 9,
                             AchievementDescription = "Achieve S-Rank status, the pinnacle of hunters.",
                             AchievementName = "S-Rank Dominator",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5496),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5497),
                             QuestsRequired = 75,
                             RankRequired = 8,
+                            UpdatedBy = "System",
                             XPRequired = 20000
                         },
                         new
                         {
-                            Id = 10,
+                            AchievementId = 10,
                             AchievementDescription = "Surpass all limits and claim the title of the Shadow Monarch.",
                             AchievementName = "Shadow Monarch",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5499),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5499),
                             QuestsRequired = 100,
                             RankRequired = 9,
+                            UpdatedBy = "System",
                             XPRequired = 50000
                         });
                 });
 
             modelBuilder.Entity("LevelUP.Domain.Customer", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("CustomerId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CustomerId"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -266,6 +322,7 @@ namespace LevelUP.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Rank")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UpdatedBy")
@@ -280,7 +337,7 @@ namespace LevelUP.Migrations
                     b.Property<int>("XPAmount")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
+                    b.HasKey("CustomerId");
 
                     b.HasIndex("UserId");
 
@@ -289,11 +346,11 @@ namespace LevelUP.Migrations
 
             modelBuilder.Entity("LevelUP.Domain.Quest", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("QuestId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestId"));
 
                     b.Property<string>("Category")
                         .HasColumnType("nvarchar(max)");
@@ -316,151 +373,209 @@ namespace LevelUP.Migrations
                     b.Property<string>("RankRequired")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UpdatedBy")
+                    b.Property<string>("Status")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("WorkoutId")
-                        .HasColumnType("int");
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("XPReward")
                         .HasColumnType("int");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("WorkoutId");
+                    b.HasKey("QuestId");
 
                     b.ToTable("Quest");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
+                            QuestId = 1,
                             Category = "Training",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5385),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5385),
                             Description = "Basic training for new hunters to improve endurance and strength.",
                             QuestName = "E-Rank Warm-up",
-                            RankRequired = "E",
-                            WorkoutId = 1,
+                            RankRequired = "D",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 100
                         },
                         new
                         {
-                            Id = 2,
+                            QuestId = 2,
                             Category = "Endurance",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5387),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5388),
                             Description = "Increase agility and stamina to survive in low-level dungeons.",
                             QuestName = "Survival Instincts",
-                            RankRequired = "E",
-                            WorkoutId = 6,
+                            RankRequired = "D",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 200
                         },
                         new
                         {
-                            Id = 3,
+                            QuestId = 3,
                             Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5390),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5390),
                             Description = "Enhance strength with rigorous training.",
                             QuestName = "D-Rank Power Boost",
                             RankRequired = "D",
-                            WorkoutId = 2,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 500
                         },
                         new
                         {
-                            Id = 4,
+                            QuestId = 4,
                             Category = "Agility",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5392),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5392),
                             Description = "Improve speed and reaction time for quick escapes.",
                             QuestName = "Dungeon Sprint",
                             RankRequired = "D",
-                            WorkoutId = 8,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 700
                         },
                         new
                         {
-                            Id = 5,
+                            QuestId = 5,
                             Category = "Full Body",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5394),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5394),
                             Description = "A challenging workout to prepare for higher-ranked missions.",
                             QuestName = "C-Rank Warrior's Test",
                             RankRequired = "C",
-                            WorkoutId = 7,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 1200
                         },
                         new
                         {
-                            Id = 6,
+                            QuestId = 6,
                             Category = "Core",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5396),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5396),
                             Description = "Master balance and endurance for prolonged battles.",
                             QuestName = "B-Rank Hunter's Discipline",
-                            RankRequired = "B",
-                            WorkoutId = 4,
+                            RankRequired = "C",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 2000
                         },
                         new
                         {
-                            Id = 7,
+                            QuestId = 7,
                             Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5398),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5399),
                             Description = "Advanced training to develop elite hunter power.",
                             QuestName = "A-Rank Titan's Strength",
-                            RankRequired = "A",
-                            WorkoutId = 9,
+                            RankRequired = "B",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 4000
                         },
                         new
                         {
-                            Id = 8,
+                            QuestId = 8,
                             Category = "Endurance",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5400),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5401),
                             Description = "Surpass your limits with extreme training.",
                             QuestName = "Shadow Monarch's Challenge",
-                            RankRequired = "S",
-                            WorkoutId = 5,
+                            RankRequired = "A",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 7000
                         },
                         new
                         {
-                            Id = 9,
+                            QuestId = 9,
                             Category = "Full Body",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5403),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5403),
                             Description = "A test of skill, power, and endurance for elite hunters.",
                             QuestName = "S-Rank Battle Mastery",
                             RankRequired = "S",
-                            WorkoutId = 3,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 10000
                         },
                         new
                         {
-                            Id = 10,
+                            QuestId = 10,
                             Category = "Ultimate",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5405),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5405),
                             Description = "Only the strongest can complete this ultimate test.",
                             QuestName = "God of War's Training",
-                            RankRequired = "SS",
-                            WorkoutId = 10,
+                            RankRequired = "S",
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
                             XPReward = 20000
                         });
                 });
 
-            modelBuilder.Entity("LevelUP.Domain.Staff", b =>
+            modelBuilder.Entity("LevelUP.Domain.QuestWorkout", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("QuestWorkoutId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("QuestWorkoutId"));
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("QuestId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Status")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("WorkoutId")
+                        .HasColumnType("int");
+
+                    b.HasKey("QuestWorkoutId");
+
+                    b.HasIndex("QuestId");
+
+                    b.HasIndex("WorkoutId");
+
+                    b.ToTable("QuestWorkout");
+                });
+
+            modelBuilder.Entity("LevelUP.Domain.Staff", b =>
+                {
+                    b.Property<int>("StaffId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("StaffId"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -483,20 +598,33 @@ namespace LevelUP.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("StaffId");
 
                     b.HasIndex("UserId");
 
                     b.ToTable("Staff");
+
+                    b.HasData(
+                        new
+                        {
+                            StaffId = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 485, DateTimeKind.Local).AddTicks(4900),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 485, DateTimeKind.Local).AddTicks(4917),
+                            Email = "admin@localhost.com",
+                            UpdatedBy = "System",
+                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            UserName = "adminUser"
+                        });
                 });
 
             modelBuilder.Entity("LevelUP.Domain.UserAchievement", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserAchievementId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserAchievementId"));
 
                     b.Property<int>("AchievementId")
                         .HasColumnType("int");
@@ -504,7 +632,7 @@ namespace LevelUP.Migrations
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
@@ -519,27 +647,27 @@ namespace LevelUP.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserAchievementId");
 
                     b.HasIndex("AchievementId");
 
-                    b.HasIndex("CustId");
+                    b.HasIndex("CustomerId");
 
                     b.ToTable("UserAchievement");
                 });
 
             modelBuilder.Entity("LevelUP.Domain.UserQuest", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("UserQuestId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserQuestId"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("CustId")
+                    b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("DateCreated")
@@ -554,9 +682,9 @@ namespace LevelUP.Migrations
                     b.Property<string>("UpdatedBy")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserQuestId");
 
-                    b.HasIndex("CustId");
+                    b.HasIndex("CustomerId");
 
                     b.HasIndex("QuestId");
 
@@ -565,14 +693,11 @@ namespace LevelUP.Migrations
 
             modelBuilder.Entity("LevelUP.Domain.Workout", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<int>("WorkoutId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Category")
-                        .HasColumnType("nvarchar(max)");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("WorkoutId"));
 
                     b.Property<string>("CreatedBy")
                         .HasColumnType("nvarchar(max)");
@@ -592,98 +717,108 @@ namespace LevelUP.Migrations
                     b.Property<string>("WorkoutName")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.HasKey("WorkoutId");
 
                     b.ToTable("Workout");
 
                     b.HasData(
                         new
                         {
-                            Id = 1,
-                            Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 1,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5134),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5144),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A basic upper body exercise that strengthens the chest, shoulders, and triceps.",
                             WorkoutName = "Push-Ups"
                         },
                         new
                         {
-                            Id = 2,
-                            Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 2,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5146),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5146),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A lower body exercise that targets the quadriceps, hamstrings, and glutes.",
                             WorkoutName = "Squats"
                         },
                         new
                         {
-                            Id = 3,
-                            Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 3,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5148),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5148),
+                            UpdatedBy = "System",
                             WorkoutDescription = "An upper body exercise that builds back and bicep strength.",
                             WorkoutName = "Pull-Ups"
                         },
                         new
                         {
-                            Id = 4,
-                            Category = "Core",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 4,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5150),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5150),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A core exercise that strengthens the abdominal muscles and improves endurance.",
                             WorkoutName = "Plank"
                         },
                         new
                         {
-                            Id = 5,
-                            Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 5,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5152),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5152),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A lower body exercise that improves balance and strengthens the legs.",
                             WorkoutName = "Lunges"
                         },
                         new
                         {
-                            Id = 6,
-                            Category = "Cardio",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 6,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5153),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5154),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A cardiovascular exercise that enhances coordination and endurance.",
                             WorkoutName = "Jump Rope"
                         },
                         new
                         {
-                            Id = 7,
-                            Category = "Full Body",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 7,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5155),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5155),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A full-body exercise that combines strength and cardio training.",
                             WorkoutName = "Burpees"
                         },
                         new
                         {
-                            Id = 8,
-                            Category = "Cardio",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 8,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5157),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5157),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A cardio and core workout that improves agility and endurance.",
                             WorkoutName = "Mountain Climbers"
                         },
                         new
                         {
-                            Id = 9,
-                            Category = "Strength",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 9,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5158),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5159),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A strength exercise that targets the lower back, glutes, and hamstrings.",
                             WorkoutName = "Deadlifts"
                         },
                         new
                         {
-                            Id = 10,
-                            Category = "Core",
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            WorkoutId = 10,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5160),
+                            DateUpdated = new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5160),
+                            UpdatedBy = "System",
                             WorkoutDescription = "A core workout that strengthens the abdominal muscles and obliques.",
                             WorkoutName = "Bicycle Crunches"
                         });
@@ -714,6 +849,26 @@ namespace LevelUP.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "ad2bcf0c-20db-474f-8407-5a6b159518ba",
+                            Name = "Administrator",
+                            NormalizedName = "ADMINISTRATOR"
+                        },
+                        new
+                        {
+                            Id = "bd2bcf0c-20db-474f-8407-5a6b159518bb",
+                            Name = "User",
+                            NormalizedName = "USER"
+                        },
+                        new
+                        {
+                            Id = "cd2bcf0c-20db-474f-8407-5a6b159518bc",
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -801,6 +956,18 @@ namespace LevelUP.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
+                            RoleId = "ad2bcf0c-20db-474f-8407-5a6b159518ba"
+                        },
+                        new
+                        {
+                            UserId = "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2",
+                            RoleId = "cd2bcf0c-20db-474f-8407-5a6b159518bc"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
@@ -831,13 +998,21 @@ namespace LevelUP.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("LevelUP.Domain.Quest", b =>
+            modelBuilder.Entity("LevelUP.Domain.QuestWorkout", b =>
                 {
+                    b.HasOne("LevelUP.Domain.Quest", "Quest")
+                        .WithMany()
+                        .HasForeignKey("QuestId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LevelUP.Domain.Workout", "Workout")
                         .WithMany()
                         .HasForeignKey("WorkoutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Quest");
 
                     b.Navigation("Workout");
                 });
@@ -859,22 +1034,22 @@ namespace LevelUP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LevelUP.Domain.Customer", "Cust")
+                    b.HasOne("LevelUP.Domain.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Achievement");
 
-                    b.Navigation("Cust");
+                    b.Navigation("Customer");
                 });
 
             modelBuilder.Entity("LevelUP.Domain.UserQuest", b =>
                 {
-                    b.HasOne("LevelUP.Domain.Customer", "Cust")
+                    b.HasOne("LevelUP.Domain.Customer", "Customer")
                         .WithMany()
-                        .HasForeignKey("CustId")
+                        .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -884,7 +1059,7 @@ namespace LevelUP.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Cust");
+                    b.Navigation("Customer");
 
                     b.Navigation("Quest");
                 });

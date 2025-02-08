@@ -64,12 +64,12 @@
     private Achievement? achievement;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int AchievementId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        achievement = await context.Achievement.FirstOrDefaultAsync(m => m.Id == Id);
+        achievement = await context.Achievement.FirstOrDefaultAsync(m => m.AchievementId == AchievementId);
 
         if (achievement is null)
         {

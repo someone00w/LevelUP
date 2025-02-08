@@ -1,0 +1,65 @@
+﻿/* styles.css */
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    text-align: center;
+}
+
+.hero {
+    margin-bottom: 4rem;
+}
+
+    .hero h2 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    .hero p {
+        font-size: 1.3rem;
+        line-height: 1.8;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+
+.cta {
+    margin-top: 6rem;
+}
+
+    .cta h2 {
+        font-size: 2.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+    }
+
+    .cta p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+.btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    width: 200px; /* Set the width of the button */
+}
+
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #4c0266;
+        color: #fff;
+    }

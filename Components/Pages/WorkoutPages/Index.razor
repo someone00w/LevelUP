@@ -17,16 +17,15 @@
 <QuickGrid Class="table" Items="context.Workout">
     <PropertyColumn Property="workout => workout.WorkoutName" />
     <PropertyColumn Property="workout => workout.WorkoutDescription" />
-    <PropertyColumn Property="workout => workout.Category" />
     <PropertyColumn Property="workout => workout.DateCreated" />
     <PropertyColumn Property="workout => workout.DateUpdated" />
     <PropertyColumn Property="workout => workout.CreatedBy" />
     <PropertyColumn Property="workout => workout.UpdatedBy" />
 
     <TemplateColumn Context="workout">
-        <a href="@($"workouts/edit?id={workout.Id}")">Edit</a> |
-        <a href="@($"workouts/details?id={workout.Id}")">Details</a> |
-        <a href="@($"workouts/delete?id={workout.Id}")">Delete</a>
+        <a href="@($"workouts/edit?workoutid={workout.WorkoutId}")">Edit</a> |
+        <a href="@($"workouts/details?workoutid={workout.WorkoutId}")">Details</a> |
+        <a href="@($"workouts/delete?workoutid={workout.WorkoutId}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
 

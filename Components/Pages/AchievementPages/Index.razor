@@ -26,9 +26,9 @@
     <PropertyColumn Property="achievement => achievement.UpdatedBy" />
 
     <TemplateColumn Context="achievement">
-        <a href="@($"achievements/edit?id={achievement.Id}")">Edit</a> |
-        <a href="@($"achievements/details?id={achievement.Id}")">Details</a> |
-        <a href="@($"achievements/delete?id={achievement.Id}")">Delete</a>
+        <a href="@($"achievements/edit?achievementid={achievement.AchievementId}")">Edit</a> |
+        <a href="@($"achievements/details?achievementid={achievement.AchievementId}")">Details</a> |
+        <a href="@($"achievements/delete?achievementid={achievement.AchievementId}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
 

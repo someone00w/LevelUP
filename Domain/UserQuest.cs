@@ -2,8 +2,9 @@
 {
     public class UserQuest : BaseDomainModel
     {
-        public int CustId { get; set; }
-        public Customer? Cust { get; set; }
+        public int UserQuestId { get; set; }
+        public int CustomerId { get; set; }
+        public Customer? Customer { get; set; }
         public int QuestId { get; set; }
         public Quest? Quest { get; set; }
     }

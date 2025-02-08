@@ -21,7 +21,7 @@ else
             <EditForm method="post" Model="Workout" OnValidSubmit="UpdateWorkout" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Workout.Id" value="@Workout.Id" />
+                <input type="hidden" name="Workout.WorkoutId" value="@Workout.WorkoutId" />
                 <div class="mb-3">
                     <label for="workoutname" class="form-label">WorkoutName:</label>
                     <InputText id="workoutname" @bind-Value="Workout.WorkoutName" class="form-control" />
@@ -31,11 +31,6 @@ else
                     <label for="workoutdescription" class="form-label">WorkoutDescription:</label>
                     <InputText id="workoutdescription" @bind-Value="Workout.WorkoutDescription" class="form-control" />
                     <ValidationMessage For="() => Workout.WorkoutDescription" class="text-danger" />
-                </div>
-                <div class="mb-3">
-                    <label for="category" class="form-label">Category:</label>
-                    <InputText id="category" @bind-Value="Workout.Category" class="form-control" />
-                    <ValidationMessage For="() => Workout.Category" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="datecreated" class="form-label">DateCreated:</label>
@@ -69,7 +64,7 @@ else
 
 @code {
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int WorkoutId { get; set; }
 
     [SupplyParameterFromForm]
     private Workout? Workout { get; set; }
@@ -77,7 +72,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Workout ??= await context.Workout.FirstOrDefaultAsync(m => m.Id == Id);
+        Workout ??= await context.Workout.FirstOrDefaultAsync(m => m.WorkoutId == WorkoutId);
 
         if (Workout is null)
         {
@@ -98,7 +93,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!WorkoutExists(Workout!.Id))
+            if (!WorkoutExists(Workout!.WorkoutId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -111,9 +106,9 @@ else
         NavigationManager.NavigateTo("/workouts");
     }
 
-    private bool WorkoutExists(int id)
+    private bool WorkoutExists(int workoutid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Workout.Any(e => e.Id == id);
+        return context.Workout.Any(e => e.WorkoutId == workoutid);
     }
 }

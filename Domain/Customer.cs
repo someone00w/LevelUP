@@ -2,12 +2,15 @@
 
 namespace LevelUP.Domain
 {
+    // Customer Class
     public class Customer : BaseDomainModel
     {
+        public int CustomerId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
         public int XPAmount { get; set; }
-        public string? Rank { get; set; }
+        // Rank Property
+        public string Rank { get; set; } = "D Rank";
 
         //Foreign key to LevelUPUser
         public string? UserId { get; set; }

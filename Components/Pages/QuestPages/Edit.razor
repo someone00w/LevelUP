@@ -21,7 +21,7 @@ else
             <EditForm method="post" Model="Quest" OnValidSubmit="UpdateQuest" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Quest.Id" value="@Quest.Id" />
+                <input type="hidden" name="Quest.QuestId" value="@Quest.QuestId" />
                 <div class="mb-3">
                     <label for="questname" class="form-label">QuestName:</label>
                     <InputText id="questname" @bind-Value="Quest.QuestName" class="form-control" />
@@ -48,9 +48,9 @@ else
                     <ValidationMessage For="() => Quest.XPReward" class="text-danger" />
                 </div>
                 <div class="mb-3">
-                    <label for="workoutid" class="form-label">WorkoutId:</label>
-                    <InputNumber id="workoutid" @bind-Value="Quest.WorkoutId" class="form-control" />
-                    <ValidationMessage For="() => Quest.WorkoutId" class="text-danger" />
+                    <label for="status" class="form-label">Status:</label>
+                    <InputText id="status" @bind-Value="Quest.Status" class="form-control" />
+                    <ValidationMessage For="() => Quest.Status" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="datecreated" class="form-label">DateCreated:</label>
@@ -84,7 +84,7 @@ else
 
 @code {
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int QuestId { get; set; }
 
     [SupplyParameterFromForm]
     private Quest? Quest { get; set; }
@@ -92,7 +92,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Quest ??= await context.Quest.FirstOrDefaultAsync(m => m.Id == Id);
+        Quest ??= await context.Quest.FirstOrDefaultAsync(m => m.QuestId == QuestId);
 
         if (Quest is null)
         {
@@ -113,7 +113,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!QuestExists(Quest!.Id))
+            if (!QuestExists(Quest!.QuestId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -126,9 +126,9 @@ else
         NavigationManager.NavigateTo("/quests");
     }
 
-    private bool QuestExists(int id)
+    private bool QuestExists(int questid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Quest.Any(e => e.Id == id);
+        return context.Quest.Any(e => e.QuestId == questid);
     }
 }

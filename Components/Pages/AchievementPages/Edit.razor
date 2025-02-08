@@ -21,7 +21,7 @@ else
             <EditForm method="post" Model="Achievement" OnValidSubmit="UpdateAchievement" FormName="edit" Enhance>
                 <DataAnnotationsValidator />
                 <ValidationSummary role="alert"/>
-                <input type="hidden" name="Achievement.Id" value="@Achievement.Id" />
+                <input type="hidden" name="Achievement.AchievementId" value="@Achievement.AchievementId" />
                 <div class="mb-3">
                     <label for="achievementname" class="form-label">AchievementName:</label>
                     <InputText id="achievementname" @bind-Value="Achievement.AchievementName" class="form-control" />
@@ -79,7 +79,7 @@ else
 
 @code {
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int AchievementId { get; set; }
 
     [SupplyParameterFromForm]
     private Achievement? Achievement { get; set; }
@@ -87,7 +87,7 @@ else
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        Achievement ??= await context.Achievement.FirstOrDefaultAsync(m => m.Id == Id);
+        Achievement ??= await context.Achievement.FirstOrDefaultAsync(m => m.AchievementId == AchievementId);
 
         if (Achievement is null)
         {
@@ -108,7 +108,7 @@ else
         }
         catch (DbUpdateConcurrencyException)
         {
-            if (!AchievementExists(Achievement!.Id))
+            if (!AchievementExists(Achievement!.AchievementId))
             {
                 NavigationManager.NavigateTo("notfound");
             }
@@ -121,9 +121,9 @@ else
         NavigationManager.NavigateTo("/achievements");
     }
 
-    private bool AchievementExists(int id)
+    private bool AchievementExists(int achievementid)
     {
         using var context = DbFactory.CreateDbContext();
-        return context.Achievement.Any(e => e.Id == id);
+        return context.Achievement.Any(e => e.AchievementId == achievementid);
     }
 }

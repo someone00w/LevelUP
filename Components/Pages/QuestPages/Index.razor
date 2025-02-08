@@ -20,16 +20,16 @@
     <PropertyColumn Property="quest => quest.Category" />
     <PropertyColumn Property="quest => quest.RankRequired" />
     <PropertyColumn Property="quest => quest.XPReward" />
-    <PropertyColumn Property="quest => quest.WorkoutId" />
+    <PropertyColumn Property="quest => quest.Status" />
     <PropertyColumn Property="quest => quest.DateCreated" />
     <PropertyColumn Property="quest => quest.DateUpdated" />
     <PropertyColumn Property="quest => quest.CreatedBy" />
     <PropertyColumn Property="quest => quest.UpdatedBy" />
 
     <TemplateColumn Context="quest">
-        <a href="@($"quests/edit?id={quest.Id}")">Edit</a> |
-        <a href="@($"quests/details?id={quest.Id}")">Details</a> |
-        <a href="@($"quests/delete?id={quest.Id}")">Delete</a>
+        <a href="@($"quests/edit?questid={quest.QuestId}")">Edit</a> |
+        <a href="@($"quests/details?questid={quest.QuestId}")">Details</a> |
+        <a href="@($"quests/delete?questid={quest.QuestId}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
 

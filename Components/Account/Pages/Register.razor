@@ -6,6 +6,8 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.WebUtilities
 @using LevelUP.Data
+@using LevelUP.Domain
+@using System.Security.Claims
 
 @inject UserManager<LevelUPUser> UserManager
 @inject IUserStore<LevelUPUser> UserStore
@@ -14,45 +16,151 @@
 @inject ILogger<Register> Logger
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
+@inject RoleManager<IdentityRole> RoleManager
+@inject LevelUPContext DbContext
+@inject ILogger<Index> Logger
 
 <PageTitle>Register</PageTitle>
 
-<h1>Register</h1>
+<div class="login-container">
+    <div class="login-card">
+        <h1 class="login-title">Register</h1>
+        <p class="login-subtitle">Start your journey with us</p>
 
-<div class="row">
-    <div class="col-md-4">
-        <StatusMessage Message="@Message" />
-        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register">
+        <EditForm Model="Input" asp-route-returnUrl="@ReturnUrl" method="post" OnValidSubmit="RegisterUser" FormName="register" class="login-form">
             <DataAnnotationsValidator />
-            <h2>Create a new account.</h2>
-            <hr />
             <ValidationSummary class="text-danger" role="alert" />
-            <div class="form-floating mb-3">
-                <InputText @bind-Value="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="name@example.com" />
-                <label for="email">Email</label>
+
+            <div class="form-group">
+                <InputText @bind-Value="Input.Email" class="form-control login-input" autocomplete="email" aria-required="true" placeholder="email" />
                 <ValidationMessage For="() => Input.Email" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="password">Password</label>
+            <div class="form-group">
+                <InputText @bind-Value="Input.Name" class="form-control login-input" autocomplete="name" aria-required="true" placeholder="username" />
+                <ValidationMessage For="() => Input.Name" class="text-danger" />
+            </div>
+            <div class="form-group">
+                <InputText type="password" @bind-Value="Input.Password" class="form-control login-input" autocomplete="new-password" aria-required="true" placeholder="password" />
                 <ValidationMessage For="() => Input.Password" class="text-danger" />
             </div>
-            <div class="form-floating mb-3">
-                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                <label for="confirm-password">Confirm Password</label>
+
+            <div class="form-group">
+                <InputText type="password" @bind-Value="Input.ConfirmPassword" class="form-control login-input" autocomplete="new-password" aria-required="true" placeholder="confirm password" />
                 <ValidationMessage For="() => Input.ConfirmPassword" class="text-danger" />
             </div>
-            <button type="submit" class="w-100 btn btn-lg btn-primary">Register</button>
+            <button type="submit" class="btn login-btn">Register</button>
         </EditForm>
-    </div>
-    <div class="col-md-6 col-md-offset-2">
-        <section>
-            <h3>Use another service to register.</h3>
-            <hr />
-            <ExternalLoginPicker />
-        </section>
+        <div class="additional-links">
+            <p>
+                <a href="Account/Login">Already a member?</a>
+            </p>
+            <p>
+                <a href="/">Return</a>
+            </p>
+        </div>
     </div>
 </div>
+
+<style>
+    body {
+    background-color: #1f014a;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    }
+
+    .login-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    }
+
+    .login-card {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 40px;
+    padding-bottom: 20px;
+    border-radius: 12px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    color: white;
+    box-sizing: border-box;
+    }
+
+    .login-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    }
+
+    .login-subtitle {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+    }
+
+    .login-form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    }
+
+    .login-input {
+    border: none;
+    border-radius: 6px;
+    padding: 10px;
+    font-size: 1rem;
+    }
+
+    .login-input::placeholder {
+    color: #b3b3b3;
+    }
+
+    .login-btn {
+    background-color: #000;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+
+    .login-btn:hover {
+    background-color: #4c0266;
+    color: #fff;
+    }
+
+    .additional-links p {
+    margin-top: 20px;
+    font-size: 0.9rem;
+    }
+
+    .additional-links a {
+    color: #fff;
+    text-decoration: none;
+    }
+
+    .additional-links a:hover {
+    text-decoration: underline;
+    }
+
+    .form-label {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    }
+
+    .form-check-input {
+    margin-right: 10px;
+    }
+</style>
+
 
 @code {
     private IEnumerable<IdentityError>? identityErrors;
@@ -65,20 +173,46 @@
 
     private string? Message => identityErrors is null ? null : $"Error: {string.Join(", ", identityErrors.Select(error => error.Description))}";
 
-    public async Task RegisterUser(EditContext editContext)
-    {
+    private readonly LevelUPContext _dbContext; // Declare the instance variable
+
+    private string? ErrorMessage { get; set; }
+
+    public async Task RegisterUser(EditContext editContext){
+
+        // Validate username length
+        if (Input.Name.Length < 3){
+            identityErrors = new[] { new IdentityError { Description = "Username must have a minimum length of 3 characters." } };
+            return;
+        }
+
+        // Check for duplicate email
+        var existingUser = await UserManager.FindByEmailAsync(Input.Email);
+        if (existingUser != null){
+            identityErrors = new[] { new IdentityError { Description = "A user with this email address already exists." } };
+            return;
+        }
+
         var user = CreateUser();
 
         await UserStore.SetUserNameAsync(user, Input.Email, CancellationToken.None);
         var emailStore = GetEmailStore();
         await emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
+        user.Name = Input.Name;
         var result = await UserManager.CreateAsync(user, Input.Password);
 
-        if (!result.Succeeded)
-        {
+        if (!result.Succeeded){
             identityErrors = result.Errors;
             return;
         }
+
+        //create the user role if it doesn't exist
+        if (!await RoleManager.RoleExistsAsync("User")){
+            await RoleManager.CreateAsync(new IdentityRole("User"));
+        }
+        //add the user to the user role
+        await UserManager.AddToRoleAsync(user, "User");
+        //add the user id as claim when user registers
+        await UserManager.AddClaimAsync(user, new System.Security.Claims.Claim("userId",user.Id));
 
         Logger.LogInformation("User created a new account with password.");
 
@@ -91,11 +225,10 @@
 
         await EmailSender.SendConfirmationLinkAsync(user, Input.Email, HtmlEncoder.Default.Encode(callbackUrl));
 
-        if (UserManager.Options.SignIn.RequireConfirmedAccount)
-        {
+        if (UserManager.Options.SignIn.RequireConfirmedAccount){
             RedirectManager.RedirectTo(
-                "Account/RegisterConfirmation",
-                new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
+            "Account/RegisterConfirmation",
+            new() { ["email"] = Input.Email, ["returnUrl"] = ReturnUrl });
         }
 
         await SignInManager.SignInAsync(user, isPersistent: false);
@@ -105,24 +238,24 @@
     private LevelUPUser CreateUser()
     {
         try
-        {
+            {
             return Activator.CreateInstance<LevelUPUser>();
-        }
-        catch
-        {
+            }
+            catch
+            {
             throw new InvalidOperationException($"Can't create an instance of '{nameof(LevelUPUser)}'. " +
-                $"Ensure that '{nameof(LevelUPUser)}' is not an abstract class and has a parameterless constructor.");
+                    $"Ensure that '{nameof(LevelUPUser)}' is not an abstract class and has a parameterless constructor.");
+            }
         }
-    }
 
-    private IUserEmailStore<LevelUPUser> GetEmailStore()
-    {
-        if (!UserManager.SupportsUserEmail)
+        private IUserEmailStore<LevelUPUser> GetEmailStore()
         {
-            throw new NotSupportedException("The default UI requires a user store with email support.");
-        }
+            if (!UserManager.SupportsUserEmail)
+            {
+                throw new NotSupportedException("The default UI requires a user store with email support.");
+            }
         return (IUserEmailStore<LevelUPUser>)UserStore;
-    }
+        }
 
     private sealed class InputModel
     {
@@ -130,6 +263,10 @@
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; } = "";
+
+        [Required]
+        [Display(Name = "Username")]
+        public string Name { get; set; } = "";
 
         [Required]
         [StringLength(100, ErrorMessage = "The {0} must be at least {2} and at max {1} characters long.", MinimumLength = 6)]

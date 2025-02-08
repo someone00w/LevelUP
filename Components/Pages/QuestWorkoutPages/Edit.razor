@@ -1,0 +1,119 @@
+﻿@page "/questworkouts/edit"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Edit</PageTitle>
+
+<h1>Edit</h1>
+
+<h2>QuestWorkout</h2>
+<hr />
+@if (QuestWorkout is null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <div class="row">
+        <div class="col-md-4">
+            <EditForm method="post" Model="QuestWorkout" OnValidSubmit="UpdateQuestWorkout" FormName="edit" Enhance>
+                <DataAnnotationsValidator />
+                <ValidationSummary role="alert"/>
+                <input type="hidden" name="QuestWorkout.QuestWorkoutId" value="@QuestWorkout.QuestWorkoutId" />
+                <div class="mb-3">
+                    <label for="status" class="form-label">Status:</label>
+                    <InputText id="status" @bind-Value="QuestWorkout.Status" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.Status" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="questid" class="form-label">QuestId:</label>
+                    <InputNumber id="questid" @bind-Value="QuestWorkout.QuestId" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.QuestId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="workoutid" class="form-label">WorkoutId:</label>
+                    <InputNumber id="workoutid" @bind-Value="QuestWorkout.WorkoutId" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.WorkoutId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="datecreated" class="form-label">DateCreated:</label>
+                    <InputDate id="datecreated" @bind-Value="QuestWorkout.DateCreated" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.DateCreated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="dateupdated" class="form-label">DateUpdated:</label>
+                    <InputDate id="dateupdated" @bind-Value="QuestWorkout.DateUpdated" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.DateUpdated" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="createdby" class="form-label">CreatedBy:</label>
+                    <InputText id="createdby" @bind-Value="QuestWorkout.CreatedBy" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.CreatedBy" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="updatedby" class="form-label">UpdatedBy:</label>
+                    <InputText id="updatedby" @bind-Value="QuestWorkout.UpdatedBy" class="form-control" />
+                    <ValidationMessage For="() => QuestWorkout.UpdatedBy" class="text-danger" />
+                </div>
+                <button type="submit" class="btn btn-primary">Save</button>
+            </EditForm>
+        </div>
+    </div>
+}
+
+<div>
+    <a href="/questworkouts">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromQuery]
+    private int QuestWorkoutId { get; set; }
+
+    [SupplyParameterFromForm]
+    private QuestWorkout? QuestWorkout { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        QuestWorkout ??= await context.QuestWorkout.FirstOrDefaultAsync(m => m.QuestWorkoutId == QuestWorkoutId);
+
+        if (QuestWorkout is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+        }
+    }
+
+    // To protect from overposting attacks, enable the specific properties you want to bind to.
+    // For more information, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task UpdateQuestWorkout()
+    {
+        using var context = DbFactory.CreateDbContext();
+        context.Attach(QuestWorkout!).State = EntityState.Modified;
+
+        try
+        {
+            await context.SaveChangesAsync();
+        }
+        catch (DbUpdateConcurrencyException)
+        {
+            if (!QuestWorkoutExists(QuestWorkout!.QuestWorkoutId))
+            {
+                NavigationManager.NavigateTo("notfound");
+            }
+            else
+            {
+                throw;
+            }
+        }
+
+        NavigationManager.NavigateTo("/questworkouts");
+    }
+
+    private bool QuestWorkoutExists(int questworkoutid)
+    {
+        using var context = DbFactory.CreateDbContext();
+        return context.QuestWorkout.Any(e => e.QuestWorkoutId == questworkoutid);
+    }
+}

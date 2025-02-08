@@ -16,7 +16,7 @@
 
 <QuickGrid Class="table" Items="context.UserAchievement">
     <PropertyColumn Property="userachievement => userachievement.DateUnlocked" />
-    <PropertyColumn Property="userachievement => userachievement.CustId" />
+    <PropertyColumn Property="userachievement => userachievement.CustomerId" />
     <PropertyColumn Property="userachievement => userachievement.AchievementId" />
     <PropertyColumn Property="userachievement => userachievement.DateCreated" />
     <PropertyColumn Property="userachievement => userachievement.DateUpdated" />
@@ -24,9 +24,9 @@
     <PropertyColumn Property="userachievement => userachievement.UpdatedBy" />
 
     <TemplateColumn Context="userachievement">
-        <a href="@($"userachievements/edit?id={userachievement.Id}")">Edit</a> |
-        <a href="@($"userachievements/details?id={userachievement.Id}")">Details</a> |
-        <a href="@($"userachievements/delete?id={userachievement.Id}")">Delete</a>
+        <a href="@($"userachievements/edit?userachievementid={userachievement.UserAchievementId}")">Edit</a> |
+        <a href="@($"userachievements/details?userachievementid={userachievement.UserAchievementId}")">Details</a> |
+        <a href="@($"userachievements/delete?userachievementid={userachievement.UserAchievementId}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
 

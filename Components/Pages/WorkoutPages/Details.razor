@@ -21,8 +21,6 @@
             <dd class="col-sm-10">@workout.WorkoutName</dd>
             <dt class="col-sm-2">WorkoutDescription</dt>
             <dd class="col-sm-10">@workout.WorkoutDescription</dd>
-            <dt class="col-sm-2">Category</dt>
-            <dd class="col-sm-10">@workout.Category</dd>
             <dt class="col-sm-2">DateCreated</dt>
             <dd class="col-sm-10">@workout.DateCreated</dd>
             <dt class="col-sm-2">DateUpdated</dt>
@@ -33,7 +31,7 @@
             <dd class="col-sm-10">@workout.UpdatedBy</dd>
         </dl>
         <div>
-            <a href="@($"/workouts/edit?id={workout.Id}")">Edit</a> |
+            <a href="@($"/workouts/edit?workoutid={workout.WorkoutId}")">Edit</a> |
             <a href="@($"/workouts")">Back to List</a>
         </div>
     }
@@ -43,12 +41,12 @@
     private Workout? workout;
 
     [SupplyParameterFromQuery]
-    private int Id { get; set; }
+    private int WorkoutId { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        workout = await context.Workout.FirstOrDefaultAsync(m => m.Id == Id);
+        workout = await context.Workout.FirstOrDefaultAsync(m => m.WorkoutId == WorkoutId);
 
         if (workout is null)
         {

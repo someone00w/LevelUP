@@ -17,7 +17,7 @@ namespace LevelUP.Migrations
                 name: "Achievement",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    AchievementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     AchievementName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AchievementDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -31,7 +31,7 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Achievement", x => x.Id);
+                    table.PrimaryKey("PK_Achievement", x => x.AchievementId);
                 });
 
             migrationBuilder.CreateTable(
@@ -75,14 +75,17 @@ namespace LevelUP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Workout",
+                name: "Quest",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    QuestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    WorkoutName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    WorkoutDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    QuestName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    RankRequired = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    XPReward = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -90,7 +93,25 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Workout", x => x.Id);
+                    table.PrimaryKey("PK_Quest", x => x.QuestId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Workout",
+                columns: table => new
+                {
+                    WorkoutId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WorkoutName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    WorkoutDescription = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Workout", x => x.WorkoutId);
                 });
 
             migrationBuilder.CreateTable(
@@ -203,12 +224,12 @@ namespace LevelUP.Migrations
                 name: "Customer",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    CustomerId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     XPAmount = table.Column<int>(type: "int", nullable: false),
-                    Rank = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Rank = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -217,7 +238,7 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customer", x => x.Id);
+                    table.PrimaryKey("PK_Customer", x => x.CustomerId);
                     table.ForeignKey(
                         name: "FK_Customer_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -229,7 +250,7 @@ namespace LevelUP.Migrations
                 name: "Staff",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    StaffId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -241,7 +262,7 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Staff", x => x.Id);
+                    table.PrimaryKey("PK_Staff", x => x.StaffId);
                     table.ForeignKey(
                         name: "FK_Staff_AspNetUsers_UserId",
                         column: x => x.UserId,
@@ -250,16 +271,13 @@ namespace LevelUP.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Quest",
+                name: "QuestWorkout",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    QuestWorkoutId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    QuestName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Category = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    RankRequired = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    XPReward = table.Column<int>(type: "int", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    QuestId = table.Column<int>(type: "int", nullable: false),
                     WorkoutId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -268,12 +286,18 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Quest", x => x.Id);
+                    table.PrimaryKey("PK_QuestWorkout", x => x.QuestWorkoutId);
                     table.ForeignKey(
-                        name: "FK_Quest_Workout_WorkoutId",
+                        name: "FK_QuestWorkout_Quest_QuestId",
+                        column: x => x.QuestId,
+                        principalTable: "Quest",
+                        principalColumn: "QuestId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_QuestWorkout_Workout_WorkoutId",
                         column: x => x.WorkoutId,
                         principalTable: "Workout",
-                        principalColumn: "Id",
+                        principalColumn: "WorkoutId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -281,10 +305,10 @@ namespace LevelUP.Migrations
                 name: "UserAchievement",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserAchievementId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DateUnlocked = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    CustId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     AchievementId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -293,18 +317,18 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserAchievement", x => x.Id);
+                    table.PrimaryKey("PK_UserAchievement", x => x.UserAchievementId);
                     table.ForeignKey(
                         name: "FK_UserAchievement_Achievement_AchievementId",
                         column: x => x.AchievementId,
                         principalTable: "Achievement",
-                        principalColumn: "Id",
+                        principalColumn: "AchievementId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_UserAchievement_Customer_CustId",
-                        column: x => x.CustId,
+                        name: "FK_UserAchievement_Customer_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customer",
-                        principalColumn: "Id",
+                        principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -312,9 +336,9 @@ namespace LevelUP.Migrations
                 name: "UserQuest",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
+                    UserQuestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    CustId = table.Column<int>(type: "int", nullable: false),
+                    CustomerId = table.Column<int>(type: "int", nullable: false),
                     QuestId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -323,70 +347,36 @@ namespace LevelUP.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_UserQuest", x => x.Id);
+                    table.PrimaryKey("PK_UserQuest", x => x.UserQuestId);
                     table.ForeignKey(
-                        name: "FK_UserQuest_Customer_CustId",
-                        column: x => x.CustId,
+                        name: "FK_UserQuest_Customer_CustomerId",
+                        column: x => x.CustomerId,
                         principalTable: "Customer",
-                        principalColumn: "Id",
+                        principalColumn: "CustomerId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_UserQuest_Quest_QuestId",
                         column: x => x.QuestId,
                         principalTable: "Quest",
-                        principalColumn: "Id",
+                        principalColumn: "QuestId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.InsertData(
                 table: "Achievement",
-                columns: new[] { "Id", "AchievementDescription", "AchievementName", "CreatedBy", "DateCreated", "DateUpdated", "QuestsRequired", "RankRequired", "UpdatedBy", "XPRequired" },
+                columns: new[] { "AchievementId", "AchievementDescription", "AchievementName", "CreatedBy", "DateCreated", "DateUpdated", "QuestsRequired", "RankRequired", "UpdatedBy", "XPRequired" },
                 values: new object[,]
                 {
-                    { 1, "You've started your journey as an E-Rank hunter.", "E-Rank Hunter", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 0, 1, null, 0 },
-                    { 2, "Complete your first quest.", "First Blood", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, null, 50 },
-                    { 3, "Reach D-Rank by earning enough XP.", "D-Rank Awakening", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, 2, null, 500 },
-                    { 4, "Complete 10 quests and prove your worth.", "Elite Fighter", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 10, 3, null, 1200 },
-                    { 5, "Ascend to C-Rank with enough experience.", "C-Rank Promotion", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 20, 4, null, 2500 },
-                    { 6, "Demonstrate your growing power by finishing 30 quests.", "Shadow Monarch's Apprentice", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 30, 5, null, 4000 },
-                    { 7, "Enter the ranks of B-Rank hunters.", "B-Rank Challenger", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 40, 6, null, 6000 },
-                    { 8, "Become an elite hunter by reaching A-Rank.", "A-Rank Conqueror", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 50, 7, null, 10000 },
-                    { 9, "Achieve S-Rank status, the pinnacle of hunters.", "S-Rank Dominator", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 75, 8, null, 20000 },
-                    { 10, "Surpass all limits and claim the title of the Shadow Monarch.", "Shadow Monarch", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 100, 9, null, 50000 }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Workout",
-                columns: new[] { "Id", "Category", "CreatedBy", "DateCreated", "DateUpdated", "UpdatedBy", "WorkoutDescription", "WorkoutName" },
-                values: new object[,]
-                {
-                    { 1, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A basic upper body exercise that strengthens the chest, shoulders, and triceps.", "Push-Ups" },
-                    { 2, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A lower body exercise that targets the quadriceps, hamstrings, and glutes.", "Squats" },
-                    { 3, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "An upper body exercise that builds back and bicep strength.", "Pull-Ups" },
-                    { 4, "Core", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A core exercise that strengthens the abdominal muscles and improves endurance.", "Plank" },
-                    { 5, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A lower body exercise that improves balance and strengthens the legs.", "Lunges" },
-                    { 6, "Cardio", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A cardiovascular exercise that enhances coordination and endurance.", "Jump Rope" },
-                    { 7, "Full Body", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A full-body exercise that combines strength and cardio training.", "Burpees" },
-                    { 8, "Cardio", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A cardio and core workout that improves agility and endurance.", "Mountain Climbers" },
-                    { 9, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A strength exercise that targets the lower back, glutes, and hamstrings.", "Deadlifts" },
-                    { 10, "Core", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), null, "A core workout that strengthens the abdominal muscles and obliques.", "Bicycle Crunches" }
-                });
-
-            migrationBuilder.InsertData(
-                table: "Quest",
-                columns: new[] { "Id", "Category", "CreatedBy", "DateCreated", "DateUpdated", "Description", "QuestName", "RankRequired", "UpdatedBy", "WorkoutId", "XPReward" },
-                values: new object[,]
-                {
-                    { 1, "Training", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Basic training for new hunters to improve endurance and strength.", "E-Rank Warm-up", "E", null, 1, 100 },
-                    { 2, "Endurance", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Increase agility and stamina to survive in low-level dungeons.", "Survival Instincts", "E", null, 6, 200 },
-                    { 3, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Enhance strength with rigorous training.", "D-Rank Power Boost", "D", null, 2, 500 },
-                    { 4, "Agility", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Improve speed and reaction time for quick escapes.", "Dungeon Sprint", "D", null, 8, 700 },
-                    { 5, "Full Body", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A challenging workout to prepare for higher-ranked missions.", "C-Rank Warrior's Test", "C", null, 7, 1200 },
-                    { 6, "Core", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Master balance and endurance for prolonged battles.", "B-Rank Hunter's Discipline", "B", null, 4, 2000 },
-                    { 7, "Strength", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Advanced training to develop elite hunter power.", "A-Rank Titan's Strength", "A", null, 9, 4000 },
-                    { 8, "Endurance", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Surpass your limits with extreme training.", "Shadow Monarch's Challenge", "S", null, 5, 7000 },
-                    { 9, "Full Body", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "A test of skill, power, and endurance for elite hunters.", "S-Rank Battle Mastery", "S", null, 3, 10000 },
-                    { 10, "Ultimate", null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Only the strongest can complete this ultimate test.", "God of War's Training", "SS", null, 10, 20000 }
+                    { 1, "You've started your journey as an E-Rank hunter.", "E-Rank Hunter", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5477), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5478), 0, 1, "System", 0 },
+                    { 2, "Complete your first quest.", "First Blood", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5480), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5481), 1, 1, "System", 50 },
+                    { 3, "Reach D-Rank by earning enough XP.", "D-Rank Awakening", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5483), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5483), 5, 2, "System", 500 },
+                    { 4, "Complete 10 quests and prove your worth.", "Elite Fighter", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5485), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5485), 10, 3, "System", 1200 },
+                    { 5, "Ascend to C-Rank with enough experience.", "C-Rank Promotion", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5487), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5488), 20, 4, "System", 2500 },
+                    { 6, "Demonstrate your growing power by finishing 30 quests.", "Shadow Monarch's Apprentice", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5490), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5490), 30, 5, "System", 4000 },
+                    { 7, "Enter the ranks of B-Rank hunters.", "B-Rank Challenger", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5492), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5492), 40, 6, "System", 6000 },
+                    { 8, "Become an elite hunter by reaching A-Rank.", "A-Rank Conqueror", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5494), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5495), 50, 7, "System", 10000 },
+                    { 9, "Achieve S-Rank status, the pinnacle of hunters.", "S-Rank Dominator", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5496), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5497), 75, 8, "System", 20000 },
+                    { 10, "Surpass all limits and claim the title of the Shadow Monarch.", "Shadow Monarch", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5499), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5499), 100, 9, "System", 50000 }
                 });
 
             migrationBuilder.InsertData(
@@ -395,20 +385,66 @@ namespace LevelUP.Migrations
                 values: new object[,]
                 {
                     { "ad2bcf0c-20db-474f-8407-5a6b159518ba", null, "Administrator", "ADMINISTRATOR" },
-                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", null, "User", "USER" }
+                    { "bd2bcf0c-20db-474f-8407-5a6b159518bb", null, "User", "USER" },
+                    { "cd2bcf0c-20db-474f-8407-5a6b159518bc", null, "Customer", "CUSTOMER" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "Name", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,] {
-                    { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "89efc119-ff23-43f1-941f-4c6ff2c619a0", "admin@localhost.com", true, "adminUser", false, null, "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAELXAV/OFo5VrHBs8FgXAlYcynPLXvR03T9q3xdbiypkRYTRnGFjNU1R4YFCRHTdsVg==", null, false, "3c112a03-ecf3-4c79-be4d-e15385dff5f2", false, "admin@localhost.com" }
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[,]
+                {
+                    { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "f20985ff-27d2-4bd8-92ef-559e3d8e16ce", "admin@localhost.com", true, false, null, "adminUser", "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEHXcrMRd9XNtsUojL8D640wg7QzQTiZTJcMIBtUW4xgcaVV7L6mDeR1YPiE7yzw4JA==", null, false, "f5f33d72-6138-488d-8670-6f7dcc116218", false, "admin@localhost.com" },
+                    { "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2", 0, "debda8a6-a384-4ab4-b859-a09f86655f38", "cust@localhost.com", true, false, null, "custUser", "CUST@LOCALHOST.COM", "CUST@LOCALHOST.COM", "AQAAAAIAAYagAAAAEJS2+CivRl1mYi+cCnkzoJhSBSSN/D8pQCB1OQQ7teENaxwwgUqncK/sSeH/zrydzw==", null, false, "1105ae47-44e6-4a9f-9e89-83bb94abe55f", false, "cust@localhost.com" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Quest",
+                columns: new[] { "QuestId", "Category", "CreatedBy", "DateCreated", "DateUpdated", "Description", "QuestName", "RankRequired", "Status", "UpdatedBy", "XPReward" },
+                values: new object[,]
+                {
+                    { 1, "Training", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5385), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5385), "Basic training for new hunters to improve endurance and strength.", "E-Rank Warm-up", "D", "Incomplete", "System", 100 },
+                    { 2, "Endurance", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5387), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5388), "Increase agility and stamina to survive in low-level dungeons.", "Survival Instincts", "D", "Incomplete", "System", 200 },
+                    { 3, "Strength", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5390), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5390), "Enhance strength with rigorous training.", "D-Rank Power Boost", "D", "Incomplete", "System", 500 },
+                    { 4, "Agility", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5392), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5392), "Improve speed and reaction time for quick escapes.", "Dungeon Sprint", "D", "Incomplete", "System", 700 },
+                    { 5, "Full Body", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5394), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5394), "A challenging workout to prepare for higher-ranked missions.", "C-Rank Warrior's Test", "C", "Incomplete", "System", 1200 },
+                    { 6, "Core", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5396), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5396), "Master balance and endurance for prolonged battles.", "B-Rank Hunter's Discipline", "C", "Incomplete", "System", 2000 },
+                    { 7, "Strength", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5398), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5399), "Advanced training to develop elite hunter power.", "A-Rank Titan's Strength", "B", "Incomplete", "System", 4000 },
+                    { 8, "Endurance", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5400), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5401), "Surpass your limits with extreme training.", "Shadow Monarch's Challenge", "A", "Incomplete", "System", 7000 },
+                    { 9, "Full Body", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5403), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5403), "A test of skill, power, and endurance for elite hunters.", "S-Rank Battle Mastery", "S", "Incomplete", "System", 10000 },
+                    { 10, "Ultimate", "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5405), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5405), "Only the strongest can complete this ultimate test.", "God of War's Training", "S", "Incomplete", "System", 20000 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Workout",
+                columns: new[] { "WorkoutId", "CreatedBy", "DateCreated", "DateUpdated", "UpdatedBy", "WorkoutDescription", "WorkoutName" },
+                values: new object[,]
+                {
+                    { 1, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5134), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5144), "System", "A basic upper body exercise that strengthens the chest, shoulders, and triceps.", "Push-Ups" },
+                    { 2, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5146), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5146), "System", "A lower body exercise that targets the quadriceps, hamstrings, and glutes.", "Squats" },
+                    { 3, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5148), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5148), "System", "An upper body exercise that builds back and bicep strength.", "Pull-Ups" },
+                    { 4, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5150), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5150), "System", "A core exercise that strengthens the abdominal muscles and improves endurance.", "Plank" },
+                    { 5, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5152), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5152), "System", "A lower body exercise that improves balance and strengthens the legs.", "Lunges" },
+                    { 6, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5153), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5154), "System", "A cardiovascular exercise that enhances coordination and endurance.", "Jump Rope" },
+                    { 7, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5155), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5155), "System", "A full-body exercise that combines strength and cardio training.", "Burpees" },
+                    { 8, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5157), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5157), "System", "A cardio and core workout that improves agility and endurance.", "Mountain Climbers" },
+                    { 9, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5158), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5159), "System", "A strength exercise that targets the lower back, glutes, and hamstrings.", "Deadlifts" },
+                    { 10, "System", new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5160), new DateTime(2025, 2, 9, 3, 49, 19, 393, DateTimeKind.Local).AddTicks(5160), "System", "A core workout that strengthens the abdominal muscles and obliques.", "Bicycle Crunches" }
                 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
                 columns: new[] { "RoleId", "UserId" },
-                values: new object[] { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "3781efa7-66dc-47f0-860f-e506d04102e4" });
+                values: new object[,]
+                {
+                    { "ad2bcf0c-20db-474f-8407-5a6b159518ba", "3781efa7-66dc-47f0-860f-e506d04102e4" },
+                    { "cd2bcf0c-20db-474f-8407-5a6b159518bc", "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Staff",
+                columns: new[] { "StaffId", "CreatedBy", "DateCreated", "DateUpdated", "Email", "UpdatedBy", "UserId", "UserName" },
+                values: new object[] { 1, "System", new DateTime(2025, 2, 9, 3, 49, 19, 485, DateTimeKind.Local).AddTicks(4900), new DateTime(2025, 2, 9, 3, 49, 19, 485, DateTimeKind.Local).AddTicks(4917), "admin@localhost.com", "System", "3781efa7-66dc-47f0-860f-e506d04102e4", "adminUser" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -455,8 +491,13 @@ namespace LevelUP.Migrations
                 column: "UserId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Quest_WorkoutId",
-                table: "Quest",
+                name: "IX_QuestWorkout_QuestId",
+                table: "QuestWorkout",
+                column: "QuestId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QuestWorkout_WorkoutId",
+                table: "QuestWorkout",
                 column: "WorkoutId");
 
             migrationBuilder.CreateIndex(
@@ -470,14 +511,14 @@ namespace LevelUP.Migrations
                 column: "AchievementId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserAchievement_CustId",
+                name: "IX_UserAchievement_CustomerId",
                 table: "UserAchievement",
-                column: "CustId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserQuest_CustId",
+                name: "IX_UserQuest_CustomerId",
                 table: "UserQuest",
-                column: "CustId");
+                column: "CustomerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_UserQuest_QuestId",
@@ -504,6 +545,9 @@ namespace LevelUP.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "QuestWorkout");
+
+            migrationBuilder.DropTable(
                 name: "Staff");
 
             migrationBuilder.DropTable(
@@ -516,6 +560,9 @@ namespace LevelUP.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
+                name: "Workout");
+
+            migrationBuilder.DropTable(
                 name: "Achievement");
 
             migrationBuilder.DropTable(
@@ -526,9 +573,6 @@ namespace LevelUP.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
-
-            migrationBuilder.DropTable(
-                name: "Workout");
         }
     }
 }
