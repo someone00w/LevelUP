@@ -31,14 +31,14 @@
                 <ValidationMessage For="() => Quest.Category" class="text-danger" /> 
             </div>        
             <div class="mb-3">
-                <label for="rankrequired" class="form-label">RankRequired:</label> 
-                <InputText id="rankrequired" @bind-Value="Quest.RankRequired" class="form-control" /> 
-                <ValidationMessage For="() => Quest.RankRequired" class="text-danger" /> 
-            </div>        
-            <div class="mb-3">
                 <label for="xpreward" class="form-label">XPReward:</label> 
                 <InputNumber id="xpreward" @bind-Value="Quest.XPReward" class="form-control" /> 
                 <ValidationMessage For="() => Quest.XPReward" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="rankrequired" class="form-label">RankRequired:</label> 
+                <InputText id="rankrequired" @bind-Value="Quest.RankRequired" class="form-control" /> 
+                <ValidationMessage For="() => Quest.RankRequired" class="text-danger" /> 
             </div>        
             <div class="mb-3">
                 <label for="status" class="form-label">Status:</label> 

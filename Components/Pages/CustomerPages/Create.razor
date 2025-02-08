@@ -1,0 +1,109 @@
+﻿@page "/customers/create"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+@inject AuthenticationStateProvider authenticationStateProvider
+
+<PageTitle>Create</PageTitle>
+
+<h1>Create</h1>
+
+<h2>Customer</h2>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <EditForm method="post" Model="Customer" OnValidSubmit="AddCustomer" FormName="create" Enhance>
+            <DataAnnotationsValidator />
+            <ValidationSummary class="text-danger" role="alert"/>
+            <div class="mb-3">
+                <label for="username" class="form-label">UserName:</label> 
+                <InputText id="username" @bind-Value="Customer.UserName" class="form-control" /> 
+                <ValidationMessage For="() => Customer.UserName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="email" class="form-label">Email:</label> 
+                <InputText id="email" @bind-Value="Customer.Email" class="form-control" /> 
+                <ValidationMessage For="() => Customer.Email" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="xpamount" class="form-label">XPAmount:</label> 
+                <InputNumber id="xpamount" @bind-Value="Customer.XPAmount" class="form-control" /> 
+                <ValidationMessage For="() => Customer.XPAmount" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="rank" class="form-label">Rank:</label> 
+                <InputText id="rank" @bind-Value="Customer.Rank" class="form-control" /> 
+                <ValidationMessage For="() => Customer.Rank" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="userid" class="form-label">UserId:</label> 
+                <InputText id="userid" @bind-Value="Customer.UserId" class="form-control" /> 
+                <ValidationMessage For="() => Customer.UserId" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="datecreated" class="form-label">DateCreated:</label> 
+                <InputDate id="datecreated" @bind-Value="Customer.DateCreated" class="form-control" /> 
+                <ValidationMessage For="() => Customer.DateCreated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="dateupdated" class="form-label">DateUpdated:</label> 
+                <InputDate id="dateupdated" @bind-Value="Customer.DateUpdated" class="form-control" /> 
+                <ValidationMessage For="() => Customer.DateUpdated" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="createdby" class="form-label">CreatedBy:</label> 
+                <InputText id="createdby" @bind-Value="Customer.CreatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Customer.CreatedBy" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="updatedby" class="form-label">UpdatedBy:</label> 
+                <InputText id="updatedby" @bind-Value="Customer.UpdatedBy" class="form-control" /> 
+                <ValidationMessage For="() => Customer.UpdatedBy" class="text-danger" /> 
+            </div>        
+            <button type="submit" class="btn btn-primary">Create</button>
+        </EditForm>
+    </div>
+</div>
+
+<div>
+    <a href="/customers">Back to List</a>
+</div>
+
+@code {
+    [SupplyParameterFromForm]
+    private Customer Customer { get; set; } = new();
+
+    //Create userId string to store the user id, default value is "System".
+    private string userId = "System";
+
+    // To protect from overposting attacks, see https://learn.microsoft.com/aspnet/core/blazor/forms/#mitigate-overposting-attacks.
+    private async Task AddCustomer()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        //Set the userId to the CreatedBy and UpdatedBy fields.
+        Customer.CreatedBy = userId;
+        Customer.UpdatedBy = userId;
+        //Set the DateCreated and DateUpdated fields to the current date and time.
+        Customer.DateCreated = DateTime.Now;
+        Customer.DateUpdated = DateTime.Now;
+
+        context.Customer.Add(Customer);
+        await context.SaveChangesAsync();
+        NavigationManager.NavigateTo("/customers");
+    }
+
+    protected override async void OnInitialized()
+    {
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Get the userId claim
+        var userIdClaim = user.FindFirst("userId");
+        if (userIdClaim != null)
+        {
+            userId = userIdClaim.Value;
+        }
+    }
+
+}

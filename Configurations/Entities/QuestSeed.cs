@@ -12,14 +12,14 @@ namespace LevelUP.Configurations.Entities
                 new Quest
                 {
                     QuestId = 1,
-                    QuestName = "E-Rank Warm-up",
+                    QuestName = "D-Rank Warm-up",
                     Description = "Basic training for new hunters to improve endurance and strength.",
                     Category = "Training",
-                    RankRequired = "D",
+                    RankRequired = "D",  // Ensure database supports string values
                     XPReward = 100,
                     Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
@@ -32,8 +32,8 @@ namespace LevelUP.Configurations.Entities
                     RankRequired = "D",
                     XPReward = 200,
                     Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
@@ -46,8 +46,8 @@ namespace LevelUP.Configurations.Entities
                     RankRequired = "D",
                     XPReward = 500,
                     Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
@@ -60,8 +60,8 @@ namespace LevelUP.Configurations.Entities
                     RankRequired = "D",
                     XPReward = 700,
                     Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 },
@@ -74,78 +74,8 @@ namespace LevelUP.Configurations.Entities
                     RankRequired = "C",
                     XPReward = 1200,
                     Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    CreatedBy = "System",
-                    UpdatedBy = "System"
-                },
-                new Quest
-                {
-                    QuestId = 6,
-                    QuestName = "B-Rank Hunter's Discipline",
-                    Description = "Master balance and endurance for prolonged battles.",
-                    Category = "Core",
-                    RankRequired = "C",
-                    XPReward = 2000,
-                    Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    CreatedBy = "System",
-                    UpdatedBy = "System"
-                },
-                new Quest
-                {
-                    QuestId = 7,
-                    QuestName = "A-Rank Titan's Strength",
-                    Description = "Advanced training to develop elite hunter power.",
-                    Category = "Strength",
-                    RankRequired = "B",
-                    XPReward = 4000,
-                    Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    CreatedBy = "System",
-                    UpdatedBy = "System"
-                },
-                new Quest
-                {
-                    QuestId = 8,
-                    QuestName = "Shadow Monarch's Challenge",
-                    Description = "Surpass your limits with extreme training.",
-                    Category = "Endurance",
-                    RankRequired = "A",
-                    XPReward = 7000,
-                    Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    CreatedBy = "System",
-                    UpdatedBy = "System"
-                },
-                new Quest
-                {
-                    QuestId = 9,
-                    QuestName = "S-Rank Battle Mastery",
-                    Description = "A test of skill, power, and endurance for elite hunters.",
-                    Category = "Full Body",
-                    RankRequired = "S",
-                    XPReward = 10000,
-                    Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
-                    CreatedBy = "System",
-                    UpdatedBy = "System"
-                },
-                new Quest
-                {
-                    QuestId = 10,
-                    QuestName = "God of War's Training",
-                    Description = "Only the strongest can complete this ultimate test.",
-                    Category = "Ultimate",
-                    RankRequired = "S",
-                    XPReward = 20000,
-                    Status = "Incomplete",
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now,
+                    DateCreated = DateTime.UtcNow,
+                    DateUpdated = DateTime.UtcNow,
                     CreatedBy = "System",
                     UpdatedBy = "System"
                 }

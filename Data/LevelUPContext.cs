@@ -60,6 +60,7 @@ namespace LevelUP.Data
 
             builder.ApplyConfiguration(new WorkoutSeed());
             builder.ApplyConfiguration(new QuestSeed());
+            builder.ApplyConfiguration(new QuestWorkoutSeed());
             builder.ApplyConfiguration(new AchievementSeed());
             builder.ApplyConfiguration(new RoleSeed());
             builder.ApplyConfiguration(new UserSeed());

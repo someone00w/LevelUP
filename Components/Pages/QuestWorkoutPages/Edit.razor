@@ -23,11 +23,6 @@ else
                 <ValidationSummary role="alert"/>
                 <input type="hidden" name="QuestWorkout.QuestWorkoutId" value="@QuestWorkout.QuestWorkoutId" />
                 <div class="mb-3">
-                    <label for="status" class="form-label">Status:</label>
-                    <InputText id="status" @bind-Value="QuestWorkout.Status" class="form-control" />
-                    <ValidationMessage For="() => QuestWorkout.Status" class="text-danger" />
-                </div>
-                <div class="mb-3">
                     <label for="questid" class="form-label">QuestId:</label>
                     <InputNumber id="questid" @bind-Value="QuestWorkout.QuestId" class="form-control" />
                     <ValidationMessage For="() => QuestWorkout.QuestId" class="text-danger" />
@@ -36,6 +31,11 @@ else
                     <label for="workoutid" class="form-label">WorkoutId:</label>
                     <InputNumber id="workoutid" @bind-Value="QuestWorkout.WorkoutId" class="form-control" />
                     <ValidationMessage For="() => QuestWorkout.WorkoutId" class="text-danger" />
+                </div>
+                <div class="mb-3">
+                    <label for="iscompleted" class="form-label">IsCompleted:</label>
+                    <InputCheckbox id="iscompleted" @bind-Value="QuestWorkout.IsCompleted" class="form-check-input" />
+                    <ValidationMessage For="() => QuestWorkout.IsCompleted" class="text-danger" />
                 </div>
                 <div class="mb-3">
                     <label for="datecreated" class="form-label">DateCreated:</label>
