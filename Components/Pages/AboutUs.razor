@@ -1,19 +1,33 @@
-﻿@page "/about"
+﻿@page "/aboutus"
 @rendermode InteractiveServer
 
-<PageTitle>Counter</PageTitle>
+<PageTitle>About Us</PageTitle>
 
-<h1>Counter</h1>
+<div class="about-us-container">
+    <h1>About Us</h1>
 
-<p role="status">Current count: @currentCount</p>
+    <div class="section">
+        <h2>Overview:</h2>
+        <ul>
+            <li>Mission: Empowering individuals to achieve fitness goals through engaging, gamified tools.</li>
+            <li>What We Do: LevelUp combines fitness tracking, quests, and achievements to keep workouts exciting and rewarding.</li>
+        </ul>
+    </div>
 
-<button class="btn btn-primary" @onclick="IncrementCount">Click me</button>
+    <div class="section">
+        <h2>Level Up's Key Features:</h2>
+        <ul>
+            <li>Gamified fitness challenges.</li>
+            <li>Personalized progress tracking.</li>
+            <li>Community-driven rewards and achievements.</li>
+        </ul>
+    </div>
 
-@code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
-    {
-        currentCount++;
-    }
-}
+    <div class="section">
+        <h2>The Team:</h2>
+        <ul>
+            <li>Leader: Shafriz Bin Zaini</li>
+            <li>Sub-Leader: Muhammad Hilman Bin Mohamad Hassan</li>
+        </ul>
+    </div>
+</div>

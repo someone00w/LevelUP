@@ -1,21 +1,61 @@
 ﻿@page "/dashboard"
 @rendermode InteractiveServer
 
-<PageTitle>Counter</PageTitle>
+@inject NavigationManager NavigationManager
 
-<h1>Counter</h1>
+<PageTitle>Dashboard</PageTitle>
 
-<p role="status">Current count: @currentCount</p>
+<div class="dashboard-container">
+    <div class="profile-section">
+        <h1>Profile Status</h1>
+        <p>View and edit your Profile Status</p>
+        <p>Level: &lt;&gt;</p> <!-- Ensure these special characters are correctly escaped -->
+        <p>XP: &lt;&gt;</p> <!-- Ensure these special characters are correctly escaped -->
+        <button class="btn" @onclick="NavigateToProfile">Edit Profile</button>
+    </div>
 
-<li><a href="/userachievements">Dashboard</a></li>
+    <div class="current-quest-section">
+        <h1>Current Quest:</h1>
+        <p>**Shows progress on quests and quest rewards**</p>
+        <div class="quest-buttons">
+            <button class="btn" @onclick="NavigateToQuests">Continue Quest</button>
+            <button class="btn" @onclick="NavigateToQuests">View Quests</button>
+        </div>
+    </div>
 
-<button class="btn btn-primary" /userachievements>Click me</button>
+    <div class="features">
+        <div class="feature">
+            <h2>🎖️ Achievements</h2>
+            <p>View your achievements and more that you can attain</p>
+            <button class="btn" @onclick="NavigateToAchievements">Your Achievements</button>
+        </div>
+
+        <div class="feature">
+            <h2>🏋️ Workout Tracker</h2>
+            <p>Track your workout to help you finish your quests easier</p>
+            <button class="btn" @onclick="NavigateToWorkouts">To Your Workout Trackers</button>
+        </div>
+    </div>
+</div>
 
 @code {
-    private int currentCount = 0;
-
-    private void IncrementCount()
+    private void NavigateToProfile()
     {
-        currentCount++;
+        NavigationManager.NavigateTo("/Account/Manage");
+    }
+
+    private void NavigateToQuests()
+    {
+        NavigationManager.NavigateTo("/quests");
+    }
+
+    private void NavigateToAchievements()
+    {
+        NavigationManager.NavigateTo("/achievements");
+    }
+
+    private void NavigateToWorkouts()
+    {
+        NavigationManager.NavigateTo("/workouts");
     }
 }
