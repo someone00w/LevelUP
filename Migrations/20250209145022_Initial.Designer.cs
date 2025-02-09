@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LevelUP.Migrations
 {
     [DbContext(typeof(LevelUPContext))]
-    [Migration("20250209090643_Initial")]
+    [Migration("20250209145022_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -97,16 +97,16 @@ namespace LevelUP.Migrations
                         {
                             Id = "3781efa7-66dc-47f0-860f-e506d04102e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "fdfb1c6a-b540-475a-ad93-e3e225503f8d",
+                            ConcurrencyStamp = "4fee9286-6f53-4e4a-9b50-34a60691339a",
                             Email = "admin@localhost.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "adminUser",
                             NormalizedEmail = "ADMIN@LOCALHOST.COM",
                             NormalizedUserName = "ADMIN@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEoKFqC50aqemhs9KNXeYH7ZkHG7InjZpXk8cuVIE9DNbivsGSAXkDjssaoNgplCyA==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEP7h1T/vnfRRfBEvEpJM+DkgQYl2VTHKVKqi62TWj/jBKagcWikY9/vBFmG0F4BDjQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "591a4869-df07-4beb-8b6f-add2487e6ee8",
+                            SecurityStamp = "c9a1bbb0-fd80-43ef-aab1-7db2d7ec4126",
                             TwoFactorEnabled = false,
                             UserName = "admin@localhost.com"
                         },
@@ -114,16 +114,16 @@ namespace LevelUP.Migrations
                         {
                             Id = "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "cae30d03-10f5-4a1e-8099-dac4047efb05",
+                            ConcurrencyStamp = "f7ce9770-5321-4c79-bec2-f08e21f1dd81",
                             Email = "cust@localhost.com",
                             EmailConfirmed = true,
                             LockoutEnabled = false,
                             Name = "custUser",
                             NormalizedEmail = "CUST@LOCALHOST.COM",
                             NormalizedUserName = "CUST@LOCALHOST.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAEEvMJMb2A3G0aqqNYjlZRy+TH+oZsDF0KYXc+pnS9loZ3Eo7ZHVj/4JS13cBq5c4bg==",
+                            PasswordHash = "AQAAAAIAAYagAAAAEIhkWYNHbmP2XmKyVgGXbak/v4gNd5ru0DJxB24KBivxgaliAFdhwZEvQwV3weyf0Q==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "f499d169-8540-4471-89b4-a9c8d30f9d27",
+                            SecurityStamp = "0936c8ef-ff0c-482c-add7-b708deb40b88",
                             TwoFactorEnabled = false,
                             UserName = "cust@localhost.com"
                         });
@@ -175,8 +175,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "You've started your journey as an E-Rank hunter.",
                             AchievementName = "E-Rank Hunter",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5589),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5589),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4067),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4067),
                             QuestsRequired = 0,
                             RankRequired = 1,
                             UpdatedBy = "System",
@@ -188,8 +188,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Complete your first quest.",
                             AchievementName = "First Blood",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5592),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5592),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4070),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4070),
                             QuestsRequired = 1,
                             RankRequired = 1,
                             UpdatedBy = "System",
@@ -201,8 +201,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Reach D-Rank by earning enough XP.",
                             AchievementName = "D-Rank Awakening",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5594),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5595),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4072),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4072),
                             QuestsRequired = 5,
                             RankRequired = 2,
                             UpdatedBy = "System",
@@ -214,8 +214,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Complete 10 quests and prove your worth.",
                             AchievementName = "Elite Fighter",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5597),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5597),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4074),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4075),
                             QuestsRequired = 10,
                             RankRequired = 3,
                             UpdatedBy = "System",
@@ -227,8 +227,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Ascend to C-Rank with enough experience.",
                             AchievementName = "C-Rank Promotion",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5599),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5600),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4076),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4077),
                             QuestsRequired = 20,
                             RankRequired = 4,
                             UpdatedBy = "System",
@@ -240,8 +240,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Demonstrate your growing power by finishing 30 quests.",
                             AchievementName = "Shadow Monarch's Apprentice",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5602),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5602),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4079),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4079),
                             QuestsRequired = 30,
                             RankRequired = 5,
                             UpdatedBy = "System",
@@ -253,8 +253,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Enter the ranks of B-Rank hunters.",
                             AchievementName = "B-Rank Challenger",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5604),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5605),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4081),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4081),
                             QuestsRequired = 40,
                             RankRequired = 6,
                             UpdatedBy = "System",
@@ -266,8 +266,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Become an elite hunter by reaching A-Rank.",
                             AchievementName = "A-Rank Conqueror",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5607),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5607),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4083),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4084),
                             QuestsRequired = 50,
                             RankRequired = 7,
                             UpdatedBy = "System",
@@ -279,8 +279,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Achieve S-Rank status, the pinnacle of hunters.",
                             AchievementName = "S-Rank Dominator",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5609),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5609),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4085),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4086),
                             QuestsRequired = 75,
                             RankRequired = 8,
                             UpdatedBy = "System",
@@ -292,8 +292,8 @@ namespace LevelUP.Migrations
                             AchievementDescription = "Surpass all limits and claim the title of the Shadow Monarch.",
                             AchievementName = "Shadow Monarch",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5611),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5612),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4088),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(4088),
                             QuestsRequired = 100,
                             RankRequired = 9,
                             UpdatedBy = "System",
@@ -393,8 +393,8 @@ namespace LevelUP.Migrations
                             QuestId = 1,
                             Category = "Training",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5338),
-                            DateUpdated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5339),
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3827),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3827),
                             Description = "Basic training for new hunters to improve endurance and strength.",
                             QuestName = "D-Rank Warm-up",
                             RankRequired = "D",
@@ -406,8 +406,8 @@ namespace LevelUP.Migrations
                             QuestId = 2,
                             Category = "Endurance",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5341),
-                            DateUpdated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5342),
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3829),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3830),
                             Description = "Increase agility and stamina to survive in low-level dungeons.",
                             QuestName = "Survival Instincts",
                             RankRequired = "D",
@@ -419,8 +419,8 @@ namespace LevelUP.Migrations
                             QuestId = 3,
                             Category = "Strength",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5344),
-                            DateUpdated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5344),
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3832),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3832),
                             Description = "Enhance strength with rigorous training.",
                             QuestName = "D-Rank Power Boost",
                             RankRequired = "D",
@@ -432,8 +432,8 @@ namespace LevelUP.Migrations
                             QuestId = 4,
                             Category = "Agility",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5346),
-                            DateUpdated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5346),
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3834),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3834),
                             Description = "Improve speed and reaction time for quick escapes.",
                             QuestName = "Dungeon Sprint",
                             RankRequired = "D",
@@ -445,13 +445,78 @@ namespace LevelUP.Migrations
                             QuestId = 5,
                             Category = "Full Body",
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5348),
-                            DateUpdated = new DateTime(2025, 2, 9, 9, 6, 42, 393, DateTimeKind.Utc).AddTicks(5349),
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3835),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3836),
                             Description = "A challenging workout to prepare for higher-ranked missions.",
                             QuestName = "C-Rank Warrior's Test",
                             RankRequired = "C",
                             UpdatedBy = "System",
                             XPReward = 1200
+                        },
+                        new
+                        {
+                            QuestId = 6,
+                            Category = "Combat",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3837),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3838),
+                            Description = "Advanced combat training to prepare for elite-level battles.",
+                            QuestName = "B-Rank Combat Mastery",
+                            RankRequired = "B",
+                            UpdatedBy = "System",
+                            XPReward = 2500
+                        },
+                        new
+                        {
+                            QuestId = 7,
+                            Category = "Exploration",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3840),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3840),
+                            Description = "Navigate through dungeons to master terrain and encounter dangerous creatures.",
+                            QuestName = "Dungeon Explorer",
+                            RankRequired = "B",
+                            UpdatedBy = "System",
+                            XPReward = 3000
+                        },
+                        new
+                        {
+                            QuestId = 8,
+                            Category = "Boss Fight",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3841),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3842),
+                            Description = "Test your abilities against the strongest foes in the world.",
+                            QuestName = "A-Rank Hero's Challenge",
+                            RankRequired = "A",
+                            UpdatedBy = "System",
+                            XPReward = 5000
+                        },
+                        new
+                        {
+                            QuestId = 9,
+                            Category = "Ultimate",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3843),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3844),
+                            Description = "A trial to become the greatest warrior, battling ancient and powerful foes.",
+                            QuestName = "S-Rank Immortal's Trial",
+                            RankRequired = "S",
+                            UpdatedBy = "System",
+                            XPReward = 10000
+                        },
+                        new
+                        {
+                            QuestId = 10,
+                            Category = "Race",
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3845),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3846),
+                            Description = "A timed race that tests the hunter’s agility, speed, and endurance.",
+                            QuestName = "Speedster's Run",
+                            RankRequired = "D",
+                            UpdatedBy = "System",
+                            XPReward = 600
                         });
                 });
 
@@ -502,110 +567,222 @@ namespace LevelUP.Migrations
                         new
                         {
                             QuestWorkoutId = 1,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3920),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3921),
                             QuestId = 1,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 1
                         },
                         new
                         {
                             QuestWorkoutId = 2,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3922),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3923),
                             QuestId = 1,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 2
                         },
                         new
                         {
                             QuestWorkoutId = 3,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3924),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3925),
                             QuestId = 1,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 6
                         },
                         new
                         {
                             QuestWorkoutId = 4,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3926),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3926),
                             QuestId = 2,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 8
                         },
                         new
                         {
                             QuestWorkoutId = 5,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3927),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3928),
                             QuestId = 2,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 7
                         },
                         new
                         {
                             QuestWorkoutId = 6,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3929),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3929),
                             QuestId = 3,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 3
                         },
                         new
                         {
                             QuestWorkoutId = 7,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3931),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3931),
                             QuestId = 3,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 9
                         },
                         new
                         {
                             QuestWorkoutId = 8,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3932),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3933),
                             QuestId = 4,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 6
                         },
                         new
                         {
                             QuestWorkoutId = 9,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3960),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3961),
                             QuestId = 4,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 10
                         },
                         new
                         {
                             QuestWorkoutId = 10,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3962),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3963),
                             QuestId = 5,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 1
                         },
                         new
                         {
                             QuestWorkoutId = 11,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3964),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3964),
                             QuestId = 5,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 2
                         },
                         new
                         {
                             QuestWorkoutId = 12,
-                            DateCreated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            DateUpdated = new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3966),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3966),
                             QuestId = 5,
                             Status = "Incomplete",
+                            UpdatedBy = "System",
                             WorkoutId = 9
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 13,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3967),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3968),
+                            QuestId = 6,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 4
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 14,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3969),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3969),
+                            QuestId = 6,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 5
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 15,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3971),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3971),
+                            QuestId = 6,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 7
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 16,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3972),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3973),
+                            QuestId = 7,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 8
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 17,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3974),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3974),
+                            QuestId = 7,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 10
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 18,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3976),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3976),
+                            QuestId = 8,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 1
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 19,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3977),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3978),
+                            QuestId = 8,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 3
+                        },
+                        new
+                        {
+                            QuestWorkoutId = 20,
+                            CreatedBy = "System",
+                            DateCreated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3979),
+                            DateUpdated = new DateTime(2025, 2, 9, 14, 50, 21, 488, DateTimeKind.Utc).AddTicks(3979),
+                            QuestId = 8,
+                            Status = "Incomplete",
+                            UpdatedBy = "System",
+                            WorkoutId = 6
                         });
                 });
 
@@ -649,8 +826,8 @@ namespace LevelUP.Migrations
                         {
                             StaffId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 502, DateTimeKind.Local).AddTicks(1683),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 502, DateTimeKind.Local).AddTicks(1704),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 585, DateTimeKind.Local).AddTicks(7340),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 585, DateTimeKind.Local).AddTicks(7353),
                             Email = "admin@localhost.com",
                             UpdatedBy = "System",
                             UserId = "3781efa7-66dc-47f0-860f-e506d04102e4",
@@ -773,8 +950,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 1,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5068),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5081),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3625),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3636),
                             UpdatedBy = "System",
                             WorkoutDescription = "A basic upper body exercise that strengthens the chest, shoulders, and triceps.",
                             WorkoutName = "Push-Ups"
@@ -783,8 +960,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 2,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5084),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5085),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3638),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3639),
                             UpdatedBy = "System",
                             WorkoutDescription = "A lower body exercise that targets the quadriceps, hamstrings, and glutes.",
                             WorkoutName = "Squats"
@@ -793,8 +970,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 3,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5086),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5087),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3641),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3641),
                             UpdatedBy = "System",
                             WorkoutDescription = "An upper body exercise that builds back and bicep strength.",
                             WorkoutName = "Pull-Ups"
@@ -803,8 +980,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 4,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5088),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5089),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3642),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3643),
                             UpdatedBy = "System",
                             WorkoutDescription = "A core exercise that strengthens the abdominal muscles and improves endurance.",
                             WorkoutName = "Plank"
@@ -813,8 +990,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 5,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5090),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5091),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3644),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3645),
                             UpdatedBy = "System",
                             WorkoutDescription = "A lower body exercise that improves balance and strengthens the legs.",
                             WorkoutName = "Lunges"
@@ -823,8 +1000,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 6,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5092),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5092),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3646),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3646),
                             UpdatedBy = "System",
                             WorkoutDescription = "A cardiovascular exercise that enhances coordination and endurance.",
                             WorkoutName = "Jump Rope"
@@ -833,8 +1010,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 7,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5094),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5094),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3647),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3648),
                             UpdatedBy = "System",
                             WorkoutDescription = "A full-body exercise that combines strength and cardio training.",
                             WorkoutName = "Burpees"
@@ -843,8 +1020,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 8,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5096),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5096),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3649),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3650),
                             UpdatedBy = "System",
                             WorkoutDescription = "A cardio and core workout that improves agility and endurance.",
                             WorkoutName = "Mountain Climbers"
@@ -853,8 +1030,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 9,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5097),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5098),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3651),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3652),
                             UpdatedBy = "System",
                             WorkoutDescription = "A strength exercise that targets the lower back, glutes, and hamstrings.",
                             WorkoutName = "Deadlifts"
@@ -863,8 +1040,8 @@ namespace LevelUP.Migrations
                         {
                             WorkoutId = 10,
                             CreatedBy = "System",
-                            DateCreated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5099),
-                            DateUpdated = new DateTime(2025, 2, 9, 17, 6, 42, 393, DateTimeKind.Local).AddTicks(5100),
+                            DateCreated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3653),
+                            DateUpdated = new DateTime(2025, 2, 9, 22, 50, 21, 488, DateTimeKind.Local).AddTicks(3653),
                             UpdatedBy = "System",
                             WorkoutDescription = "A core workout that strengthens the abdominal muscles and obliques.",
                             WorkoutName = "Bicycle Crunches"

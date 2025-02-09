@@ -57,7 +57,7 @@
                         <span>(Status: @(qw.Status))</span>
                         @if (qw.Status != "Completed")
                         {
-                            <button @onclick="() => MarkCompleted(qw.QuestWorkoutId)">Mark as Completed</button>
+                            <button class="btn" @onclick="() => MarkCompleted(qw.QuestWorkoutId)">Mark as Completed</button>
                         }
                     </li>
                 }
@@ -68,7 +68,7 @@
         <hr />
         @if (canFinishQuest)
         {
-            <button @onclick="FinishQuest">Finish Quest</button>
+            <button class="btn" @onclick="FinishQuest">Finish Quest</button>
         }
         else
         {
@@ -76,8 +76,8 @@
         }
 
         <div>
-            <a href="@($"/quests/edit?questid={quest.QuestId}")">Edit</a> |
-            <a href="@($"/userquests")">Back to List</a>
+            <a href="@($"/quests/edit?questid={quest.QuestId}")" class="btn">Edit</a>
+            <a href="@($"/userquests")" class="btn">Back to List</a>
         </div>
     }
 </div>
@@ -85,17 +85,36 @@
 <style>
     /* Push content down below the navigation bar */
     .container {
-        margin-top: 50px; /* Adjust if necessary based on navbar height */
-        padding: 20px;
+    margin-top: 50px; /* Adjust if necessary based on navbar height */
+    padding: 20px;
     }
 
     /* Make all text white */
     body {
-        color: white;
+    color: white;
     }
 
     .table {
-        color: white;
+    color: white;
+    }
+
+    .btn {
+        background-color: #000;
+        color: #fff;
+        padding: 10px 15px; /* Adjusted padding */
+        font-size: 1rem;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 10px;
+        width: 120px; /* Reduced width */
+    }
+
+    .btn:hover {
+        transform: scale(1.1);
+        background-color: #4c0266;
+        color: #fff;
     }
 </style>
 
@@ -205,6 +224,16 @@
         StateHasChanged();
     }
 
+    private string GetRankFromXP(int xp)
+    {
+        if (xp >= 100000) return "S";
+        if (xp >= 50000) return "A";
+        if (xp >= 25000) return "B";
+        if (xp >= 10000) return "C";
+        return "D";
+    }
+
+
     private async Task FinishQuest()
     {
         using var context = DbFactory.CreateDbContext();
@@ -226,20 +255,33 @@
         var userQuest = await context.UserQuest
             .FirstOrDefaultAsync(uq => uq.QuestId == quest.QuestId && uq.CustomerId == customerId);
 
-        if (userQuest != null)
+        var customer = await context.Customer
+            .FirstOrDefaultAsync(c => c.CustomerId == customerId);
+
+        if (userQuest != null && customer != null)
         {
+            // Mark the quest as completed
             userQuest.Status = "Completed";
             userQuest.DateUpdated = DateTime.Now;
-
             context.Attach(userQuest).State = EntityState.Modified;
+
+            // Add XP reward to customer
+            customer.XPAmount += quest.XPReward;
+
+            // Rank up if needed
+            customer.Rank = GetRankFromXP(customer.XPAmount);
+
+            context.Attach(customer).State = EntityState.Modified;
             await context.SaveChangesAsync();
 
-            // Navigate to a valid page after completion
-            NavigationManager.NavigateTo("/userquests");  // Redirects to user quests list
+            Console.WriteLine($"Quest completed! {quest.XPReward} XP added to customer {customer.UserName}. New rank: {customer.Rank}");
+
+            // Navigate to user quests list after completion
+            NavigationManager.NavigateTo("/userquests");
         }
         else
         {
-            Console.WriteLine("Error: UserQuest not found.");
+            Console.WriteLine("Error: UserQuest or Customer not found.");
         }
     }
 

@@ -1,6 +1,10 @@
 ﻿@page "/dashboard"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
 @rendermode InteractiveServer
 
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager NavigationManager
 
 <PageTitle>Dashboard</PageTitle>
@@ -10,14 +14,14 @@
         <div class="profile-section">
             <h1>Profile Status</h1>
             <p>View and edit your Profile Status</p>
-            <p>Level: &lt;&gt;</p> <!-- Ensure these special characters are correctly escaped -->
-            <p>XP: &lt;&gt;</p> <!-- Ensure these special characters are correctly escaped -->
+            <p>Rank: @customer?.Rank</p>
+            <p>XP: @customer?.XPAmount</p>
             <button class="btn" @onclick="NavigateToProfile">Edit Profile</button>
         </div>
 
         <div class="current-quest-section">
-            <h1>Current Quest:</h1>
-            <p>**Shows progress on quests and quest rewards**</p>
+            <h1>Quest Tracker:</h1>
+            <p>Accept and check through you quests!</p>
             <div class="quest-buttons">
                 <button class="btn" @onclick="NavigateToUserQuests">Continue Quest</button>
                 <button class="btn" @onclick="NavigateToQuests">View Quests</button>
@@ -35,34 +39,30 @@
         <div class="feature">
             <h2>🏋️ Workout Tracker</h2>
             <p>Track your workout to help you finish your quests easier</p>
-            <button class="btn" @onclick="NavigateToWorkouts">To Your Workout Trackers</button>
+            <button class="btn" @onclick="NavigateToWorkouts">View Workouts</button>
         </div>
     </div>
 </div>
 
 @code {
-    private void NavigateToProfile()
+    private Customer? customer;
+
+    protected override async Task OnInitializedAsync()
     {
-        NavigationManager.NavigateTo("/Account/Manage");
+        using var context = await DbFactory.CreateDbContextAsync();
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var userIdClaim = user.FindFirst("userId")?.Value;
+        if (!string.IsNullOrEmpty(userIdClaim))
+        {
+            customer = await context.Customer.FirstOrDefaultAsync(c => c.UserId == userIdClaim);
+        }
     }
 
-    private void NavigateToQuests()
-    {
-        NavigationManager.NavigateTo("/quests");
-    }
-
-    private void NavigateToUserQuests()
-    {
-        NavigationManager.NavigateTo("/userquests");
-    }
-
-    private void NavigateToAchievements()
-    {
-        NavigationManager.NavigateTo("/userachievements");
-    }
-
-    private void NavigateToWorkouts()
-    {
-        NavigationManager.NavigateTo("/workouts");
-    }
+    private void NavigateToProfile() => NavigationManager.NavigateTo("/Account/Manage");
+    private void NavigateToQuests() => NavigationManager.NavigateTo("/quests");
+    private void NavigateToUserQuests() => NavigationManager.NavigateTo("/userquests");
+    private void NavigateToAchievements() => NavigationManager.NavigateTo("/userachievements");
+    private void NavigateToWorkouts() => NavigationManager.NavigateTo("/workouts");
 }
