@@ -3,7 +3,6 @@ using Microsoft.EntityFrameworkCore;
 using LevelUP.Data;
 using LevelUP.Configurations.Entities;
 using LevelUP.Domain;
-using CarRentalManagement.Configurations.Entities;
 
 namespace LevelUP.Data
 {

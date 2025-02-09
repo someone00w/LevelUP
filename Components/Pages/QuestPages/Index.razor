@@ -25,22 +25,25 @@
     <PropertyColumn Property="quest => quest.Category" Title="Category" />
     <PropertyColumn Property="quest => quest.XPReward" Title="XP Reward" />
     <PropertyColumn Property="quest => quest.RankRequired" Title="Rank Required" />
-        <AuthorizeView Roles="Administrator">
-    <PropertyColumn Property="quest => quest.DateCreated" Title="Date Created" />
-    <PropertyColumn Property="quest => quest.DateUpdated" Title="Date Updated" />
-    <PropertyColumn Property="quest => quest.CreatedBy" Title="Created By" />
-    <PropertyColumn Property="quest => quest.UpdatedBy" Title="Updated By" />
 
-        <TemplateColumn Context="quest">
-            <a href="@($"quests/edit?questid={quest.QuestId}")">Edit</a> |
-            <a href="@($"quests/details?questid={quest.QuestId}")">Details</a> |
-            <a href="@($"quests/delete?questid={quest.QuestId}")">Delete</a>
-        </TemplateColumn>
+    <AuthorizeView Roles="Administrator">
+        <PropertyColumn Property="quest => quest.DateCreated" Title="Date Created" />
+        <PropertyColumn Property="quest => quest.DateUpdated" Title="Date Updated" />
+        <PropertyColumn Property="quest => quest.CreatedBy" Title="Created By" />
+        <PropertyColumn Property="quest => quest.UpdatedBy" Title="Updated By" />
     </AuthorizeView>
+
     <TemplateColumn Context="quest">
-        <button class="btn" @onclick="() => AcceptQuest(quest.QuestId, quest.QuestName)">
-            Accept
-        </button>
+        <AuthorizeView Roles="Administrator">
+           <a href="@($"quests/edit?questid={quest.QuestId}")">Edit</a> |
+           <a href="@($"quests/details?questid={quest.QuestId}")">Details</a> |
+           <a href="@($"quests/delete?questid={quest.QuestId}")">Delete</a>
+        </AuthorizeView>
+    </TemplateColumn>
+
+    
+    <TemplateColumn Context="quest">
+        <button class="btn" @onclick="() => AcceptQuest(quest.QuestId, quest.QuestName)">Accept</button>
     </TemplateColumn>
 
 </QuickGrid>
@@ -130,9 +133,8 @@
 
             await using var context = await DbFactory.CreateDbContextAsync();
 
-            // Ensure string comparison is properly done
             var customer = await context.Customer
-                .Where(c => c.UserId == userIdClaim) // Now comparing strings correctly
+                .Where(c => c.UserId == userIdClaim)
                 .Select(c => c.CustomerId)
                 .FirstOrDefaultAsync();
 
@@ -177,16 +179,16 @@
             message = $"Accepting quest: {questId} for customer: {customerId}";
 
             var userQuest = new UserQuest
-                {
-                    QuestName = questName,
-                    Status = "Active",
-                    CustomerId = customerId,
-                    QuestId = questId,
-                    CreatedBy = userId,
-                    UpdatedBy = userId,
-                    DateCreated = DateTime.Now,
-                    DateUpdated = DateTime.Now
-                };
+            {
+                QuestName = questName,
+                Status = "Active",
+                CustomerId = customerId,
+                QuestId = questId,
+                CreatedBy = userId,
+                UpdatedBy = userId,
+                DateCreated = DateTime.Now,
+                DateUpdated = DateTime.Now
+            };
 
             context.UserQuest.Add(userQuest);
             await context.SaveChangesAsync();

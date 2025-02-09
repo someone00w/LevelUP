@@ -26,13 +26,14 @@
     <PropertyColumn Property="userachievement => userachievement.DateUpdated" Title="Date Updated" />
     <PropertyColumn Property="userachievement => userachievement.CreatedBy" Title="Created By" />
     <PropertyColumn Property="userachievement => userachievement.UpdatedBy" Title="Updated By" />
-    <AuthorizeView Roles="Administrator">
+
     <TemplateColumn Context="userachievement" Title="Actions">
+        <AuthorizeView Roles="Administrator">
         <a href="@($"userachievements/edit?userachievementid={userachievement.UserAchievementId}")">Edit</a> |
         <a href="@($"userachievements/details?userachievementid={userachievement.UserAchievementId}")">Details</a> |
         <a href="@($"userachievements/delete?userachievementid={userachievement.UserAchievementId}")">Delete</a>
+        </AuthorizeView>
     </TemplateColumn>
-    </AuthorizeView>
 </QuickGrid>
 
 <style>

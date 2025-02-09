@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-namespace CarRentalManagement.Configurations.Entities
+namespace LevelUP.Configurations.Entities
 {
     public class UserSeed : IEntityTypeConfiguration<LevelUPUser>
     {
