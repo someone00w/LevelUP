@@ -3,39 +3,89 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using LevelUP.Domain
 @using LevelUP.Data
+@using Microsoft.AspNetCore.Components.Authorization
 @implements IAsyncDisposable
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject AuthenticationStateProvider AuthenticationStateProvider
+
 
 <PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
-
+<AuthorizeView Roles="Administrator">
 <p>
     <a href="userachievements/create">Create New</a>
 </p>
+</AuthorizeView>
 
-<QuickGrid Class="table" Items="context.UserAchievement">
-    <PropertyColumn Property="userachievement => userachievement.DateUnlocked" />
-    <PropertyColumn Property="userachievement => userachievement.CustomerId" />
-    <PropertyColumn Property="userachievement => userachievement.AchievementId" />
-    <PropertyColumn Property="userachievement => userachievement.DateCreated" />
-    <PropertyColumn Property="userachievement => userachievement.DateUpdated" />
-    <PropertyColumn Property="userachievement => userachievement.CreatedBy" />
-    <PropertyColumn Property="userachievement => userachievement.UpdatedBy" />
-
-    <TemplateColumn Context="userachievement">
+<QuickGrid Class="table" Items="FilteredUserAchievements">
+    <PropertyColumn Property="userachievement => userachievement.DateUnlocked" Title="Date Unlocked" />
+    <PropertyColumn Property="userachievement => userachievement.CustomerId" Title="Customer ID" />
+    <PropertyColumn Property="userachievement => userachievement.AchievementId" Title="Achievement ID" />
+    <PropertyColumn Property="userachievement => userachievement.DateCreated" Title="Date Created" />
+    <PropertyColumn Property="userachievement => userachievement.DateUpdated" Title="Date Updated" />
+    <PropertyColumn Property="userachievement => userachievement.CreatedBy" Title="Created By" />
+    <PropertyColumn Property="userachievement => userachievement.UpdatedBy" Title="Updated By" />
+    <AuthorizeView Roles="Administrator">
+    <TemplateColumn Context="userachievement" Title="Actions">
         <a href="@($"userachievements/edit?userachievementid={userachievement.UserAchievementId}")">Edit</a> |
         <a href="@($"userachievements/details?userachievementid={userachievement.UserAchievementId}")">Details</a> |
         <a href="@($"userachievements/delete?userachievementid={userachievement.UserAchievementId}")">Delete</a>
     </TemplateColumn>
+    </AuthorizeView>
 </QuickGrid>
+
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
 
 @code {
     private LevelUPContext context = default!;
+    private List<UserAchievement> filteredAchievements = new();
 
-    protected override void OnInitialized()
+    private string userId = string.Empty;
+    private bool isAdmin = false;
+    @inject AuthenticationStateProvider authenticationStateProvider
+    private IQueryable<UserAchievement> FilteredUserAchievements => isAdmin
+    ? context.UserAchievement
+    : context.UserAchievement.Where(e => e.CreatedBy == userId);
+
+
+    protected override async Task OnInitializedAsync()
     {
+
+        // Fetch the authentication state
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Extract user information
+        userId = user.FindFirst("userId")?.Value ?? string.Empty;
+        isAdmin = user.IsInRole("Administrator");
+
         context = DbFactory.CreateDbContext();
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            var customerIdClaim = user.FindFirst("CustomerId")?.Value;
+            if (int.TryParse(customerIdClaim, out int customerId))
+            {
+                filteredAchievements = await context.UserAchievement
+                    .Where(a => a.CustomerId == customerId)
+                    .ToListAsync();
+            }
+        }
     }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();

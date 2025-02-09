@@ -15,13 +15,13 @@
 </p>
 
 <QuickGrid Class="table" Items="context.QuestWorkout">
-    <PropertyColumn Property="questworkout => questworkout.QuestId" />
-    <PropertyColumn Property="questworkout => questworkout.WorkoutId" />
-    <PropertyColumn Property="questworkout => questworkout.Status" />
-    <PropertyColumn Property="questworkout => questworkout.DateCreated" />
-    <PropertyColumn Property="questworkout => questworkout.DateUpdated" />
-    <PropertyColumn Property="questworkout => questworkout.CreatedBy" />
-    <PropertyColumn Property="questworkout => questworkout.UpdatedBy" />
+    <PropertyColumn Property="questworkout => questworkout.QuestId" Title="Quest ID" />
+    <PropertyColumn Property="questworkout => questworkout.WorkoutId" Title="Workout ID" />
+    <PropertyColumn Property="questworkout => questworkout.Status" Title="Status" />
+    <PropertyColumn Property="questworkout => questworkout.DateCreated" Title="Date Created" />
+    <PropertyColumn Property="questworkout => questworkout.DateUpdated" Title="Date Updated" />
+    <PropertyColumn Property="questworkout => questworkout.CreatedBy" Title="Created By" />
+    <PropertyColumn Property="questworkout => questworkout.UpdatedBy" Title="Updated By" />
 
     <TemplateColumn Context="questworkout">
         <a href="@($"questworkouts/edit?questworkoutid={questworkout.QuestWorkoutId}")">Edit</a> |
@@ -29,6 +29,23 @@
         <a href="@($"questworkouts/delete?questworkoutid={questworkout.QuestWorkoutId}")">Delete</a>
     </TemplateColumn>
 </QuickGrid>
+
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
 
 @code {
     private LevelUPContext context = default!;

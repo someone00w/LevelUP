@@ -34,6 +34,9 @@
                 </label>
             </div>
             <button type="submit" class="btn login-btn">Login</button>
+
+            <!-- Display error messages -->
+            <p class="text-danger">@errorMessage</p>
         </EditForm>
 
         <!-- Links for additional actions -->
@@ -72,7 +75,7 @@
     .login-card {
         background: rgba(0, 0, 0, 0.25);
         padding: 40px;
-        padding-bottom:20px;
+        padding-bottom: 20px;
         border-radius: 12px;
         box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         text-align: center;
@@ -174,9 +177,8 @@
 
     public async Task LoginUser()
     {
-        // This doesn't count login failures towards account lockout
-        // To enable password failures to trigger account lockout, set lockoutOnFailure: true
         var result = await SignInManager.PasswordSignInAsync(Input.Email, Input.Password, Input.RememberMe, lockoutOnFailure: false);
+
         if (result.Succeeded)
         {
             Logger.LogInformation("User logged in.");
@@ -184,18 +186,20 @@
         }
         else if (result.RequiresTwoFactor)
         {
+            errorMessage = "Two-factor authentication is required.";
             RedirectManager.RedirectTo(
                 "Account/LoginWith2fa",
                 new() { ["returnUrl"] = ReturnUrl, ["rememberMe"] = Input.RememberMe });
         }
         else if (result.IsLockedOut)
         {
+            errorMessage = "Your account is locked due to multiple failed login attempts. Please try again later.";
             Logger.LogWarning("User account locked out.");
             RedirectManager.RedirectTo("Account/Lockout");
         }
         else
         {
-            errorMessage = "Error: Invalid login attempt.";
+            errorMessage = "Invalid email or password. Please try again.";
         }
     }
 

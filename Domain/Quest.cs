@@ -8,8 +8,6 @@
         public string Category { get; set; } = string.Empty;
         public int XPReward { get; set; }
         public string RankRequired { get; set; } = "D";
-
-        // ✅ Navigation property for related workouts
         public List<QuestWorkout> QuestWorkouts { get; set; } = new();
     }
 

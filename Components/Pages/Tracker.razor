@@ -1,8 +1,11 @@
 ﻿@page "/Tracker"
 @using Microsoft.EntityFrameworkCore
+@using Microsoft.AspNetCore.Components.Authorization
 @using LevelUP.Domain
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject AuthenticationStateProvider authenticationStateProvider
 @inject NavigationManager NavigationManager
+@rendermode InteractiveServer
 
 <PageTitle>Details</PageTitle>
 
@@ -59,7 +62,17 @@
                     </li>
                 }
             </ul>
+        }
 
+        <h3>Finish Quest</h3>
+        <hr />
+        @if (canFinishQuest)
+        {
+            <button @onclick="FinishQuest">Finish Quest</button>
+        }
+        else
+        {
+            <p>Complete all workouts before finishing the quest.</p>
         }
 
         <div>
@@ -69,10 +82,29 @@
     }
 </div>
 
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
+
 @code {
     private Quest? quest;
     private List<QuestWorkout> questWorkouts = new();
-    private List<int> questWorkoutIds = new(); // List to store QuestWorkoutIds
+    private string userId = "System";
+    private bool canFinishQuest = false; // Control flag for Finish Quest button
+
     [SupplyParameterFromQuery]
     private int QuestId { get; set; }
 
@@ -80,8 +112,7 @@
     {
         using var context = DbFactory.CreateDbContext();
 
-        quest = await context.Quest
-            .FirstOrDefaultAsync(m => m.QuestId == QuestId);
+        quest = await context.Quest.FirstOrDefaultAsync(m => m.QuestId == QuestId);
 
         if (quest is null)
         {
@@ -89,30 +120,126 @@
             return;
         }
 
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+
+        var userIdClaim = user.FindFirst("userId");
+        if (userIdClaim != null)
+        {
+            userId = userIdClaim.Value;
+        }
+
         questWorkouts = await context.QuestWorkout
             .Where(qw => qw.QuestId == QuestId)
             .Include(qw => qw.Workout)  // Include related Workout details
             .ToListAsync();
 
-        // Retrieve the QuestWorkoutIds
-        questWorkoutIds = questWorkouts.Select(qw => qw.QuestWorkoutId).ToList();
+        // Check if all workouts are completed and enable Finish Quest button if true
+        canFinishQuest = questWorkouts.All(qw => qw.Status == "Completed");
+    }
+
+    private async Task<int> GetCurrentCustomerId()
+    {
+        try
+        {
+            var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+            var user = authState.User;
+
+            if (user.Identity is not { IsAuthenticated: true })
+            {
+                Console.WriteLine("Error: User is not authenticated.");
+                return 0;
+            }
+
+            var userIdClaim = user.FindFirst("userId")?.Value;
+
+            if (string.IsNullOrEmpty(userIdClaim))
+            {
+                Console.WriteLine("Error: User ID claim is missing.");
+                return 0;
+            }
+
+            Console.WriteLine($"User ID retrieved: {userIdClaim}");
+
+            await using var context = await DbFactory.CreateDbContextAsync();
+
+            var customer = await context.Customer
+                .Where(c => c.UserId == userIdClaim)
+                .Select(c => c.CustomerId)
+                .FirstOrDefaultAsync();
+
+            return customer;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error in GetCurrentCustomerId: {ex.Message}");
+            return 0;
+        }
     }
 
     private async Task MarkCompleted(int questWorkoutId)
     {
         using var context = DbFactory.CreateDbContext();
 
-        // Mark the workout as completed (additional logic can be added here)
         var questWorkout = await context.QuestWorkout
             .FirstOrDefaultAsync(qw => qw.QuestWorkoutId == questWorkoutId);
 
         if (questWorkout != null)
         {
-            questWorkout.Status = "Completed";
-            context.Attach(questWorkout!).State = EntityState.Modified;
+            questWorkout.Status = "Completed"; // Update status
+            questWorkout.DateUpdated = DateTime.Now; // Update timestamp
+
             await context.SaveChangesAsync();
+        }
+
+        // Refresh questWorkouts list to get the latest data
+        questWorkouts = await context.QuestWorkout
+            .Where(qw => qw.QuestId == QuestId)
+            .Include(qw => qw.Workout)
+            .ToListAsync();
+
+        // Check if all workouts are completed
+        canFinishQuest = questWorkouts.All(qw => qw.Status == "Completed");
+
+        // Trigger UI update
+        StateHasChanged();
+    }
+
+    private async Task FinishQuest()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        int customerId = await GetCurrentCustomerId();
+
+        if (customerId == 0)
+        {
+            Console.WriteLine("Error: Customer ID is invalid.");
+            return;
+        }
+
+        if (quest is null)
+        {
+            Console.WriteLine("Error: Quest not found.");
+            return;
+        }
+
+        var userQuest = await context.UserQuest
+            .FirstOrDefaultAsync(uq => uq.QuestId == quest.QuestId && uq.CustomerId == customerId);
+
+        if (userQuest != null)
+        {
+            userQuest.Status = "Completed";
+            userQuest.DateUpdated = DateTime.Now;
+
+            context.Attach(userQuest).State = EntityState.Modified;
+
+            await context.SaveChangesAsync();
+
+            NavigationManager.NavigateTo($"/userquests/{userQuest.UserQuestId}");
+        }
+        else
+        {
+            Console.WriteLine("Error: UserQuest not found.");
         }
     }
 }
-
-

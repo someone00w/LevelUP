@@ -6,31 +6,53 @@
 @implements IAsyncDisposable
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
 
-<PageTitle>Index</PageTitle>
+<PageTitle>Achievements</PageTitle>
 
-<h1>Index</h1>
+<h1>Achievements Index</h1>
 
-<p>
-    <a href="achievements/create">Create New</a>
-</p>
+<AuthorizeView Roles="Administrator">
+    <p>
+        <a href="achievements/create">Create New</a>
+    </p>
+</AuthorizeView>
 
 <QuickGrid Class="table" Items="context.Achievement">
-    <PropertyColumn Property="achievement => achievement.AchievementName" />
-    <PropertyColumn Property="achievement => achievement.AchievementDescription" />
-    <PropertyColumn Property="achievement => achievement.XPRequired" />
-    <PropertyColumn Property="achievement => achievement.QuestsRequired" />
-    <PropertyColumn Property="achievement => achievement.RankRequired" />
-    <PropertyColumn Property="achievement => achievement.DateCreated" />
-    <PropertyColumn Property="achievement => achievement.DateUpdated" />
-    <PropertyColumn Property="achievement => achievement.CreatedBy" />
-    <PropertyColumn Property="achievement => achievement.UpdatedBy" />
+    <PropertyColumn Property="achievement => achievement.AchievementName" Title="Achievement Name" />
+    <PropertyColumn Property="achievement => achievement.AchievementDescription" Title="Description" />
+    <PropertyColumn Property="achievement => achievement.XPRequired" Title="XP Required" />
+    <PropertyColumn Property="achievement => achievement.QuestsRequired" Title="Quests Required" />
+    <PropertyColumn Property="achievement => achievement.RankRequired" Title="Rank Required" />
 
-    <TemplateColumn Context="achievement">
-        <a href="@($"achievements/edit?achievementid={achievement.AchievementId}")">Edit</a> |
-        <a href="@($"achievements/details?achievementid={achievement.AchievementId}")">Details</a> |
-        <a href="@($"achievements/delete?achievementid={achievement.AchievementId}")">Delete</a>
-    </TemplateColumn>
+    <AuthorizeView Roles="Administrator">
+        <PropertyColumn Property="achievement => achievement.DateCreated" Title="Date Created" />
+        <PropertyColumn Property="achievement => achievement.DateUpdated" Title="Date Updated" />
+        <PropertyColumn Property="achievement => achievement.CreatedBy" Title="Created By" />
+        <PropertyColumn Property="achievement => achievement.UpdatedBy" Title="Updated By" />
+
+        <TemplateColumn Context="achievement">
+            <a href="@($"achievements/edit?achievementid={achievement.AchievementId}")">Edit</a> |
+            <a href="@($"achievements/details?achievementid={achievement.AchievementId}")">Details</a> |
+            <a href="@($"achievements/delete?achievementid={achievement.AchievementId}")">Delete</a>
+        </TemplateColumn>
+    </AuthorizeView>
 </QuickGrid>
+
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
 
 @code {
     private LevelUPContext context = default!;

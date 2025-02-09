@@ -32,6 +32,23 @@
     </TemplateColumn>
 </QuickGrid>
 
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
+
 @code {
     private LevelUPContext context = default!;
 

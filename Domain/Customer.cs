@@ -8,9 +8,8 @@ namespace LevelUP.Domain
         public int CustomerId { get; set; }
         public string? UserName { get; set; }
         public string? Email { get; set; }
-        public int XPAmount { get; set; }
-        // Rank Property
-        public string Rank { get; set; } = "D Rank";
+        public int XPAmount { get; set; } = 0;
+        public string Rank { get; set; } = "D";
 
         //Foreign key to LevelUPUser
         public string? UserId { get; set; }

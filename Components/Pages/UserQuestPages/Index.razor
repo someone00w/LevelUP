@@ -3,44 +3,93 @@
 @using Microsoft.AspNetCore.Components.QuickGrid
 @using LevelUP.Domain
 @using LevelUP.Data
+@using Microsoft.AspNetCore.Components.Authorization
 @implements IAsyncDisposable
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
 @inject NavigationManager Navigation
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject AuthenticationStateProvider authenticationStateProvider
 
-<PageTitle>Index</PageTitle>
+<PageTitle>User Quests</PageTitle>
 
-<h1>Index</h1>
-
+<h1>User Quests</h1>
+<AuthorizeView Roles="Administrator">
 <p>
     <a href="userquests/create">Create New</a>
 </p>
-
-<QuickGrid Class="table" Items="context.UserQuest">
-    <PropertyColumn Property="userquest => userquest.QuestName" />
-    <PropertyColumn Property="userquest => userquest.Status" />
-    <PropertyColumn Property="userquest => userquest.CustomerId" />
-    <PropertyColumn Property="userquest => userquest.QuestId" />
-    <PropertyColumn Property="userquest => userquest.DateCreated" />
-    <PropertyColumn Property="userquest => userquest.DateUpdated" />
-    <PropertyColumn Property="userquest => userquest.CreatedBy" />
-    <PropertyColumn Property="userquest => userquest.UpdatedBy" />
-
-    <TemplateColumn Context="userquest">
+</AuthorizeView>
+<QuickGrid Class="table" Items="FilteredUserQuests">
+    <PropertyColumn Property="userquest => userquest.QuestName" Title="Quest Name" />
+    <PropertyColumn Property="userquest => userquest.Status" Title="Status" />
+    <PropertyColumn Property="userquest => userquest.CustomerId" Title="Customer ID" />
+    <PropertyColumn Property="userquest => userquest.QuestId" Title="Quest ID" />
+    <PropertyColumn Property="userquest => userquest.DateCreated" Title="Date Created" />
+    <PropertyColumn Property="userquest => userquest.DateUpdated" Title="Date Updated" />
+    <PropertyColumn Property="userquest => userquest.CreatedBy" Title="Created By" />
+    <PropertyColumn Property="userquest => userquest.UpdatedBy" Title="Updated By" />
+        <AuthorizeView Roles="Administrator">
+    <TemplateColumn Context="userquest" Title="Actions">
         <a href="@($"userquests/edit?userquestid={userquest.UserQuestId}")">Edit</a> |
         <a href="@($"userquests/details?userquestid={userquest.UserQuestId}")">Details</a> |
         <a href="@($"userquests/delete?userquestid={userquest.UserQuestId}")">Delete</a> |
-        <a href="@($"/Tracker?questid={userquest.QuestId}")" class="btn btn-primary btn-sm">📌 Track</a>
+      </TemplateColumn>
+    </AuthorizeView>
+    <TemplateColumn Context="userquest" Title="Actions">
+    <a href="@($"/Tracker?questid={userquest.QuestId}")" class="btn btn-primary btn-sm">📌 Track</a>
     </TemplateColumn>
 </QuickGrid>
 
-@code {
-    private LevelUPContext context = default!;
-
-    protected override void OnInitialized()
-    {
-        context = DbFactory.CreateDbContext();
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
     }
 
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
+
+@code {
+    private LevelUPContext context = default!;
+    private List<UserQuest> filteredQuests = new();
+
+    private string userId = string.Empty;
+    private bool isAdmin = false;
+    private IQueryable<UserQuest> FilteredUserQuests => isAdmin
+    ? context.UserQuest 
+    : context.UserQuest.Where(e => e.CreatedBy == userId); 
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        // Fetch the authentication state
+        var authState = await authenticationStateProvider.GetAuthenticationStateAsync();
+        var user = authState.User;
+        // Extract user information
+        userId = user.FindFirst("userId")?.Value ?? string.Empty;
+        isAdmin = user.IsInRole("Administrator");
+
+        context = DbFactory.CreateDbContext();
+
+
+        if (user.Identity?.IsAuthenticated == true)
+        {
+            var customerIdClaim = user.FindFirst("CustomerId")?.Value;
+            if (int.TryParse(customerIdClaim, out int customerId))
+            {
+                filteredQuests = await context.UserQuest
+                    .Where(q => q.CustomerId == customerId)
+                    .ToListAsync();
+            }
+        }
+    }
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }

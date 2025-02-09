@@ -13,29 +13,51 @@
 <PageTitle>Index</PageTitle>
 
 <h1>Index</h1>
-
+<AuthorizeView Roles="Administrator">
 <p>
     <a href="quests/create">Create New</a>
 </p>
+</AuthorizeView>
 
 <QuickGrid Class="table" Items="context.Quest">
-    <PropertyColumn Property="quest => quest.QuestName" />
-    <PropertyColumn Property="quest => quest.Description" />
-    <PropertyColumn Property="quest => quest.Category" />
-    <PropertyColumn Property="quest => quest.XPReward" />
-    <PropertyColumn Property="quest => quest.RankRequired" />
-    <PropertyColumn Property="quest => quest.DateCreated" />
-    <PropertyColumn Property="quest => quest.DateUpdated" />
-    <PropertyColumn Property="quest => quest.CreatedBy" />
-    <PropertyColumn Property="quest => quest.UpdatedBy" />
+    <PropertyColumn Property="quest => quest.QuestName" Title="Quest Name" />
+    <PropertyColumn Property="quest => quest.Description" Title="Description" />
+    <PropertyColumn Property="quest => quest.Category" Title="Category" />
+    <PropertyColumn Property="quest => quest.XPReward" Title="XP Reward" />
+    <PropertyColumn Property="quest => quest.RankRequired" Title="Rank Required" />
+        <AuthorizeView Roles="Administrator">
+    <PropertyColumn Property="quest => quest.DateCreated" Title="Date Created" />
+    <PropertyColumn Property="quest => quest.DateUpdated" Title="Date Updated" />
+    <PropertyColumn Property="quest => quest.CreatedBy" Title="Created By" />
+    <PropertyColumn Property="quest => quest.UpdatedBy" Title="Updated By" />
 
     <TemplateColumn Context="quest">
         <a href="@($"quests/edit?questid={quest.QuestId}")">Edit</a> |
         <a href="@($"quests/details?questid={quest.QuestId}")">Details</a> |
         <a href="@($"quests/delete?questid={quest.QuestId}")">Delete</a>
-        <button class="btn" @onclick="() => AcceptQuest(quest.QuestId,quest.QuestName)">Accept</button>
+        </TemplateColumn>
+    </AuthorizeView>
+    <TemplateColumn Context="quest">
+    <button class="btn" @onclick="() => AcceptQuest(quest.QuestId,quest.QuestName)">Accept</button>
     </TemplateColumn>
 </QuickGrid>
+
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
 
 @code {
     private LevelUPContext context = default!;

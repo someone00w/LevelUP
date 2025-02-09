@@ -15,9 +15,6 @@
 <h1>Register confirmation</h1>
 <h2>
     confirm email
-    and then some
-    and more
-    and more
 </h2>
 
 <StatusMessage Message="@statusMessage" />
@@ -25,14 +22,31 @@
 @if (emailConfirmationLink is not null)
 {
     <p>
-        This app does not currently have a real email sender registered, see <a href="https://aka.ms/aspaccountconf">these docs</a> for how to configure a real email sender.
-        Normally this would be emailed: <a href="@emailConfirmationLink">Click here to confirm your account</a>
+        
+        Click here to confirm email: <a href="@emailConfirmationLink">Click here to confirm your account</a>
     </p>
 }
 else
 {
     <p>Please check your email to confirm your account.</p>
 }
+
+<style>
+    /* Push content down below the navigation bar */
+    .container {
+        margin-top: 50px; /* Adjust if necessary based on navbar height */
+        padding: 20px;
+    }
+
+    /* Make all text white */
+    body {
+        color: white;
+    }
+
+    .table {
+        color: white;
+    }
+</style>
 
 @code {
     private string? emailConfirmationLink;
