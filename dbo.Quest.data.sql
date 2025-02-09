@@ -1,0 +1,5 @@
+﻿SET IDENTITY_INSERT [dbo].[Quest] ON
+INSERT INTO [dbo].[Quest] ([Id], [QuestName], [Description], [Category], [RankRequired], [XPReward], [DateCreated], [DateUpdated], [CreatedBy], [UpdatedBy], [WorkoutNames]) VALUES (1, N'E-Rank Warm-up', N'Basic training for new hunters to improve endurance and strength.', N'Training', N'E', 100, N'0001-01-01 00:00:00', N'0001-01-01 00:00:00', NULL, NULL, N'')
+INSERT INTO [dbo].[Quest] ([Id], [QuestName], [Description], [Category], [RankRequired], [XPReward], [DateCreated], [DateUpdated], [CreatedBy], [UpdatedBy], [WorkoutNames]) VALUES (2, N'Survival Instincts', N'Increase agility and stamina to survive in low-level dungeons.', N'Endurance', N'E', 200, N'0001-01-01 00:00:00', N'0001-01-01 00:00:00', NULL, NULL, N'')
+INSERT INTO [dbo].[Quest] ([Id], [QuestName], [Description], [Category], [RankRequired], [XPReward], [DateCreated], [DateUpdated], [CreatedBy], [UpdatedBy], [WorkoutNames]) VALUES (3, N'D-Rank Power Boost', N'Enhance strength with rigorous training.', N'Strength', N'D', 500, N'0001-01-01 00:00:00', N'0001-01-01 00:00:00', NULL, NULL, N'')
+SET IDENTITY_INSERT [dbo].[Quest] OFF
