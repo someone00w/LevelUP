@@ -1,0 +1,51 @@
+﻿.about-us-container {
+    background-color: #1a1a3d; /* Deep purple background */
+    color: #ffffff; /* White text */
+    font-family: 'Poppins', sans-serif; /* Use Poppins font */
+    padding: 20px;
+    border-radius: 15px;
+    width: 60%;
+    margin: 100px auto;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    text-align: center;
+}
+
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #b3b3ff;
+    font-weight: 700; /* Bold heading */
+    text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+}
+
+.section {
+    margin-bottom: 30px;
+}
+
+h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #d1d1ff;
+    font-weight: 600;
+    text-shadow: 0 4px 8px rgba(0, 0, 0, 0.8);
+}
+
+ul {
+    list-style-type: none;
+    padding: 0;
+    line-height: 1.8;
+    text-align: left;
+    margin: 0 auto;
+    width: 80%;
+    font-size: 1rem;
+}
+
+li {
+    margin: 5px 0;
+    color: #eaeaff;
+}
+
+    li::marker {
+        content: '• ';
+        color: #b3b3ff;
+    }

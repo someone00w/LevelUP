@@ -1,0 +1,118 @@
+﻿@page "/Tracker"
+@using Microsoft.EntityFrameworkCore
+@using LevelUP.Domain
+@inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager NavigationManager
+
+<PageTitle>Details</PageTitle>
+
+<h1>Details</h1>
+
+<div>
+    <h2>Quest</h2>
+    <hr />
+    @if (quest is null)
+    {
+        <p><em>Loading...</em></p>
+    }
+    else
+    {
+        <dl class="row">
+            <dt class="col-sm-2">QuestName</dt>
+            <dd class="col-sm-10">@quest.QuestName</dd>
+            <dt class="col-sm-2">Description</dt>
+            <dd class="col-sm-10">@quest.Description</dd>
+            <dt class="col-sm-2">Category</dt>
+            <dd class="col-sm-10">@quest.Category</dd>
+            <dt class="col-sm-2">XPReward</dt>
+            <dd class="col-sm-10">@quest.XPReward</dd>
+            <dt class="col-sm-2">RankRequired</dt>
+            <dd class="col-sm-10">@quest.RankRequired</dd>
+            <dt class="col-sm-2">DateCreated</dt>
+            <dd class="col-sm-10">@quest.DateCreated</dd>
+            <dt class="col-sm-2">DateUpdated</dt>
+            <dd class="col-sm-10">@quest.DateUpdated</dd>
+            <dt class="col-sm-2">CreatedBy</dt>
+            <dd class="col-sm-10">@quest.CreatedBy</dd>
+            <dt class="col-sm-2">UpdatedBy</dt>
+            <dd class="col-sm-10">@quest.UpdatedBy</dd>
+        </dl>
+
+        <h3>Workout</h3>
+        <hr />
+        @if (questWorkouts is null || !questWorkouts.Any())
+        {
+            <p><em>No workouts assigned to this quest.</em></p>
+        }
+        else
+        {
+            <ul>
+                @foreach (var qw in questWorkouts)
+                {
+                    <li>
+                        <strong>@qw.Workout.WorkoutName</strong> -
+                        <span>(Status: @(qw.Status))</span>
+                        @if (qw.Status != "Completed")
+                        {
+                            <button @onclick="() => MarkCompleted(qw.QuestWorkoutId)">Mark as Completed</button>
+                        }
+                    </li>
+                }
+            </ul>
+
+        }
+
+        <div>
+            <a href="@($"/quests/edit?questid={quest.QuestId}")">Edit</a> |
+            <a href="@($"/userquests")">Back to List</a>
+        </div>
+    }
+</div>
+
+@code {
+    private Quest? quest;
+    private List<QuestWorkout> questWorkouts = new();
+    private List<int> questWorkoutIds = new(); // List to store QuestWorkoutIds
+    [SupplyParameterFromQuery]
+    private int QuestId { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        quest = await context.Quest
+            .FirstOrDefaultAsync(m => m.QuestId == QuestId);
+
+        if (quest is null)
+        {
+            NavigationManager.NavigateTo("notfound");
+            return;
+        }
+
+        questWorkouts = await context.QuestWorkout
+            .Where(qw => qw.QuestId == QuestId)
+            .Include(qw => qw.Workout)  // Include related Workout details
+            .ToListAsync();
+
+        // Retrieve the QuestWorkoutIds
+        questWorkoutIds = questWorkouts.Select(qw => qw.QuestWorkoutId).ToList();
+    }
+
+    private async Task MarkCompleted(int questWorkoutId)
+    {
+        using var context = DbFactory.CreateDbContext();
+
+        // Mark the workout as completed (additional logic can be added here)
+        var questWorkout = await context.QuestWorkout
+            .FirstOrDefaultAsync(qw => qw.QuestWorkoutId == questWorkoutId);
+
+        if (questWorkout != null)
+        {
+            questWorkout.Status = "Completed";
+            context.Attach(questWorkout!).State = EntityState.Modified;
+            await context.SaveChangesAsync();
+        }
+    }
+}
+
+

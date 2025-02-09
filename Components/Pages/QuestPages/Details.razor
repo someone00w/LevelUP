@@ -27,8 +27,6 @@
             <dd class="col-sm-10">@quest.XPReward</dd>
             <dt class="col-sm-2">RankRequired</dt>
             <dd class="col-sm-10">@quest.RankRequired</dd>
-            <dt class="col-sm-2">Status</dt>
-            <dd class="col-sm-10">@quest.Status</dd>
             <dt class="col-sm-2">DateCreated</dt>
             <dd class="col-sm-10">@quest.DateCreated</dd>
             <dt class="col-sm-2">DateUpdated</dt>
@@ -38,26 +36,6 @@
             <dt class="col-sm-2">UpdatedBy</dt>
             <dd class="col-sm-10">@quest.UpdatedBy</dd>
         </dl>
-
-        <h3>Related Workouts</h3>
-        <hr />
-        @if (questWorkouts is null || !questWorkouts.Any())
-        {
-            <p><em>No workouts assigned to this quest.</em></p>
-        }
-        else
-        {
-            <ul>
-                @foreach (var qw in questWorkouts)
-                {
-                    <li>
-                        <strong>@qw.Workout.WorkoutName</strong> - 
-                        <span>(Completed: @(qw.IsCompleted ? "✅ Yes" : "❌ No"))</span>
-                    </li>
-                }
-            </ul>
-        }
-
         <div>
             <a href="@($"/quests/edit?questid={quest.QuestId}")">Edit</a> |
             <a href="@($"/quests")">Back to List</a>
@@ -67,7 +45,6 @@
 
 @code {
     private Quest? quest;
-    private List<QuestWorkout> questWorkouts = new();
 
     [SupplyParameterFromQuery]
     private int QuestId { get; set; }
@@ -75,19 +52,11 @@
     protected override async Task OnInitializedAsync()
     {
         using var context = DbFactory.CreateDbContext();
-        
-        quest = await context.Quest
-            .FirstOrDefaultAsync(m => m.QuestId == QuestId);
+        quest = await context.Quest.FirstOrDefaultAsync(m => m.QuestId == QuestId);
 
         if (quest is null)
         {
             NavigationManager.NavigateTo("notfound");
-            return;
         }
-
-        questWorkouts = await context.QuestWorkout
-            .Where(qw => qw.QuestId == QuestId)
-            .Include(qw => qw.Workout)  // Include related Workout details
-            .ToListAsync();
     }
 }

@@ -85,7 +85,6 @@ namespace LevelUP.Migrations
                     Category = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     XPReward = table.Column<int>(type: "int", nullable: false),
                     RankRequired = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
@@ -278,7 +277,7 @@ namespace LevelUP.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     QuestId = table.Column<int>(type: "int", nullable: false),
                     WorkoutId = table.Column<int>(type: "int", nullable: false),
-                    IsCompleted = table.Column<bool>(type: "bit", nullable: false),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     QuestId1 = table.Column<int>(type: "int", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -344,6 +343,8 @@ namespace LevelUP.Migrations
                 {
                     UserQuestId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    QuestName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    Status = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     QuestId = table.Column<int>(type: "int", nullable: false),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: false),
@@ -373,16 +374,16 @@ namespace LevelUP.Migrations
                 columns: new[] { "AchievementId", "AchievementDescription", "AchievementName", "CreatedBy", "DateCreated", "DateUpdated", "QuestsRequired", "RankRequired", "UpdatedBy", "XPRequired" },
                 values: new object[,]
                 {
-                    { 1, "You've started your journey as an E-Rank hunter.", "E-Rank Hunter", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9485), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9486), 0, 1, "System", 0 },
-                    { 2, "Complete your first quest.", "First Blood", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9488), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9489), 1, 1, "System", 50 },
-                    { 3, "Reach D-Rank by earning enough XP.", "D-Rank Awakening", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9491), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9491), 5, 2, "System", 500 },
-                    { 4, "Complete 10 quests and prove your worth.", "Elite Fighter", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9493), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9493), 10, 3, "System", 1200 },
-                    { 5, "Ascend to C-Rank with enough experience.", "C-Rank Promotion", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9495), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9495), 20, 4, "System", 2500 },
-                    { 6, "Demonstrate your growing power by finishing 30 quests.", "Shadow Monarch's Apprentice", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9497), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9498), 30, 5, "System", 4000 },
-                    { 7, "Enter the ranks of B-Rank hunters.", "B-Rank Challenger", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9499), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9500), 40, 6, "System", 6000 },
-                    { 8, "Become an elite hunter by reaching A-Rank.", "A-Rank Conqueror", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9502), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9502), 50, 7, "System", 10000 },
-                    { 9, "Achieve S-Rank status, the pinnacle of hunters.", "S-Rank Dominator", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9504), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9504), 75, 8, "System", 20000 },
-                    { 10, "Surpass all limits and claim the title of the Shadow Monarch.", "Shadow Monarch", "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9506), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9507), 100, 9, "System", 50000 }
+                    { 1, "You've started your journey as an E-Rank hunter.", "E-Rank Hunter", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(844), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(845), 0, 1, "System", 0 },
+                    { 2, "Complete your first quest.", "First Blood", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(847), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(848), 1, 1, "System", 50 },
+                    { 3, "Reach D-Rank by earning enough XP.", "D-Rank Awakening", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(850), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(850), 5, 2, "System", 500 },
+                    { 4, "Complete 10 quests and prove your worth.", "Elite Fighter", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(852), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(852), 10, 3, "System", 1200 },
+                    { 5, "Ascend to C-Rank with enough experience.", "C-Rank Promotion", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(854), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(855), 20, 4, "System", 2500 },
+                    { 6, "Demonstrate your growing power by finishing 30 quests.", "Shadow Monarch's Apprentice", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(857), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(857), 30, 5, "System", 4000 },
+                    { 7, "Enter the ranks of B-Rank hunters.", "B-Rank Challenger", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(859), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(859), 40, 6, "System", 6000 },
+                    { 8, "Become an elite hunter by reaching A-Rank.", "A-Rank Conqueror", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(861), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(862), 50, 7, "System", 10000 },
+                    { 9, "Achieve S-Rank status, the pinnacle of hunters.", "S-Rank Dominator", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(864), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(864), 75, 8, "System", 20000 },
+                    { 10, "Surpass all limits and claim the title of the Shadow Monarch.", "Shadow Monarch", "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(866), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(866), 100, 9, "System", 50000 }
                 });
 
             migrationBuilder.InsertData(
@@ -400,20 +401,20 @@ namespace LevelUP.Migrations
                 columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "Name", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
                 values: new object[,]
                 {
-                    { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "1a9f22d3-c715-46e7-8ab4-8db9b33a9b01", "admin@localhost.com", true, false, null, "adminUser", "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAEArfnMQhHD15RjbGzYwZcDsCPXMVBqMQqEMa1Ds5EDg4WMnq0plN/KyUUPt37enlVQ==", null, false, "8bde9056-555e-4706-897f-b3910225b2e6", false, "admin@localhost.com" },
-                    { "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2", 0, "084a7eb6-10d0-48dd-b92d-044c019f04c6", "cust@localhost.com", true, false, null, "custUser", "CUST@LOCALHOST.COM", "CUST@LOCALHOST.COM", "AQAAAAIAAYagAAAAEBLhZA9e7w7pFrBK8h4ZTifLo7mlXZhM+R3G7u6POWmLWSa53ac5ZyFGwK5xwoMizA==", null, false, "47384ff7-e57a-4ec3-a56f-ba099338b3d9", false, "cust@localhost.com" }
+                    { "3781efa7-66dc-47f0-860f-e506d04102e4", 0, "f41e9443-a069-47e8-8ab2-4f34bac6358c", "admin@localhost.com", true, false, null, "adminUser", "ADMIN@LOCALHOST.COM", "ADMIN@LOCALHOST.COM", "AQAAAAIAAYagAAAAELPNUWUMPbW36o5P+Senx7EIev/MBmMNzkQiqFrOHWB13D4rnfpo+FGdqRx3jXgjcg==", null, false, "2eb54f01-1dbf-4872-87eb-41fcfeec3dfc", false, "admin@localhost.com" },
+                    { "f2c5e7a3-50fa-46d5-9bc7-1c3f09f8c6b2", 0, "36825f6a-5f7d-41bc-8252-a3cb436c31a0", "cust@localhost.com", true, false, null, "custUser", "CUST@LOCALHOST.COM", "CUST@LOCALHOST.COM", "AQAAAAIAAYagAAAAENDD8uM6y62FpzGUMCdHDeeMx/3386YuU3PeEhKRkuOQpzG9l6oldpFa5qBmxDXlYA==", null, false, "251c1dba-05c0-4640-ba90-3785b77c60ed", false, "cust@localhost.com" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Quest",
-                columns: new[] { "QuestId", "Category", "CreatedBy", "DateCreated", "DateUpdated", "Description", "QuestName", "RankRequired", "Status", "UpdatedBy", "XPReward" },
+                columns: new[] { "QuestId", "Category", "CreatedBy", "DateCreated", "DateUpdated", "Description", "QuestName", "RankRequired", "UpdatedBy", "XPReward" },
                 values: new object[,]
                 {
-                    { 1, "Training", "System", new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9300), new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9300), "Basic training for new hunters to improve endurance and strength.", "D-Rank Warm-up", "D", "Incomplete", "System", 100 },
-                    { 2, "Endurance", "System", new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9303), new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9303), "Increase agility and stamina to survive in low-level dungeons.", "Survival Instincts", "D", "Incomplete", "System", 200 },
-                    { 3, "Strength", "System", new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9305), new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9305), "Enhance strength with rigorous training.", "D-Rank Power Boost", "D", "Incomplete", "System", 500 },
-                    { 4, "Agility", "System", new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9307), new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9307), "Improve speed and reaction time for quick escapes.", "Dungeon Sprint", "D", "Incomplete", "System", 700 },
-                    { 5, "Full Body", "System", new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9309), new DateTime(2025, 2, 8, 23, 34, 40, 935, DateTimeKind.Utc).AddTicks(9310), "A challenging workout to prepare for higher-ranked missions.", "C-Rank Warrior's Test", "C", "Incomplete", "System", 1200 }
+                    { 1, "Training", "System", new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(666), new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(666), "Basic training for new hunters to improve endurance and strength.", "D-Rank Warm-up", "D", "System", 100 },
+                    { 2, "Endurance", "System", new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(669), new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(669), "Increase agility and stamina to survive in low-level dungeons.", "Survival Instincts", "D", "System", 200 },
+                    { 3, "Strength", "System", new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(671), new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(671), "Enhance strength with rigorous training.", "D-Rank Power Boost", "D", "System", 500 },
+                    { 4, "Agility", "System", new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(673), new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(673), "Improve speed and reaction time for quick escapes.", "Dungeon Sprint", "D", "System", 700 },
+                    { 5, "Full Body", "System", new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(675), new DateTime(2025, 2, 9, 6, 50, 53, 907, DateTimeKind.Utc).AddTicks(675), "A challenging workout to prepare for higher-ranked missions.", "C-Rank Warrior's Test", "C", "System", 1200 }
                 });
 
             migrationBuilder.InsertData(
@@ -421,16 +422,16 @@ namespace LevelUP.Migrations
                 columns: new[] { "WorkoutId", "CreatedBy", "DateCreated", "DateUpdated", "UpdatedBy", "WorkoutDescription", "WorkoutName" },
                 values: new object[,]
                 {
-                    { 1, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9102), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9115), "System", "A basic upper body exercise that strengthens the chest, shoulders, and triceps.", "Push-Ups" },
-                    { 2, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9117), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9118), "System", "A lower body exercise that targets the quadriceps, hamstrings, and glutes.", "Squats" },
-                    { 3, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9119), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9120), "System", "An upper body exercise that builds back and bicep strength.", "Pull-Ups" },
-                    { 4, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9121), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9122), "System", "A core exercise that strengthens the abdominal muscles and improves endurance.", "Plank" },
-                    { 5, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9123), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9123), "System", "A lower body exercise that improves balance and strengthens the legs.", "Lunges" },
-                    { 6, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9125), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9125), "System", "A cardiovascular exercise that enhances coordination and endurance.", "Jump Rope" },
-                    { 7, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9126), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9127), "System", "A full-body exercise that combines strength and cardio training.", "Burpees" },
-                    { 8, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9128), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9128), "System", "A cardio and core workout that improves agility and endurance.", "Mountain Climbers" },
-                    { 9, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9130), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9130), "System", "A strength exercise that targets the lower back, glutes, and hamstrings.", "Deadlifts" },
-                    { 10, "System", new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9131), new DateTime(2025, 2, 9, 7, 34, 40, 935, DateTimeKind.Local).AddTicks(9132), "System", "A core workout that strengthens the abdominal muscles and obliques.", "Bicycle Crunches" }
+                    { 1, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(448), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(458), "System", "A basic upper body exercise that strengthens the chest, shoulders, and triceps.", "Push-Ups" },
+                    { 2, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(461), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(461), "System", "A lower body exercise that targets the quadriceps, hamstrings, and glutes.", "Squats" },
+                    { 3, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(463), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(463), "System", "An upper body exercise that builds back and bicep strength.", "Pull-Ups" },
+                    { 4, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(465), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(465), "System", "A core exercise that strengthens the abdominal muscles and improves endurance.", "Plank" },
+                    { 5, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(466), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(467), "System", "A lower body exercise that improves balance and strengthens the legs.", "Lunges" },
+                    { 6, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(468), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(468), "System", "A cardiovascular exercise that enhances coordination and endurance.", "Jump Rope" },
+                    { 7, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(470), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(470), "System", "A full-body exercise that combines strength and cardio training.", "Burpees" },
+                    { 8, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(471), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(472), "System", "A cardio and core workout that improves agility and endurance.", "Mountain Climbers" },
+                    { 9, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(473), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(473), "System", "A strength exercise that targets the lower back, glutes, and hamstrings.", "Deadlifts" },
+                    { 10, "System", new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(475), new DateTime(2025, 2, 9, 14, 50, 53, 907, DateTimeKind.Local).AddTicks(475), "System", "A core workout that strengthens the abdominal muscles and obliques.", "Bicycle Crunches" }
                 });
 
             migrationBuilder.InsertData(
@@ -444,27 +445,27 @@ namespace LevelUP.Migrations
 
             migrationBuilder.InsertData(
                 table: "QuestWorkout",
-                columns: new[] { "QuestWorkoutId", "CreatedBy", "DateCreated", "DateUpdated", "IsCompleted", "QuestId", "QuestId1", "UpdatedBy", "WorkoutId" },
+                columns: new[] { "QuestWorkoutId", "CreatedBy", "DateCreated", "DateUpdated", "QuestId", "QuestId1", "Status", "UpdatedBy", "WorkoutId" },
                 values: new object[,]
                 {
-                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 1, null, null, 1 },
-                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 1, null, null, 2 },
-                    { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 1, null, null, 6 },
-                    { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 2, null, null, 8 },
-                    { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 2, null, null, 7 },
-                    { 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 3, null, null, 3 },
-                    { 7, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 3, null, null, 9 },
-                    { 8, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 4, null, null, 6 },
-                    { 9, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 4, null, null, 10 },
-                    { 10, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 5, null, null, 1 },
-                    { 11, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 5, null, null, 2 },
-                    { 12, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), false, 5, null, null, 9 }
+                    { 1, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, "Incomplete", null, 1 },
+                    { 2, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, "Incomplete", null, 2 },
+                    { 3, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null, "Incomplete", null, 6 },
+                    { 4, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, null, "Incomplete", null, 8 },
+                    { 5, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, null, "Incomplete", null, 7 },
+                    { 6, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, null, "Incomplete", null, 3 },
+                    { 7, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, null, "Incomplete", null, 9 },
+                    { 8, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, null, "Incomplete", null, 6 },
+                    { 9, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 4, null, "Incomplete", null, 10 },
+                    { 10, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, null, "Incomplete", null, 1 },
+                    { 11, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, null, "Incomplete", null, 2 },
+                    { 12, null, new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, null, "Incomplete", null, 9 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Staff",
                 columns: new[] { "StaffId", "CreatedBy", "DateCreated", "DateUpdated", "Email", "UpdatedBy", "UserId", "UserName" },
-                values: new object[] { 1, "System", new DateTime(2025, 2, 9, 7, 34, 41, 37, DateTimeKind.Local).AddTicks(4932), new DateTime(2025, 2, 9, 7, 34, 41, 37, DateTimeKind.Local).AddTicks(4948), "admin@localhost.com", "System", "3781efa7-66dc-47f0-860f-e506d04102e4", "adminUser" });
+                values: new object[] { 1, "System", new DateTime(2025, 2, 9, 14, 50, 54, 1, DateTimeKind.Local).AddTicks(3003), new DateTime(2025, 2, 9, 14, 50, 54, 1, DateTimeKind.Local).AddTicks(3018), "admin@localhost.com", "System", "3781efa7-66dc-47f0-860f-e506d04102e4", "adminUser" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

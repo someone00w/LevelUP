@@ -216,6 +216,32 @@
 
         Logger.LogInformation("User created a new account with password.");
 
+        // Add the user to the Customer table
+        try
+        {
+            var customer = new Customer
+                {
+                    UserName = Input.Name,
+                    Email = Input.Email,
+                    XPAmount = 0,
+                    Rank = "D",
+                    UserId = user.Id, // Link to AspNetUser
+                    DateCreated = DateTime.Now,
+                    DateUpdated = DateTime.Now,
+                    CreatedBy = Input.Name,
+                    UpdatedBy = Input.Email
+                };
+
+            DbContext.Customer.Add(customer);
+            await DbContext.SaveChangesAsync();
+        }
+        catch (Exception ex)
+        {
+            Logger.LogError("Error creating customer record: {0}", ex.Message);
+            identityErrors = new[] { new IdentityError { Description = "User registered but customer record could not be created." } };
+            return;
+        }
+
         var userId = await UserManager.GetUserIdAsync(user);
         var code = await UserManager.GenerateEmailConfirmationTokenAsync(user);
         code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));

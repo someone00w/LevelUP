@@ -5,7 +5,7 @@
         public int QuestWorkoutId { get; set; }
         public int QuestId { get; set; }
         public int WorkoutId { get; set; }
-        public bool IsCompleted { get; set; } // ✅ Add this property
+        public string Status { get; set; } = "Incomplete";
 
         // ✅ Navigation properties
         public Quest Quest { get; set; } = null!;

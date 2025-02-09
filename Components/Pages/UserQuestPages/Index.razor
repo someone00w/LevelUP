@@ -5,6 +5,7 @@
 @using LevelUP.Data
 @implements IAsyncDisposable
 @inject IDbContextFactory<LevelUP.Data.LevelUPContext> DbFactory
+@inject NavigationManager Navigation
 
 <PageTitle>Index</PageTitle>
 
@@ -15,6 +16,8 @@
 </p>
 
 <QuickGrid Class="table" Items="context.UserQuest">
+    <PropertyColumn Property="userquest => userquest.QuestName" />
+    <PropertyColumn Property="userquest => userquest.Status" />
     <PropertyColumn Property="userquest => userquest.CustomerId" />
     <PropertyColumn Property="userquest => userquest.QuestId" />
     <PropertyColumn Property="userquest => userquest.DateCreated" />
@@ -25,7 +28,8 @@
     <TemplateColumn Context="userquest">
         <a href="@($"userquests/edit?userquestid={userquest.UserQuestId}")">Edit</a> |
         <a href="@($"userquests/details?userquestid={userquest.UserQuestId}")">Details</a> |
-        <a href="@($"userquests/delete?userquestid={userquest.UserQuestId}")">Delete</a>
+        <a href="@($"userquests/delete?userquestid={userquest.UserQuestId}")">Delete</a> |
+        <a href="@($"/Tracker?questid={userquest.QuestId}")" class="btn btn-primary btn-sm">📌 Track</a>
     </TemplateColumn>
 </QuickGrid>
 
@@ -36,6 +40,7 @@
     {
         context = DbFactory.CreateDbContext();
     }
+
 
     public async ValueTask DisposeAsync() => await context.DisposeAsync();
 }

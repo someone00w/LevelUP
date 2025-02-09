@@ -16,6 +16,16 @@
             <DataAnnotationsValidator />
             <ValidationSummary class="text-danger" role="alert"/>
             <div class="mb-3">
+                <label for="questname" class="form-label">QuestName:</label> 
+                <InputText id="questname" @bind-Value="UserQuest.QuestName" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.QuestName" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
+                <label for="status" class="form-label">Status:</label> 
+                <InputText id="status" @bind-Value="UserQuest.Status" class="form-control" /> 
+                <ValidationMessage For="() => UserQuest.Status" class="text-danger" /> 
+            </div>        
+            <div class="mb-3">
                 <label for="customerid" class="form-label">CustomerId:</label> 
                 <InputNumber id="customerid" @bind-Value="UserQuest.CustomerId" class="form-control" /> 
                 <ValidationMessage For="() => UserQuest.CustomerId" class="text-danger" /> 
