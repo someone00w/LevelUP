@@ -232,14 +232,15 @@
             userQuest.DateUpdated = DateTime.Now;
 
             context.Attach(userQuest).State = EntityState.Modified;
-
             await context.SaveChangesAsync();
 
-            NavigationManager.NavigateTo($"/userquests/{userQuest.UserQuestId}");
+            // Navigate to a valid page after completion
+            NavigationManager.NavigateTo("/userquests");  // Redirects to user quests list
         }
         else
         {
             Console.WriteLine("Error: UserQuest not found.");
         }
     }
+
 }
